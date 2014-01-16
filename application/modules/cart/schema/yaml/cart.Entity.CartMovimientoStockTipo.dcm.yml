@@ -1,0 +1,32 @@
+cart\Entity\CartMovimientoStockTipo:
+    type: entity
+    repositoryClass: cart\Repositories\CartMovimientoStockTipoRepository
+    table: cart_movimiento__stock_tipo
+    fields:
+        idMovimientoStockTipo:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_movimiento_stock_tipo
+            generator:
+                strategy: IDENTITY
+        nombre:
+            type: string
+            length: 65
+            fixed: false
+            nullable: true
+            column: __nombre
+        signo:
+            type: integer
+            unsigned: false
+            nullable: true
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+        fechaActualizacion:
+            type: datetime
+            nullable: true
+            column: __fecha_actualizacion
+    lifecycleCallbacks: {  }

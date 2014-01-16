@@ -1,0 +1,87 @@
+            <!--<div id="divSubContentProducts_2" align="center">-->
+        
+<?php 
+    $totalProductos = count($this->aProductos);
+//    var_dump($this->aProductos);
+    
+    $pathAdjunto = null;
+    if ($totalProductos > 0) {
+        $contador = 0;
+        foreach ($this->aProductos as $oProducto) {
+            if( is_file(PTH_FILES_CART . DS . 'producto'. DS . $oProducto['imagen']) and !is_dir(PTH_FILES_CART . DS.'producto'. DS . $oProducto['imagen']))
+                $pathImgProd = $this->baseUrl() . '/m_cart/files/producto/' . $oProducto['imagen'];
+            else
+                $pathImgProd = $this->baseUrl() . '/m_web/images/sin-imagen.png';
+//            if( file_exists(PTH_FILES_CART . DS .'producto'. DS . $oProducto['adjunto']) and !is_dir(PTH_FILES_CART . DS . 'producto'. DS . $oProducto['adjunto']))
+//                $pathAdjunto = $this->baseUrl() . '/m_cart/files/producto/' . $oProducto['adjunto'];
+//            $fechaPub = (!is_null($oProducto['fechainipub']))?$oProducto['fechainipub']->format("d-m-Y"):"";
+            if( is_file(PTH_FILES_CART . DS .'producto'. DS . $oProducto['adjunto']) and !is_dir(PTH_FILES_CART . DS . 'producto'. DS . $oProducto['adjunto']))
+                $pathAdjunto = $this->baseUrl() . '/m_cart/files/producto/' . $oProducto['adjunto'];
+            else
+                $pathAdjunto = null;
+            $contador++;
+?>
+
+            <?php if($contador%3 == 1 or $contador==1 ) { ?>
+                <div id="divSubContProdDetTRImg2">
+            <?php }?>
+
+                    <div id="divSubContProdDetTDImg2">
+                        <p class="title_producto_list"><?php echo $oProducto['nombre_producto'];?></p>
+                        <div style="position:relative;">
+                            <img src="<?php echo $pathImgProd;?>" width="200" height="106" border="0" />
+                            <div style="position:absolute; top:84px; left:0px;width:30px;">
+                                    <a href="<?php echo $pathImgProd;?>" rel="superbox[gallery][my_gallery]" title="<?php echo $oProducto['nombre_producto'];?>">
+                                        <img border="0" src="<?php echo $this->baseUrl() . '/m_web/images/interior/lupa_zoom.png'; ?>" width="20">
+                                    </a>
+                            </div>
+                            
+                            <?php if (!is_null($pathAdjunto)) { ?>
+                            <div id="prodDescTopRightPDF" align="right" style="position:absolute; top:84px; right:2px;width:30px;">
+                                <a href="<?php echo $pathAdjunto; ?>" target="_blank">
+                                    <img src="<?php echo $this->baseUrl() . '/m_web/images/interior/icono_pdf.png'; ?>" height="20" border="0" style="cursor:pointer;">
+                                </a>
+                            </div>
+                            <?php } ?>
+                        </div>
+                        
+                        
+                        <div class="conte_producto_list"><?php echo $oProducto['ficha'];?></div>
+                        
+                    </div>
+                    
+                    <?php if($contador%3 != 0) { ?>
+                        <div id="divLineVertProdDet2"></div>
+                    <?php } ?>
+
+            <?php if($contador == $totalProductos  or $contador%3 == 0) { ?>
+                </div>
+            <?php } ?>
+                
+            <?php if($contador%3 == 0 and $contador != $totalProductos) { ?>
+                <div id="divLineHorizProd2" style="clear: both"></div>
+            <?php } ?>
+                
+                
+
+<?php 
+        }
+    }
+?>
+        
+<script>
+	$.superbox.settings = {
+		boxId: "superbox", // Id attribute of the "superbox" element
+		boxClasses: "", // Class of the "superbox" element
+		overlayOpacity: .9, // Background opaqueness
+		boxWidth: "1000", // Default width of the box
+		boxHeight: "1000", // Default height of the box
+		loadTxt: "Loading...", // Loading text
+		closeTxt: "Cerrar", // "Close" button text
+		prevTxt: "Previous", // "Previous" button text
+		nextTxt: "Next" // "Next" button text
+	};
+    $.superbox();
+</script>    
+                
+    <!--</div>-->

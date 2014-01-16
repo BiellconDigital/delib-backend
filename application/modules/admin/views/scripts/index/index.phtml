@@ -1,0 +1,49 @@
+    <div id="msg">
+    </div>
+
+    <div id="north" style="">
+            <table width="100%">
+                <tr>
+                    <td align="left">
+                        <img src="<?php echo $this->baseUrl()."/m_admin/images/logo.png";?>" height="45" />
+                    </td>
+                    <td valign="bottom">
+                        <div id="usuario_logout" style="float:right; padding:2px 8px 2px 8px; border:1px solid #AABBCC; ">
+                            <div  style="float:left; margin-right: 10px; vertical-align:middle; font-size: 10px; color:#444; height: 15px;width: 15px;" class="user_suit">
+<!--                                    <img src="<?php //echo $this->baseUrl()."/images/icons/user_suit.gif";?>" style="margin-right: 5px;"/>-->
+                            </div>
+                            <div id="nomUser" style="float:left; margin-left: 4px; vertical-align:middle;color:red;font-weight: bold;font-size: 12px;line-height: 20px;">
+                                <?php
+                                $access_app = new Zend_Session_Namespace ( SES_ADMIN );
+                                echo $access_app->user;
+                                ?>
+                            </div>
+                            <div style="float:left; margin-left: 10px; vertical-align:middle;font-weight: bold;font-size: 12px;line-height: 20px;">
+                                |
+                            </div>
+                             
+                            <div id="emailUser" style="float:left; margin-left: 10px; vertical-align:middle;color:#3d6291 ;font-weight: bold;font-size: 12px;line-height: 20px;">
+                                <?php
+                                    echo $access_app->email;
+                                ?>
+                            </div>
+                            <div id="btnReset" style="float:left; margin-left: 10px"></div>
+                            <div id="btnSalir" style="float:left; margin-left: 10px"></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        
+    </div>
+
+    <div id="west">
+    </div>
+
+    <div id="center">
+    </div>
+
+<!--    <div id="props-panel" style="width:200px;height:200px;overflow:hidden;">
+    </div>-->
+
+    <script type="text/javascript">
+    </script>

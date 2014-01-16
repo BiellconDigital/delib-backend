@@ -1,0 +1,37 @@
+web\Entity\CmsKeys:
+    type: entity
+    table: cms_keys
+    fields:
+        idKeys:
+            id: true
+            type: string
+            length: 32
+            fixed: false
+            nullable: false
+            column: __id_keys
+            generator:
+                strategy: NONE
+        consumido:
+            type: boolean
+            nullable: false
+            column: __consumido
+        fechaInicio:
+            type: datetime
+            nullable: false
+            column: __fecha_inicio
+        fechaFin:
+            type: datetime
+            nullable: true
+            column: __fecha_fin
+        usuarioCreacion:
+            type: bigint
+            nullable: true
+            column: __usuario_creacion
+    indexes:
+        keys_consumido_idx:
+            columns: [ __consumido ]
+        keys_fechaInicio_idx:
+            columns: [ __fecha_inicio ]
+        keys_fechaFin_idx:
+            columns: [ __fecha_fin ]
+    lifecycleCallbacks: {  }

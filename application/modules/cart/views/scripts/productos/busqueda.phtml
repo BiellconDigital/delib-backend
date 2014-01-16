@@ -1,0 +1,43 @@
+            <div id="divContentSearch">
+<?php 
+    $totalProductos = count($this->aProductos);
+    if ($totalProductos > 0) {
+        $contador = 0;
+        foreach ($this->aProductos as $oProducto) {
+            $contador++;
+?>
+
+            <?php if($contador%3 == 1 or $contador==1 ) { ?>
+                <div id="divSubContProdTRImgBusq">
+            <?php }?>
+
+                    <div id="divSubContProdTDImgBusq">
+                        <a href="<?php echo $this->url(array('controller'=>'productos', 'action'=>'index', 'idprod'=> $oProducto['idproducto']),'cart',true); ?>" class="text_no_underline">
+                            <span class="text_plomo_2_small"><b style="font-size: 10px;"><?php echo $oProducto['nombre_producto'];?></b></span><br /><br />
+                        </a>                     
+                    </div>
+                    
+                    <?php if($contador%3 != 0) { ?>
+                        <div id="divLineVertProdBusq"></div>
+                    <?php } ?>
+
+            <?php if($contador == $totalProductos  or $contador%3 == 0) { ?>
+                </div>
+            <?php } ?>
+                
+            <?php if($contador%3 == 0 and $contador != $totalProductos) { ?>
+                <div id="divLineHorizProdBusq"></div>
+            <?php } ?>
+                
+                
+
+<?php 
+        }
+    }
+?>
+        
+                
+    </div>
+<script type="text/javascript">
+	$('#divContentSearch').jScrollPane();
+</script>

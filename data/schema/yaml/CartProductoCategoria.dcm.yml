@@ -1,0 +1,62 @@
+cart\Entity\CartProductoCategoria:
+    type: entity
+    table: cart_producto__categoria
+    fields:
+        idcontcate:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __idContCate
+            generator:
+                strategy: IDENTITY
+        nivelCate:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: __nivel_cate
+        imagenCate:
+            type: string
+            length: 260
+            fixed: false
+            nullable: true
+            column: __imagen_cate
+        ordenCate:
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __orden_cate
+        stateCate:
+            type: boolean
+            nullable: false
+            column: __state_cate
+        fechamodfCate:
+            type: datetime
+            nullable: true
+            column: __fechamodf_cate
+        fecharegCate:
+            type: datetime
+            nullable: true
+            column: __fechareg_cate
+    manyToOne:
+        contcatePadre:
+            targetEntity: cart\Entity\CartProductoCategoria
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idContCate_Padre:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idContCate
+            orphanRemoval: false
+    oneToMany:
+        languages:
+            targetEntity: cart\Entity\CartProductoCategoriaLanguage
+            mappedBy: contcate
+            cascade: [ "persist" ]
+        tipos:
+            targetEntity: cart\Entity\CartProductoCategoriaTipo
+            mappedBy: contcate
+            cascade: [ "persist" ]
+    lifecycleCallbacks: {  }

@@ -1,0 +1,63 @@
+<div id="sub-content-interior" align="center">
+    <div id="content-center">
+        <div id="divTitleContent">NOTICIAS</div>
+        <div id="divSubContentCompText">
+            <?php if (count($this->messages) > 0) : ?>
+            <div>
+                <ul class="message-error">
+                    <?php foreach ($this->messages as $message) : ?>
+                        <li><?php echo $message ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
+        
+    <?php        
+    $totalItems = count($this->aContents);
+    $pathAdjunto = null;
+    if(is_array($this->aContents)){
+        $contador = 0;
+        foreach ($this->aContents as $aContent) {
+            $pathAdjunto = null;
+            if( file_exists(PTH_FILES . DS.'content'. DS . $aContent['imagen']) and !is_dir(PTH_FILES . DS.'content'. DS . $aContent['imagen']))
+                $pathImg = $this->baseUrl() . '/m_web/files/content/' . $aContent['imagen'];
+            else 
+                $pathImg = $this->baseUrl() . '/m_web/images/sin-imagen.png';
+
+            if( file_exists(PTH_FILES . DS .'content'. DS . $aContent['adjunto']) and !is_dir(PTH_FILES . DS . 'content'. DS . $aContent['adjunto']))
+                $pathAdjunto = $this->baseUrl() . '/m_web/files/content/' . $aContent['adjunto'];
+//            $strFechapub = (!is_null($aContent['fechainipub']))?$aContent['fechainipub']->format("d-m-Y"):"";
+            $contador++;
+    ?>
+
+                
+            	<div id="subContentTR" align="center">
+                    <div id="subContentImg"><img src="<?php echo $pathImg;?>" width="75%" border="0" /></div>
+                    <div id="subContentInfo_1" class="subContentInfo">
+                    	<div id="subContentInfoTitle" align="left">
+                            <span class="text_plomo_1"><b><?php echo $aContent['nombre_content'];?></b></span>
+                            <br/><i><?php echo $aContent['fechainipub']->format("d-m-Y");?></i>
+                        </div>
+                        <div id="subContentInfoDesc" align="justify">
+                            <span class="text_plomo_2_small_justify"><?php echo $aContent['intro_content'];?></span>
+                            <p><a href="<?php echo $this->url(array('controller'=>'noticias', 'action'=>'ver', 'id'=> $aContent['idcontent']),'default',true); ?>"><span>Ver más</span></a></p>
+                        </div>
+                    </div>
+                </div>
+
+                
+    <?php            
+        }
+    }
+    ?>
+            <!--<div id="linePlomoTop"></div>-->
+            <div style="clear: both;"></div>
+                    
+        </div>
+    </div>
+</div>
+<div id="sub-free"></div>
+
+<script type="text/javascript">
+	$('#divSubContentCompText').jScrollPane();
+</script>

@@ -1,0 +1,69 @@
+<?php echo $this->doctype()."\n";
+//xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    $translate = Zend_Registry::get('Zend_Translate');
+    $locale = $translate->getLocale();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <?php echo $this->headTitle()."\n"; ?>
+    <link type="image/x-icon" href="<?php echo $this->baseUrl() . '/m_web/images/favicon.ico';?>" rel="shortcut icon"/>
+    <?php echo $this->headMeta()."\n"; ?>
+    <meta content="Spanish" name="Language" />
+    <meta content="1 day" name="Revisit" />
+    <meta content="Global" name="Distribution" />
+    <meta name="description" content="Wiltons." />
+    <meta name="keywords" content="Wiltons" />		
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/styles.css';?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/style_menu.css';?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/style_scroll.css';?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/style_slider.css';?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/scroll/jquery.jscrollpane.css';?>" rel="stylesheet" type="text/css" />
+    
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/' . $locale . '.css';?>" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/lib.js';?>"></script>
+<?php    
+$layoutZ=Zend_Layout::getMvcInstance();
+$view=$layoutZ->getView();
+ZendX_JQuery::enableView($view);
+//ZendX_JQuery_View_Helper_JQuery::enableNoConflictMode();
+
+   if ($this->jQuery()->isEnabled()) {
+    $this->jQuery()
+        ->setLocalPath($this->baseUrl()."/common/vendors/jquery/jquery.tools.min.js");
+    echo $this->jQuery().PHP_EOL;
+   } else {
+?>    
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/common/vendors/jquery/jquery.tools.min.js';?>"></script>
+<?php    
+   }
+?>    
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/common/js/swfobject.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/functions.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/scroll/jquery.mousewheel.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/scroll/jquery.jscrollpane.min.js';?>"></script>
+    
+    <script type="text/javascript" charset="utf-8">
+        Tonyprr.BASE_PATH = '<?php echo $this->baseUrl();?>';
+        Tonyprr.BASE_URL = '<?php echo $this->baseUrl();?>';
+    </script>
+</head>
+<body>
+<div id="page">
+    <div id="main-content">
+        <div id="header" align="center">
+            <div id="header_content">
+                <?php echo $this->render('header.phtml') ?>
+            </div>
+        </div>
+        <div id="menu" align="center">
+        <?php echo $this->render('menu.phtml');?>
+        </div>
+        <?php echo $this->layout()->content; ?>
+        
+        <div id="footer"  align="center">
+            <?php echo $this->render('footer.phtml') ?>
+        </div>
+    </div>
+</div>
+</body>
+</html>

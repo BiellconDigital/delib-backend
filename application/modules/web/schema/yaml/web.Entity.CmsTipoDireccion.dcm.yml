@@ -1,0 +1,23 @@
+web\Entity\CmsTipoDireccion:
+    type: entity
+    repositoryClass: web\Repositories\CmsTipoDireccionRepository
+    table: cms_tipo__direccion
+    fields:
+        idTipoDireccion:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_tipo_direccion
+            generator:
+                strategy: IDENTITY
+        estado:
+            type: boolean
+            nullable: true
+            column: __estado
+    oneToMany:
+        languages:
+            targetEntity: web\Entity\CmsTipoDireccionLanguage
+            mappedBy: idTipoDireccion
+            cascade: [ "persist" ]
+    lifecycleCallbacks: {  }

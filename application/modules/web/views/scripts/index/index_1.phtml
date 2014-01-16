@@ -1,0 +1,54 @@
+<div id="slider">
+
+    <div id="wowslider-container1">
+       
+<?php if ((count($this->aGaleria) > 0) ) { ?>    
+    <div class="ws_images"><ul>
+<?php
+        $contador = 0;
+        foreach ($this->aGaleria as $oFotoGale) {
+            $contador++;
+            if( file_exists(PTH_FILES . DS. 'content'. DS . 'galeria'. DS . $oFotoGale['imagenGale']) and !is_dir(PTH_FILES . DS.'content'. DS . 'galeria'. DS . $oFotoGale['imagenGale']))
+                $pathImg = $this->baseUrl() . '/m_web/files/content/galeria/' . $oFotoGale['imagenGale'];
+            else 
+                $pathImg = $this->baseUrl() . '/m_web/images/sin-imagen.png';
+?>    
+            <li>
+                <a href="<?php echo $oFotoGale['titulo'];?>" target="_blank">
+                    <img src="<?php echo $pathImg; ?>" title="" alt="<?php echo $contador; ?>" id="wows<?php echo $contador; ?>_0" width="1171" height="450" />
+                </a>
+            </li>
+<?php
+/*<a href="<?php echo $oFotoGale['titulo'];?>">
+ * </a>
+ */
+        }
+?>    
+    </ul></div> 
+
+    <div class="ws_bullets"><div> 
+<?php
+        $contador=0;
+        foreach ($this->aGaleria as $oFotoGale) {
+            $contador++; 
+?>    
+            <a href="<?php echo $pathImg; ?>" title="">
+                <?php echo $contador; ?>
+            </a> 
+<?php
+        }
+?>    
+    
+    </div></div>
+    <div style="clear: both;"></div>
+<?php
+    }
+?>    
+                  
+        
+        
+    </div>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/slider/wowslider.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/slider/script.js';?>"></script>
+</div>    
+<div id="sub-free"></div>

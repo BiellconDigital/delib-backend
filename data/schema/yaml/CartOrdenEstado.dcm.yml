@@ -1,0 +1,32 @@
+cart\Entity\CartOrdenEstado:
+    type: entity
+    table: cart_orden__estado
+    fields:
+        idOrdenEstado:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_orden_estado
+            generator:
+                strategy: IDENTITY
+        activo:
+            type: boolean
+            nullable: true
+            column: __activo
+        color:
+            type: string
+            length: 15
+            fixed: false
+            nullable: true
+            column: __color
+        envioEmail:
+            type: boolean
+            nullable: true
+            column: __envio_email
+    oneToMany:
+        languages:
+            targetEntity: cart\Entity\CartOrdenEstadoLanguage
+            mappedBy: ordenEstado
+            cascade: [ "persist","remove" ]
+    lifecycleCallbacks: {  }

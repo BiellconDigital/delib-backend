@@ -1,0 +1,56 @@
+web\Entity\CmsContentComentario:
+    type: entity
+    table: cms_content_comentario
+    fields:
+        idContentComentario:
+            id: true
+            type: bigint
+            nullable: false
+            column: __id_content_comentario
+            generator:
+                strategy: IDENTITY
+        titulo:
+            type: string
+            length: 45
+            fixed: false
+            nullable: true
+            column: __titulo
+        comentario:
+            type: text
+            nullable: false
+            column: __comentario
+        estado:
+            type: boolean
+            nullable: true
+            column: __estado
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+    indexes:
+        contentComen_estado_idx:
+            columns: [ __estado ]
+    manyToOne:
+        content:
+            targetEntity: web\Entity\CmsContent
+            cascade: {  }
+            mappedBy: null
+            inversedBy: comentarios
+            joinColumns:
+                __idContent:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idContent
+            orphanRemoval: false
+        cliente:
+            targetEntity: web\Entity\CmsCliente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_cliente:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_cliente
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

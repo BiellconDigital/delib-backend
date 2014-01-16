@@ -1,0 +1,98 @@
+<?php
+$authSesion = new Zend_Session_Namespace(SES_USER);
+$lang = $authSesion->idioma;
+
+?>
+<script>
+function cerrarDiv(divName){
+	var myDiv = document.getElementById(divName);
+	myDiv.style.visibility = "hidden";
+}
+function mostrarDiv(myOption) {
+	//SE CIERRAN TODOS
+	cerrarDiv("divA");
+//	cerrarDiv("divB");
+//	cerrarDiv("divC");
+	//SE VERIFICA LA OPCION
+	if(myOption != 'X') {
+		var myDiv = document.getElementById("div" + myOption);
+		var mySelect = document.getElementById("divHeaderTextField");
+		var myX = findPosX(mySelect);
+		//CAMBIA ACÁ 146 SI ES NECESARIO
+                newpos = myX - 260;
+		myDiv.style.top = '111px';
+		myDiv.style.left = newpos + 'px';
+		myDiv.style.display = 'block';
+		myDiv.style.visibility = 'visible';
+                $("#resultadoBusqueda").load(Tonyprr.BASE_URL + '/cart/productos/busqueda', { 'text': $("#txtSearch").val() } );
+	}
+}
+function findPosX(obj) {
+  var curleft = 0;
+  if(obj.offsetParent) {
+    while(1) {
+      curleft += obj.offsetLeft;
+      if(!obj.offsetParent)
+        break;
+      obj = obj.offsetParent;
+    }
+  } else if(obj.x) {
+    curleft += obj.x;
+  }
+  obj.style.position = "static";
+  return curleft;
+}
+    
+</script>
+<div id="logo" align="left">
+    <img src="<?php echo $this->baseUrl() . '/m_web/images/header/logo.png';?>" width="180" height="96" border="0" align="absmiddle" onclick="window.location='<?php echo $this->url(array('controller'=>'index', 'action'=>'index'),'default',true); ?>';" style="cursor:pointer;"/>
+</div>
+<div id="groupHeader">
+    <div id="languages" align="right">
+        <img src="<?php echo $this->baseUrl() . '/m_web/images/header/bandIng.jpg';?>" width="36" height="24" border="0" align="absmiddle" onclick="window.location='<?php echo $this->url(array('controller'=>'index', 'action'=>'ingles'),'default',true); ?>';" style="cursor:pointer;" />
+        <img src="<?php echo $this->baseUrl() . '/m_web/images/header/bandEs.jpg';?>" width="36" height="24" border="0" align="absmiddle" onclick="window.location='<?php echo $this->url(array('controller'=>'index', 'action'=>'index'),'default',true); ?>';" style="cursor:pointer;"/>
+        <img src="<?php echo $this->baseUrl() . '/m_web/images/header/bandPe.jpg';?>" width="36" height="24" border="0" align="absmiddle" onclick="window.location='<?php echo $this->url(array('controller'=>'index', 'action'=>'index'),'default',true); ?>';"style="cursor:pointer;"/>
+    </div>
+    <div id="searchHeader">
+    	<div id="divHeaderLupa"><img src="<?php echo $this->baseUrl() . '/m_web/images/header/lupa.png';?>" width="20" height="26" border="0" style="cursor:pointer;" /></div>
+        <div id="divHeaderSearch">
+            <form action="javascript:mostrarDiv('A');">
+        	<div id="divHeaderLine"></div>
+        	<div id="divHeaderTextField">
+                    <input type="text" id="txtSearch" name="txtSearch" value="<?php echo $this->translate("HEADER_SEARCH");?>" class="txtSearchHeader" onclick="clearTxt(1, 'txtSearch', '');" onblur="clearTxt(2, 'txtSearch', '<?php echo $this->translate("HEADER_SEARCH");?>');" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+<?php
+//$lang = (isset($_SESSION['lang'])) ? $_SESSION['lang'] : 'es';
+?>
+$("#lang_es").attr("class", "text_black");
+$("#lang_en").attr("class", "text_black");
+$("#lang_<?php echo $lang;?>").attr("class", "text_crema");
+</script>
+
+    <div id="divA" style="padding-left: 14px;top:300px; left:530px; position:absolute; visibility:hidden; z-index:500; height: 310px; background-color: #FFF; border: 1px solid #C9C9C9;font-family: Arial, Helvetica, sans-serif;font-size: 11px;">
+        <div id="divSearchXAplic" style="width:500px;height: 300px;">
+                <table width="460" cellpadding="5" cellspacing="0" >
+                <tr>
+                    <td width="150" class="buscador-sub-titulo">
+                    Resultado
+                    </td>
+                    <td width="250">&nbsp;</td>
+                    <td width="15"><input type="image" name="imageField" src="<?php echo $this->baseUrl() . '/common/images/cerrar.png';?>" onclick="cerrarDiv('divA');" value="Cerrar" /></td>
+                </tr>
+                <tr>
+                    <td colspan="3" height="210">
+                        <div id="resultadoBusqueda" style="height: 230px;overflow: auto;">
+                            
+                        </div>
+                    </td>
+                </tr>
+                </table>
+            
+        </div>
+    </div>
+

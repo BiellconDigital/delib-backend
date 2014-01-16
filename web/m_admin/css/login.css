@@ -1,0 +1,22 @@
+/* 
+    Document   : login
+    Created on : 14-oct-2011, 7:37:43
+    Author     : aramosr
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#panelPrinLogin {
+    position:absolute; 
+    width:500px;
+    left:50%;
+    margin-left:-250px;
+    height:200px;
+    top:50%;
+    margin-top:-100px;
+}
+

@@ -1,0 +1,502 @@
+/*body {
+      font:normal 12px verdana,tahoma,helvetica;
+      margin:0;
+      padding:0;
+      border:0 none;
+      overflow:hidden;
+      height:100%;
+      background-color: #EFEFEF;
+  }
+
+.window-body{
+	margin:5px;
+	background-color: #FFF;
+
+}
+.x-panel-body p {
+    margin:5px;
+}
+.x-column-layout-ct .x-panel {
+    margin-bottom:5px;
+}
+.x-column-layout-ct .x-panel-dd-spacer {
+    margin-bottom:5px;
+}
+
+.ext-gecko .x-grid-editor {
+    position: relative !important;
+    float: left;
+}*/
+
+/*/../images/icons/  */
+
+.x-custom-white {
+    background-color: #ffffff;
+}
+.settings {
+    background-image:url(../images/icons/folder_wrench.png) !important;
+}
+.nav {
+    background-image:url(../images/icons/folder_go.png) !important;
+}
+
+.grid {
+    background-image:url(../images/icons/grid.png) !important;
+}
+.folder_doc {
+    background-image:url(../images/icons/folder_page_white.png) !important;
+}
+.docs_office {
+    background-image:url(../images/icons/page_white_office.png) !important;
+}
+.newspaper {
+    background-image:url(../images/icons/newspaper.png) !important;
+}
+.new_window{
+    background-image:url(../images/icons/new_window.gif) !important;
+}
+.house {
+    background-image:url(../images/icons/house.png) !important;
+}
+.house_go {
+    background-image:url(../images/icons/house_go.png) !important;
+}
+.rss {
+    background-image:url(../images/icons/rss.gif) !important;
+}
+.applink{
+    background-image:url(../images/icons/app_link.png) !important;
+}
+
+.worldlink{
+    background-image:url(../images/icons/world_link.png) !important;
+}
+.group {
+    background-image:url(../images/icons/group.png ) !important;
+}
+.group_gear {
+    background-image:url(../images/icons/group_gear.png ) !important;
+}
+.group_link {
+    background-image:url(../images/icons/group_link.png ) !important;
+}
+.user {
+    background-image:url(../images/icons/user.gif ) !important;
+}
+.user-add {
+    background-image:url(../images/icons/user_add.gif) !important;
+}
+
+.user-delete {
+    background-image:url(../images/icons/user_delete.gif) !important;
+}
+.coins {
+    background-image:url(../images/icons/coins.png) !important;
+}
+.cancel {
+    background-image:url(../images/icons/cross.png) !important;
+}
+.warning{
+	background-image:url(../images/icons/warning.gif) !important;
+}.database_save{
+	background-image:url(../images/icons/database_save.png) !important;
+}
+
+
+/*******************************************/
+.article{
+	background-image:url(../images/icons/article.gif) !important;
+}
+
+.app_warning{
+	background-image:url(../images/icons/app_waring.png) !important;
+}
+
+.lorry{
+	background-image:url(../images/icons/lorry.png) !important;
+}
+
+.desconectar{
+	background-image:url(../images/icons/desconectar.gif) !important;
+}
+
+.email{
+	background-image:url(../images/icons/email.png) !important;
+}
+.email_open{
+	background-image:url(../images/icons/email_open.png) !important;
+}
+.email_edit{
+	background-image:url(../images/icons/email_edit.png) !important;
+}
+.email_add{
+	background-image:url(../images/icons/email_add.png) !important;
+}
+.email_go{
+	background-image:url(../images/icons/email_go.png) !important;
+}
+
+.page_excel{
+	background-image:url(../images/icons/page_excel.png) !important;
+}
+
+.flag_blue{
+	background-image:url(../images/icons/flag_blue.png) !important;
+}
+.flag_red{
+	background-image:url(../images/icons/flag_red.png) !important;
+}
+.cog{
+	background-image:url(../images/icons/cog.png) !important;
+}
+.cog_go{
+	background-image:url(../images/icons/cog_go.png) !important;
+}
+.cog_add{
+	background-image:url(../images/icons/cog_add.png) !important;
+}
+.cog_error{
+	background-image:url(../images/icons/cog_error.png) !important;
+}
+.cog_delete{
+	background-image:url(../images/icons/cog_delete.png) !important;
+}
+.telephone_add{
+	background-image:url(../images/icons/telephone_add.png) !important;
+}
+.page_copy{
+	background-image:url(../images/icons/page_copy.png) !important;
+}
+.page_go, .page_go2{
+	background-image:url(../images/icons/page_go.png) !important;
+}
+.page_content{
+	background-image:url(../images/icons/layout_sidebar.png) !important;
+}
+
+
+
+/*p {
+	margin-bottom:15px;
+}
+h1 {
+	font-size:large;
+	margin-bottom:20px;
+}
+h2 {
+	font-size:14px;
+    color:#333;
+    font-weight:bold;
+    margin:10px 0;
+}
+.example-info{
+	width:150px;
+	border:1px solid #c3daf9;
+	border-top:1px solid #DCEAFB;
+	border-left:1px solid #DCEAFB;
+	background:#ecf5fe url(info-bg.gif) repeat-x;
+	font-size:10px;
+	padding:8px;
+}*/
+/*pre.code{
+	background: #F8F8F8;
+	border: 1px solid #e8e8e8;
+	padding:10px;
+	margin:10px;
+	margin-left:0px;
+	border-left:5px solid #e8e8e8;
+	font-size: 12px !important;
+	line-height:14px !important;
+}
+.msg .x-box-mc {
+    font-size:14px;
+}
+#msg-div {
+    position:absolute;
+    left:500px;
+    top:10px;
+    width:400px;
+    z-index:20000;
+}
+.x-grid3-row-body p {
+    margin:5px 5px 10px 5px !important;
+}*/
+
+
+.add {
+    background-image:url(../images/icons/add.gif) !important;
+}
+.option {
+    background-image:url(../images/icons/plugin.gif) !important;
+}
+.remove {
+    background-image:url(../images/icons/delete.gif) !important;
+}
+.save {
+    background-image:url(../images/icons/save.gif) !important;
+}
+.print, .print2 {
+    background-image:url(../images/icons/printer.png) !important;
+}
+.accordion {
+    background-image:url(../images/icons/accordian.gif) !important;
+}
+
+/*.loading-indicator {
+    font:bold 13px  Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    position:absolute;
+    top:35%;
+    left:43%;
+    color:#444;
+    background-image:url(../../library/JS/ext_js/resources/images/default/shared/blue-loading.gif);
+    background-repeat: no-repeat;
+    background-position:left 5px;
+    background-color:#FFF;
+    padding:10px 10px 10px 38px;
+	text-align:left;
+
+	top:0px;
+	left:0px;
+	height: 100%;
+	width: 100%;
+	background-position:center 250px;
+	padding-top:300px;
+	text-align:center;
+	opacity: 0.8;
+	filter:alpha(opacity=80);
+	-moz-opacity:0.8;
+	-khtml-opacity: 0.8;
+
+}*/
+
+/**********************/
+.feed_add{
+    background-image:url(../images/icons/feed_add.png) !important;
+}
+.feed-item{
+    background-image:url(../images/icons/feed-item.gif) !important;
+}
+.sitemap_color{
+    background-image:url(../images/icons/sitemap_color.png) !important;
+}
+.sitemap{
+    background-image:url(../images/icons/sitemap.png) !important;
+}
+.book_addresses{
+    background-image:url(../images/icons/book_addresses.png) !important;
+}
+.user_gray{
+    background-image:url(../images/icons/user_gray.png) !important;
+}
+
+.bloquear_sesion {
+    background-image:url(../images/icons/lock_break.png) !important;
+}
+
+.refresh_form {
+    background-image:url(../images/icons/table_refresh.png) !important;
+}
+
+.temas_edit{
+    background-image:url(../images/icons/book_edit.png) !important;
+}
+.temas_add{
+    background-image:url(../images/icons/book_add.png) !important;
+}
+.temas_del{
+    background-image:url(../images/icons/book_delete.png) !important;
+}
+.icon_detalle
+{
+    background-image:url(../images/icons/grid.png) !important;
+}
+.document_edit{
+    background-image:url(../images/icons/vcard_edit.png) !important;
+}
+.document_add{
+    background-image:url(../images/icons/vcard_add.png) !important;
+}
+.phone_add{
+    background-image:url(../images/icons/telephone_add.png) !important;
+}
+.phone_edit{
+    background-image:url(../images/icons/telephone_edit.png) !important;
+}
+.group_pers_edit{
+    background-image:url(../images/icons/group_edit.png) !important;
+}
+.group_pers_add{
+    background-image:url(../images/icons/group_add.png) !important;
+}
+.user_suit{
+    background-image:url(../images/icons/user_suit.png) !important;
+}
+.user_edit{
+    background-image:url(../images/icons/user_edit.png) !important;
+}
+.user_add{
+    background-image:url(../images/icons/user_add.png) !important;
+}
+
+.house_add{
+    background-image:url(../images/icons/house.png) !important;
+}
+.house_off{
+    background-image:url(../images/icons/house_link.png) !important;
+}
+
+.registro_edit{
+    background-image:url(../images/icons/cog_edit.png) !important;
+}
+.refresh_small{
+    background-image:url(../images/icons/arrow_refresh_small.png) !important;
+}
+
+.form_edit{
+    background-image:url(../images/icons/application_form_edit.png) !important;
+}
+.form_add{
+    background-image:url(../images/icons/application_form_add.png) !important;
+}
+.form_view{
+    background-image:url(../images/icons/application_form_magnify.png) !important;
+}
+
+.bell_edit{
+    background-image:url(../images/icons/bell_go.png) !important;
+}
+.bell_add{
+    background-image:url(../images/icons/bell_add.png) !important;
+}
+.key_small{
+    background-image:url(../images/icons/key.png) !important;
+}
+.report_magnify{
+    background-image:url(../images/icons/report_magnify.png) !important;
+}
+.page_find{
+    background-image:url(../images/icons/page_find.png) !important;
+}
+.find{
+    background-image:url(../images/icons/find.png) !important;
+}
+.tabs{
+    background-image:url(../images/icons/new_tab.gif) !important;
+}
+.refresh_orange{
+    background-image:url(../images/icons/remembermilk_orange.gif) !important;
+}
+.database_save{
+    background-image:url(../images/icons/database_save.png) !important;
+}
+.database_delete{
+    background-image:url(../images/icons/database_delete.png) !important;
+}
+.database_add{
+    background-image:url(../images/icons/database_add.png) !important;
+}
+.database_lightning{
+    background-image:url(../images/icons/database_lightning.png) !important;
+}
+.zoom, .zoom2, .zoom3{
+    background-image:url(../images/icons/zoom.png) !important;
+}
+
+.image_edit {
+    background-image:url(../images/icons/image_edit.png) !important;
+}
+.file_pdf {
+    background-image:url(../images/icons/pdf_icon.png) !important;
+}
+
+/*****************   Copia de Ext.ux.UploadDialog.css   *********************/
+
+@CHARSET "UTF-8";
+
+.ext-ux-uploaddialog-addbtn
+{
+	background: url('images/file-add.gif') no-repeat left center !important;
+}
+.ext-ux-uploaddialog-removebtn
+{
+	background: url('images/file-remove.gif') no-repeat left center !important;
+}
+.ext-ux-uploaddialog-resetbtn
+{
+	background: url('images/reset.gif') no-repeat left center !important;
+}
+
+.ext-ux-uploaddialog-uploadstartbtn
+{
+	background: url('images/upload-start.gif') no-repeat left center !important;
+}
+
+.ext-ux-uploaddialog-uploadstopbtn
+{
+	background: url('images/upload-stop.gif') no-repeat left center !important;
+}
+
+.ext-ux-uploaddialog-indicator-stoped
+{
+	width: 16px;
+	height: 16px;
+	background: url('images/done.gif') no-repeat center center;
+}
+
+.ext-ux-uploaddialog-indicator-processing
+{
+	width: 16px;
+	height: 16px;	
+	background: url('images/loading.gif') no-repeat center center;
+}
+
+.ext-ux-uploaddialog-state
+{
+	text-align: center;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Queued */
+.ext-ux-uploaddialog-state-0
+{
+	background-image: url('images/uncheck.gif');
+}
+
+/* Finished */
+.ext-ux-uploaddialog-state-1
+{
+	background-image: url('images/check.gif');
+}
+
+/* Failed */
+.ext-ux-uploaddialog-state-2
+{
+	background-image: url('images/failed.gif');
+}
+
+/* Processing */
+.ext-ux-uploaddialog-state-3
+{
+	background-image: url('images/file-uploading.gif');	
+}
+
+/* Progress bar fix */
+.ext-ie7 .ext-ux-uploaddialog-dialog .x-progress-bar .x-progress-text div
+{
+	display: none;
+}
+
+.ext-ie7 .ext-ux-uploaddialog-dialog .x-progress-text-back
+{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+.ext-ie7 .ext-ux-uploaddialog-dialog .x-progress-text-back div
+{
+	width: auto !important;
+	white-space: nowrap;
+}
+

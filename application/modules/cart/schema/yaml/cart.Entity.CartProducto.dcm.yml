@@ -1,0 +1,118 @@
+cart\Entity\CartProducto:
+    type: entity
+    repositoryClass: cart\Repositories\CartProductoRepository
+    table: cart_producto
+    fields:
+        idproducto:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __idProducto
+            generator:
+                strategy: IDENTITY
+        codigoProducto:
+            type: string
+            length: 15
+            fixed: false
+            nullable: false
+            column: __codigo_producto
+        precio:
+            type: float
+            nullable: true
+            column: __precio
+        cantidad:
+            type: float
+            nullable: true
+            column: __cantidad
+        cantidadVendidos:
+            type: float
+            nullable: true
+            column: __cantidad_vendidos
+        peso:
+            type: float
+            nullable: true
+            column: __peso
+        imagen:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __imagen
+        adjunto:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __adjunto
+        orden:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: __orden
+        estado:
+            type: boolean
+            nullable: false
+            column: __estado
+        fechainipub:
+            type: date
+            nullable: true
+            column: __fechaIniPub
+        fechafinpub:
+            type: date
+            nullable: true
+            column: __fechaFinPub
+        fechamodif:
+            type: datetime
+            nullable: true
+            column: __fechamodif
+        fechareg:
+            type: datetime
+            nullable: true
+            column: __fechareg
+    manyToOne:
+        marca:
+            targetEntity: cart\Entity\CartMarca
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idMarca:
+                    onUpdate: CASCADE
+                    referencedColumnName: __idMarca
+            orphanRemoval: false
+        contcate:
+            targetEntity: cart\Entity\CartProductoCategoria
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idContCate:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idContCate
+            orphanRemoval: false
+        tipo:
+            targetEntity: cart\Entity\CartProductoTipo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idTipo:
+                    onUpdate: CASCADE
+                    referencedColumnName: __idTipo
+            orphanRemoval: false
+    oneToMany:
+        languages:
+            targetEntity: cart\Entity\CartProductoLanguage
+            mappedBy: producto
+            cascade: [ "persist" ]
+        galeria:
+            targetEntity: cart\Entity\CartProductoGaleria
+            mappedBy: producto
+            cascade: [ "persist" ]
+        comentarios:
+            targetEntity: cart\Entity\CartProductoComentario
+            mappedBy: producto
+            cascade: [ "persist" ]
+    lifecycleCallbacks: {  }

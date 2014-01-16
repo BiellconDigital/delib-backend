@@ -1,0 +1,52 @@
+cart\Entity\CartMoneda:
+    type: entity
+    repositoryClass: cart\Repositories\CartMonedaRepository
+    table: cart_moneda
+    fields:
+        idMoneda:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_moneda
+            generator:
+                strategy: IDENTITY
+        nombre:
+            type: string
+            length: 45
+            fixed: false
+            nullable: false
+            column: __nombre
+        isoCode:
+            type: string
+            length: 4
+            fixed: false
+            nullable: false
+            column: __iso_code
+        signo:
+            type: string
+            length: 8
+            fixed: false
+            nullable: false
+            column: __signo
+        activo:
+            type: boolean
+            nullable: false
+            column: __activo
+        principal:
+            type: boolean
+            nullable: false
+            column: __principal
+        conversion:
+            type: float
+            nullable: false
+            column: __conversion
+        fechaActualizacion:
+            type: datetime
+            nullable: true
+            column: __fecha_actualizacion
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+    lifecycleCallbacks: {  }

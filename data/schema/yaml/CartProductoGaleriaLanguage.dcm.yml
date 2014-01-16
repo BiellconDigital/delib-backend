@@ -1,0 +1,46 @@
+cart\Entity\CartProductoGaleriaLanguage:
+    type: entity
+    table: cart_producto__galeria_language
+    fields:
+        idProductogaleLanguage:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_ProductoGale_Language
+            generator:
+                strategy: IDENTITY
+        titulo:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __titulo
+        descripcion:
+            type: text
+            nullable: true
+            column: __descripcion
+    manyToOne:
+        contgale:
+            targetEntity: cart\Entity\CartProductoGaleria
+            cascade: {  }
+            mappedBy: null
+            inversedBy: languages
+            joinColumns:
+                __idContGale:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idContGale
+            orphanRemoval: false
+        language:
+            targetEntity: web\Entity\CmsLanguage
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_language:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_language
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

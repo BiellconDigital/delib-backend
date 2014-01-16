@@ -1,0 +1,33 @@
+<?php echo $this->doctype()."\n";
+?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+        <?php echo $this->headMeta()."\n"; ?>
+        <?php echo $this->headTitle()."\n"; ?>
+        <meta http-equiv="Author" content="Biellcon Digital S.A.C." />
+        <meta content="Spanish" name="Language" />
+        <meta content="1 day" name="Revisit" />
+        <meta content="Global" name="Distribution" />
+
+        <script src='<?php echo $this->baseUrl()."/m_admin/js/Tonyprr/Tonyprr.js";?>' type='text/javascript' ></script>
+	<script type="text/javascript">
+		Tonyprr.BASE_PATH = "<?php echo $this->baseUrl(); ?>";
+                Tonyprr.BASE_URL = Tonyprr.BASE_PATH;
+	</script>
+        <link href='<?php echo $this->baseUrl()."/../../libs/Ext/resources/css/ext-all.css";?>' rel='stylesheet' type='text/css' media='screen' />
+        <link href='<?php echo $this->baseUrl()."/m_admin/css/login.css";?>' rel='stylesheet' type='text/css' media='screen' />
+<!--	
+        <link href='<?php //echo $this->baseUrl()."/../../libs/Ext/resources/css/ext-all-gray.css";?>' rel='stylesheet' type='text/css' media='screen' />
+
+        <script src='<?php //echo $this->baseUrl()."/../../libs/Ext/locale/ext-lang-es.js";?>' type='text/javascript' ></script>
+-->
+	<script src='<?php echo $this->baseUrl()."/../../libs/Ext/ext-all-dev.js";?>' type='text/javascript' ></script>
+
+        <script src='<?php echo $this->baseUrl()."/m_admin/js/Tonyprr/core/Ajax.js";?>' type='text/javascript' ></script>
+        <script src='<?php echo $this->baseUrl()."/m_admin/js/Tonyprr/core/Constants.js";?>' type='text/javascript' ></script>
+        <script src='<?php echo $this->baseUrl()."/m_admin/js/Tonyprr/startup/bootLogin.js";?>' type='text/javascript' ></script>
+	</head>
+	<body class="bodyestilo">
+            <?php echo $this->layout()->content; ?>            
+	</body>
+</html>

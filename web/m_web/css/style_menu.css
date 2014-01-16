@@ -1,0 +1,149 @@
+#menu{
+	width:1171px;
+	height:31px;
+	margin:0;
+	padding:0;
+}
+#cssmenu{
+	width:960px;
+	height:45px;
+	font-size:0.9em;
+}
+#cssmenu ul{
+	width:960px;
+	height:45px;
+	margin:0;
+	padding:0;
+	position:relative;
+	display:block;
+	font-family: Arial;
+        color: #161615;
+        font-weight: bold;
+	z-index:100;
+        background-color: #e0dfdf;
+}
+#cssmenu li{
+	display:block;
+	float:left;
+	margin:0;
+        border-right:1px solid #cfcece;
+        line-height: 20px;
+/*	width:180px;*/
+}
+#menu_li_1:hover{
+	background-color:#AE2320;
+	color:#FFF;
+}
+#menu_a_1:hover{
+	background-color:#AE2320;
+	color:#FFF;	
+}
+#cssmenu li:hover{
+	background-color:#19DDBC;
+	border-right:1px solid #AAA8AC;
+}
+.fondoRojo{
+	color:#AE2320;
+}
+#cssmenu li:first-child{
+	border-left:none;
+}
+#cssmenu li:last-child{
+	border-right:none;
+}
+#cssmenu li a{
+	display:block;
+	float:left;
+	text-decoration:none;
+	padding:12px 30px 13px 30px;
+        color: #161615;
+}
+#cssmenu li a:hover{
+	color:#FFF;
+	background-color:#19DDBC;
+}
+.a_hover{
+	width:233px;
+	color:#FFF;
+}
+.li_hover{
+	width:233px;
+	background-color:#AE2320;
+	border-right:1px solid #AAA8AC;
+}
+#menu_last_desc{
+	float:left;
+	width:50%;
+	vertical-align:middle;
+	text-align:left;
+	padding-left:4px;
+	position:relative;
+	top:27%;	
+}
+#menu_last_img{
+	float:left;
+	position:relative;
+	top:2%;
+}
+#cssmenu ul li ul 
+{
+    position:absolute;
+    top:46px;
+    display:none;
+    list-style:none;
+    /*height: 30px;*/
+}
+#cssmenu ul li ul li {
+    background-color:#e0dfdf;
+    padding: 0;
+    margin: 0;
+}
+
+#cssmenu ul li ul li a 
+{
+    color:#161615;
+    height: 30px;
+    width:280px;
+    text-align: left;
+    padding-left: 10px;
+}
+#cssmenu ul li ul li a:hover 
+{
+	color:#FFFFFF;
+        background-color:#19DDBC;
+}
+#cssmenu ul li:hover > ul
+{
+    position:absolute;    
+    display:block;
+    width:280px;
+    padding-top:1px;
+    padding-bottom:1px;
+    padding-left:0px;
+}
+#cssmenu ul> li > ul  /*Solo para los ul debajo de los li de primer nivel. */
+{
+position:absolute;
+top:45px;
+display:none;
+list-style:none;
+}
+
+#cssmenu ul li ul.desplegable1
+{
+    left:210px;
+}
+#cssmenu ul li ul.desplegable2
+{
+    left:345px;
+}
+#cssmenu ul li ul.desplegable3
+{
+    left:430px;
+}
+#cssmenu ul li ul li:hover{
+	background-color:#19DDBC;
+}
+#cssmenu ul li ul li a span {
+	font-size:1em;
+}

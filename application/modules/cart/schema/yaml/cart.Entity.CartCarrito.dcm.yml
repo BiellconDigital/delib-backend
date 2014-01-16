@@ -1,0 +1,74 @@
+cart\Entity\CartCarrito:
+    type: entity
+    repositoryClass: cart\Repositories\CartCarritoRepository
+    table: cart_carrito
+    fields:
+        idCarrito:
+            id: true
+            type: bigint
+            nullable: false
+            column: __id_carrito
+            generator:
+                strategy: IDENTITY
+        procesado:
+            type: boolean
+            nullable: true
+            column: __procesado
+        secureKey:
+            type: string
+            length: 32
+            fixed: false
+            nullable: true
+            column: __secure_key
+        reciclar:
+            type: boolean
+            nullable: true
+            column: __reciclar
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+        fechaModificacion:
+            type: datetime
+            nullable: true
+            column: __fecha_modificacion
+        direccionEnvio:
+            type: string
+            length: 250
+            fixed: false
+            nullable: true
+            column: __direccion_envio
+        direccionPago:
+            type: string
+            length: 250
+            fixed: false
+            nullable: true
+            column: __direccion_pago
+    manyToOne:
+        moneda:
+            targetEntity: cart\Entity\CartMoneda
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_moneda:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_moneda
+            orphanRemoval: false
+        cliente:
+            targetEntity: web\Entity\CmsCliente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_cliente:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_cliente
+            orphanRemoval: false
+    oneToMany:
+        detalle:
+            targetEntity: cart\Entity\CartCarritoProducto
+            mappedBy: carrito
+            cascade: [ "persist","remove" ]
+    lifecycleCallbacks: {  }

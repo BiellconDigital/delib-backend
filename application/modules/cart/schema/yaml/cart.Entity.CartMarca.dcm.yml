@@ -1,0 +1,47 @@
+cart\Entity\CartMarca:
+    type: entity
+    repositoryClass: cart\Repositories\CartMarcaRepository
+    table: cart_marca
+    fields:
+        idmarca:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __idMarca
+            generator:
+                strategy: IDENTITY
+        nombre:
+            type: string
+            length: 130
+            fixed: false
+            nullable: false
+            column: __nombre
+        logo:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __logo
+        estado:
+            type: boolean
+            nullable: false
+            column: __estado
+        orden:
+            type: integer
+            nullable: true
+            column: __orden
+        fechaActualizacion:
+            type: datetime
+            nullable: true
+            column: __fecha_actualizacion
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+    oneToMany:
+        languages:
+            targetEntity: cart\Entity\CartMarcaLanguage
+            mappedBy: marca
+            cascade: [ "persist","remove" ]
+    lifecycleCallbacks: {  }

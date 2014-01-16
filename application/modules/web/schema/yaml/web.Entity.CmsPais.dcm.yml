@@ -1,0 +1,35 @@
+web\Entity\CmsPais:
+    type: entity
+    repositoryClass: web\Repositories\CmsPaisRepository
+    table: cms_pais
+    fields:
+        idPais:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_Pais
+            generator:
+                strategy: IDENTITY
+        numPais:
+            type: string
+            length: 6
+            fixed: false
+            nullable: true
+            column: __num_pais
+        nombre:
+            type: string
+            length: 140
+            fixed: false
+            nullable: false
+            column: __nombre
+        estado:
+            type: boolean
+            nullable: true
+            column: __estado
+    indexes:
+        pais_estado_idx:
+            columns: [ __estado ]
+        pais_nombre_idx:
+            columns: [ __nombre ]
+    lifecycleCallbacks: {  }

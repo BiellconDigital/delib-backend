@@ -1,0 +1,41 @@
+cart\Entity\CartProductoTipo:
+    type: entity
+    table: cart_producto__tipo
+    fields:
+        idTipo:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __idTipo
+            generator:
+                strategy: IDENTITY
+        imagen:
+            type: string
+            length: 260
+            fixed: false
+            nullable: true
+            column: __imagen
+        orden:
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __orden
+        estado:
+            type: boolean
+            nullable: false
+            column: __estado
+        fechamodf:
+            type: datetime
+            nullable: true
+            column: __fechamodf
+        fechareg:
+            type: datetime
+            nullable: true
+            column: __fechareg
+    oneToMany:
+        languages:
+            targetEntity: cart\Entity\CartProductoTipoLanguage
+            mappedBy: tipo
+            cascade: [ "persist" ]
+    lifecycleCallbacks: {  }

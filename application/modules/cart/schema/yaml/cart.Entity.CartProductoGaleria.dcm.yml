@@ -1,0 +1,46 @@
+cart\Entity\CartProductoGaleria:
+    type: entity
+    repositoryClass: cart\Repositories\CartProductoGaleriaRepository
+    table: cart_producto__galeria
+    fields:
+        idcontgale:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __idContGale
+            generator:
+                strategy: IDENTITY
+        ordenGale:
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __orden_gale
+        imagenGale:
+            type: string
+            length: 260
+            fixed: false
+            nullable: true
+            column: __imagen_gale
+        fecharegGale:
+            type: datetime
+            nullable: true
+            column: __fechareg_gale
+    manyToOne:
+        producto:
+            targetEntity: cart\Entity\CartProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: galeria
+            joinColumns:
+                __idProducto:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idProducto
+            orphanRemoval: false
+    oneToMany:
+        languages:
+          targetEntity: cart\Entity\CartProductoGaleriaLanguage
+          mappedBy: contgale
+          cascade: [ "persist" ]
+    lifecycleCallbacks: {  }

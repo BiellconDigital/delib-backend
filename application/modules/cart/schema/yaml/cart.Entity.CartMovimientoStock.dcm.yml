@@ -1,0 +1,72 @@
+cart\Entity\CartMovimientoStock:
+    type: entity
+    repositoryClass: cart\Repositories\CartMovimientoStockRepository
+    table: cart_movimiento__stock
+    fields:
+        idMovimientoStock:
+            id: true
+            type: bigint
+            nullable: false
+            column: __id_movimiento_stock
+            generator:
+                strategy: IDENTITY
+        cantidad:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: __cantidad
+        iduser:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: __idUser
+        fechaCaducidad:
+            type: datetime
+            nullable: true
+            column: __fecha_caducidad
+        fechaIngreso:
+            type: datetime
+            nullable: true
+            column: __fecha_ingreso
+        fechaRegistro:
+            type: datetime
+            nullable: false
+            column: __fecha_registro
+        fechaActualizacion:
+            type: datetime
+            nullable: true
+            column: __fecha_actualizacion
+    manyToOne:
+        orden:
+            targetEntity: cart\Entity\CartOrden
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_orden:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_orden
+            orphanRemoval: false
+        producto:
+            targetEntity: cart\Entity\CartProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idProducto:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idProducto
+            orphanRemoval: false
+        movimientoStockTipo:
+            targetEntity: cart\Entity\CartMovimientoStockTipo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_movimiento_stock_tipo:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_movimiento_stock_tipo
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

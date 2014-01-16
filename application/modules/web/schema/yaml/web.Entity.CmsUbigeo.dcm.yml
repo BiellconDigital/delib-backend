@@ -1,0 +1,76 @@
+web\Entity\CmsUbigeo:
+    type: entity
+    repositoryClass: web\Repositories\CmsUbigeoRepository
+    table: cms_ubigeo
+    fields:
+        codPostal:
+            id: true
+            type: string
+            length: 12
+            fixed: false
+            nullable: false
+            column: __cod_postal
+            generator:
+                strategy: NONE
+        dpto:
+            type: string
+            length: 70
+            fixed: false
+            nullable: false
+            column: __dpto
+        prov:
+            type: string
+            length: 70
+            fixed: false
+            nullable: true
+            column: __prov
+        dist:
+            type: string
+            length: 70
+            fixed: false
+            nullable: true
+            column: __dist
+        cregion:
+            type: string
+            length: 3
+            fixed: false
+            nullable: true
+            column: __cregion
+        csubregion:
+            type: string
+            length: 3
+            fixed: false
+            nullable: true
+            column: __csubregion
+        codDpto:
+            type: string
+            length: 5
+            fixed: false
+            nullable: true
+            column: __cod_dpto
+        codProv:
+            type: string
+            length: 10
+            fixed: false
+            nullable: true
+            column: __cod_prov
+    indexes:
+        ubig_dpto_idx:
+            columns: [ __dpto ]
+        ubig_prov_idx:
+            columns: [ __prov ]
+        ubig_dist_idx:
+            columns: [ __dist ]
+    manyToOne:
+        pais:
+            targetEntity: web\Entity\CmsPais
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_Pais:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_Pais
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,47 @@
+                    
+<?php 
+    $totalProductosCategorias = count($this->aProductoCategorias);
+//    var_dump($this->aProductoCategorias);
+    
+    $pathAdjunto = null;
+    if ($totalProductosCategorias > 0) {
+        $contador = 0;
+        foreach ($this->aProductoCategorias as $aProductoCategoria) {
+            if( is_file(PTH_FILES_CART . DS . 'producto'. DS . $aProductoCategoria['imagenCate']) and !is_dir(PTH_FILES_CART . DS.'producto'. DS . $aProductoCategoria['imagenCate']))
+                $pathImgProd = $this->baseUrl() . '/m_cart/files/producto/' . $aProductoCategoria['imagenCate'];
+            else
+                $pathImgProd = $this->baseUrl() . '/m_web/images/sin-imagen.png';
+//            if( file_exists(PTH_FILES_CART . DS .'producto'. DS . $aProductoCategoria['adjunto']) and !is_dir(PTH_FILES_CART . DS . 'producto'. DS . $aProductoCategoria['adjunto']))
+//                $pathAdjunto = $this->baseUrl() . '/m_cart/files/producto/' . $aProductoCategoria['adjunto'];
+//            $fechaPub = (!is_null($aProductoCategoria['fechainipub']))?$aProductoCategoria['fechainipub']->format("d-m-Y"):"";
+            $contador++;
+?>
+
+            <?php if($contador%3 == 1 or $contador==1 ) { ?>
+                <div id="divSubContProdDetTRImg">
+            <?php }?>
+
+                    <div id="divSubContProdDetTDImg" onclick="loadProductos(<?php echo $aProductoCategoria['idcontcate'];?>)" style="cursor: pointer;">
+                        <span class="text_plomo_2_small"><?php echo $aProductoCategoria['descripcion'];?></span><br /><br />
+                        <img src="<?php echo $pathImgProd;?>" width="200" height="143" border="0" />
+                    </div>
+                    <?php if($contador%3 != 0) { ?>
+                        <div id="divLineVertProdDet"></div>
+                    <?php } ?>
+
+            <?php if($contador == $totalProductosCategorias  or $contador%3 == 0) { ?>
+                </div>
+            <?php } ?>
+                
+            <?php if($contador%3 == 0 and $contador != $totalProductosCategorias) { ?>
+                <div id="divSubContProdDetLineHor"></div>
+            <?php } ?>
+                
+                
+
+<?php 
+        }
+    }
+?>
+                    
+                    

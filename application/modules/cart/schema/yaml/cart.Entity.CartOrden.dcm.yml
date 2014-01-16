@@ -1,0 +1,178 @@
+cart\Entity\CartOrden:
+    type: entity
+    repositoryClass: cart\Repositories\CartOrdenRepository
+    table: cart_orden
+    fields:
+        idOrden:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_orden
+            generator:
+                strategy: IDENTITY
+        tipoDocumento:
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __tipo_documento
+        direccionEnvio:
+            type: string
+            length: 250
+            fixed: false
+            nullable: false
+            column: __direccion_envio
+        direccionPago:
+            type: string
+            length: 250
+            fixed: false
+            nullable: false
+            column: __direccion_pago
+        subTotal:
+            type: float
+            nullable: true
+            column: _sub__total
+        totalImpuesto:
+            type: float
+            nullable: true
+            column: __total_impuesto
+        impuestoRatio:
+            type: float
+            nullable: true
+            column: __impuesto_ratio
+        total:
+            type: float
+            nullable: true
+            column: __total
+        totalDescuento:
+            type: float
+            nullable: true
+            column: __total_descuento
+        totalFinal:
+            type: float
+            nullable: true
+            column: __total_final
+        costoEnvio:
+            type: float
+            nullable: true
+            column: __costo_envio
+        cuentaBanco:
+            type: string
+            length: 150
+            fixed: false
+            nullable: true
+            column: __cuenta_banco
+        fechaProcesado:
+            type: datetime
+            nullable: true
+            column: __fecha_procesado
+        fechaEnvio:
+            type: date
+            nullable: true
+            column: __fecha_envio
+        horaEnvio:
+            type: string
+            length: 14
+            fixed: false
+            nullable: true
+            column: __hora_envio
+        fechaModificado:
+            type: datetime
+            nullable: true
+            column: __fecha_modificado
+        codigoVoucher:
+            type: string
+            length: 30
+            fixed: false
+            nullable: true
+            column: __codigo_voucher
+        nroFactura:
+            type: string
+            length: 15
+            fixed: false
+            nullable: true
+            column: __nro_factura
+        rucCliente:
+            type: string
+            length: 19
+            fixed: false
+            nullable: true
+            column: __ruc_cliente
+        razonSocial:
+            type: string
+            length: 140
+            fixed: false
+            nullable: true
+            column: __razon_social
+        personaRecepcion:
+            type: string
+            length: 50
+            fixed: false
+            nullable: true
+            column: _persona__recepcion
+        fechaDeposito:
+            type: date
+            nullable: true
+            column: __fecha_deposito
+        horaDeposito:
+            type: string
+            length: 10
+            fixed: false
+            nullable: true
+            column: __hora_deposito
+    manyToOne:
+        carrito:
+            targetEntity: cart\Entity\CartCarrito
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_carrito:
+                    referencedColumnName: __id_carrito
+            orphanRemoval: false
+        cliente:
+            targetEntity: web\Entity\CmsCliente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_cliente:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_cliente
+            orphanRemoval: false
+        ubigeo:
+            targetEntity: web\Entity\CmsUbigeo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_ubigeo:
+                    onUpdate: CASCADE
+                    referencedColumnName: __cod_postal
+            orphanRemoval: false
+        moneda:
+            targetEntity: cart\Entity\CartMoneda
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_moneda:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_moneda
+            orphanRemoval: false
+        ordenEstado:
+            targetEntity: cart\Entity\CartOrdenEstado
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_orden_estado:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_orden_estado
+            orphanRemoval: false
+    oneToMany:
+        detalle:
+            targetEntity: cart\Entity\CartOrdenDetalle
+            mappedBy: orden
+            cascade: [ "persist","remove" ]
+lifecycleCallbacks: {  }

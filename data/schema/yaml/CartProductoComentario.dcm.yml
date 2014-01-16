@@ -1,0 +1,53 @@
+cart\Entity\CartProductoComentario:
+    type: entity
+    table: cart_producto_comentario
+    fields:
+        idProductoComentario:
+            id: true
+            type: bigint
+            nullable: false
+            column: __id_producto_comentario
+            generator:
+                strategy: IDENTITY
+        titulo:
+            type: string
+            length: 45
+            fixed: false
+            nullable: true
+            column: __titulo
+        comentario:
+            type: text
+            nullable: false
+            column: __comentario
+        estado:
+            type: boolean
+            nullable: true
+            column: __estado
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+    manyToOne:
+        producto:
+            targetEntity: cart\Entity\CartProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: comentarios
+            joinColumns:
+                __idProducto:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idProducto
+            orphanRemoval: false
+        cliente:
+            targetEntity: web\Entity\CmsCliente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_cliente:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_cliente
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,30 @@
+web\Entity\CmsTipoDocumento:
+    type: entity
+    table: cms_tipo__documento
+    fields:
+        idtipoDocumento:
+            id: true
+            type: smallint
+            nullable: false
+            column: __idtipo_documento
+            generator:
+                strategy: IDENTITY
+        longitudTdoc:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: __longitud_tdoc
+        estadoTipodoc:
+            type: boolean
+            nullable: false
+            column: __estado_tipodoc
+        tiempoModif:
+            type: datetime
+            nullable: true
+            column: __tiempo_modif
+    oneToMany:
+        languages:
+            targetEntity: web\Entity\CmsTipoDocumentoLanguage
+            mappedBy: idtipoDocumento
+            cascade: [ "persist" ]
+    lifecycleCallbacks: {  }

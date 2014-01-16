@@ -1,0 +1,70 @@
+cart\Entity\CartOrdenDetalle:
+    type: entity
+    repositoryClass: cart\Repositories\CartOrdenDetalleRepository
+    table: cart_orden__detalle
+    fields:
+        idOrdenDetalle:
+            id: true
+            type: bigint
+            nullable: false
+            column: __id_orden_detalle
+            generator:
+                strategy: IDENTITY
+        productoNombre:
+            type: string
+            length: 170
+            fixed: false
+            nullable: true
+            column: __producto_nombre
+        cantidad:
+            type: float
+            nullable: true
+            column: __cantidad
+        precioUnitario:
+            type: float
+            nullable: true
+            column: __precio_unitario
+        precioTotal:
+            type: float
+            nullable: true
+            column: __precio_total
+        impuestoTotal:
+            type: float
+            nullable: true
+            column: __impuesto_total
+        impuestoRatio:
+            type: float
+            nullable: true
+            column: __impuesto_ratio
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+        fechaModificacion:
+            type: datetime
+            nullable: true
+            column: __fecha_modificacion
+    manyToOne:
+        orden:
+            targetEntity: cart\Entity\CartOrden
+            cascade: {  }
+            mappedBy: null
+            inversedBy: detalle
+            joinColumns:
+                __id_orden:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_orden
+            orphanRemoval: false
+        producto:
+            targetEntity: cart\Entity\CartProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idProducto:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idProducto
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

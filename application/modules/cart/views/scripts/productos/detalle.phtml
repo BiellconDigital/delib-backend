@@ -1,0 +1,71 @@
+
+    <?php if (count($this->messages) > 0) : ?>
+    <ul class="message-error">
+    <?php foreach ($this->messages as $message) : ?>
+        <li><?php echo $message ?></li>
+    <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
+
+<div id="prodDescTop">
+<?php 
+    $pathAdjunto = null;
+    $nombreImgProd = "";
+    if (!is_null($this->oProducto)) {
+            if( is_file(PTH_FILES_CART . DS . 'producto'. DS . $this->oProducto->getImagen()) and !is_dir(PTH_FILES_CART . DS.'producto'. DS . $this->oProducto->getImagen())) {
+                $pathImgProd = $this->baseUrl() . '/m_cart/files/producto/' . $this->oProducto->getImagen();
+                $nombreImgProd = $this->oProducto->getImagen();
+            } else {
+                $pathImgProd = $this->baseUrl() . '/m_web/images/sin-imagen.jpg';
+                $nombreImgProd = 'sin-imagen.jpg';
+            }
+            if( file_exists(PTH_FILES_CART . DS .'producto'. DS . $this->oProducto->getAdjunto()) and !is_dir(PTH_FILES_CART . DS . 'producto'. DS . $this->oProducto->getAdjunto()))
+                    
+                $pathAdjunto = $this->baseUrl() . '/m_cart/files/producto/' . $this->oProducto->getAdjunto();
+//            $fechaPub = (!is_null($this->oProducto['fechainipub']))?$this->oProducto['fechainipub']->format("d-m-Y"):"";
+/*                        <img src="<?php echo $pathImgProd;?>" width="751" height="250" border="0">*/
+
+?>
+    
+    <div id="prodDescTopLeft" style="position:relative">
+            <img src="<?php echo $this->url(array('controller'=>'productos', 'action'=>'get-imagen', 'nombre'=> $nombreImgProd),'cart',true);?>" border="0">
+            <div style="position:absolute; top:215px; left:10px;">
+                    <a href="<?php echo $pathImgProd;?>" rel="superbox[gallery][my_gallery]" title="<?php echo $this->oProductoLang->getNombre();?>">
+                            <img border="0" src="<?php echo $this->baseUrl() . '/m_web/images/interior/lupa_zoom.png'; ?>" width="36" height="40">
+                    </a>
+            </div>
+    </div>
+    <div id="prodDescTopRight">
+            <div id="prodDescTopRightTitle" align="left"><span class="text_black"><?php echo $this->oProductoLang->getNombre();?></span></div>
+            <div id="prodDescTopRightDesc" align="left">
+                    <span class="text_plomo_5_small">
+                        <?php echo $this->oProductoLang->getFicha();?>
+                    </span>
+            </div>
+            
+            <?php if (!is_null($pathAdjunto)) {?>
+            <div id="prodDescTopRightPDF" align="left">
+                <a href="<?php echo $pathAdjunto; ?>" target="_blank">
+                    <img src="<?php echo $this->baseUrl() . '/m_web/images/interior/pdf.jpg'; ?>" width="36" height="40" border="0" style="cursor:pointer;">&nbsp;&nbsp;<span class="text_rojo_2_small_cur"><b><?php echo strtoupper($this->oProductoLang->getNombre());?></b></span>
+                </a>
+            </div>
+            <?php } ?>
+            
+    </div>
+<script>
+	$.superbox.settings = {
+		boxId: "superbox", // Id attribute of the "superbox" element
+		boxClasses: "", // Class of the "superbox" element
+		overlayOpacity: .9, // Background opaqueness
+		boxWidth: "1000", // Default width of the box
+		boxHeight: "1000", // Default height of the box
+		loadTxt: "Loading...", // Loading text
+		closeTxt: "Cerrar", // "Close" button text
+		prevTxt: "Previous", // "Previous" button text
+		nextTxt: "Next" // "Next" button text
+	};
+    $.superbox();
+</script>    
+<?php } ?>    
+    
+</div>

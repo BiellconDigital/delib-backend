@@ -1,0 +1,43 @@
+<?php echo $this->doctype()."\n";
+//xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" jrgbu edhdsukh jsfd j
+/*    <link href="<?php echo $this->baseUrl() . '/css/web/css2.css';?>" rel="stylesheet" type="text/css" />
+   <link href="<?php echo $this->baseUrl() . '/css/web/forms.css';?>" rel="stylesheet" type="text/css" />
+*/
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="image/x-icon" href="<?php echo $this->baseUrl() . '/m_web/images/favicon.ico';?>" rel="shortcut icon"/>
+    <?php echo $this->headMeta()."\n"; ?>
+    <?php echo $this->headTitle()."\n"; ?>
+ 
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/js/Tonyprr/modules/web/lib.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/js/vendors/jquery.tools.min.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/js/vendors/LibRG.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/js/vendors/funciones.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/js/vendors/jquery/jquery.form.js';?>"></script>
+    
+    <link href="<?php echo $this->baseUrl() . '/js/vendors/jquery/tools/css/tools.css';?>" rel="stylesheet" type="text/css" />
+<?php    
+$layoutZ=Zend_Layout::getMvcInstance();
+$view=$layoutZ->getView();
+ZendX_JQuery::enableView($view);
+
+   if ($this->jQuery()->isEnabled()) {
+    $this->jQuery()
+        ->setUiLocalPath($this->baseUrl()."/js/vendors/jquery/jquery-ui3/js/jquery-ui.js")
+        ->addStylesheet($this->baseUrl()."/js/vendors/jquery/jquery-ui3/css/jquery-ui.css")
+        ->addStylesheet($this->baseUrl()."/js/vendors/jquery/spinner/ui.spinner.css")
+        ->addJavascriptFile($this->baseUrl()."/js/vendors/jquery/spinner/ui.spinner.min.js")
+        ->addJavascriptFile($this->baseUrl()."/js/vendors/jquery/uniform/jquery.uniform.min.js")
+        ->addStylesheet($this->baseUrl()."/js/vendors/jquery/uniform/css/uniform.default.css");
+    echo $this->jQuery().PHP_EOL;
+   }
+?>    
+ 
+</head>
+<body>
+
+ <?php echo $this->layout()->content; ?>    
+    
+</body>
+</html>

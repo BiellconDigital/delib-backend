@@ -1,0 +1,73 @@
+<div id="sub-content-interior" align="center">
+    <div id="content-center">
+        <div id="content-left">
+            <div id="divTitleContent">CONTÁCTENOS</div>
+            <div id="divSubContentCompText">
+                <div>
+                    
+                    <span><b>INFORMACIÓN DE CONTACTO</b></span><br/>
+                    <p>Telf:  (+511) 276-5280</p>
+                    <p>E-mail:  informes@reset.pe</p>
+                    
+                    <div id="divSubTitleContent">Formulario de contacto</div>
+                    
+                    <?php if (count($this->messages) > 0) : ?>
+                    <div>
+                        <ul class="message-error">
+                            <?php foreach ($this->messages as $message) : ?>
+                                <li><?php echo $message ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                
+                    <div id="contacFields">
+                        <form method="POST" action="<?php echo $this->url(array('controller'=>'contactenos', 'action'=>'index'),'default',true); ?>">
+                            <div id="contactFieldsTR" align="left">
+                                <div id="contactTRDesc"><span><?php echo $this->translate("CONTACT_FIELD_NOMBRE");?>:</span></div>
+                                <div id="contactTRInput"><input type="text" id="contact_nom" name="contact_nom" class="form_text_long" value="" /></div>
+                            </div>
+                            <div id="contactFieldsTR" align="left">
+                                <div id="contactTRDesc"><span><?php echo $this->translate("CONTACT_FIELD_APELLIDO");?>:</span></div>
+                                <div id="contactTRInput"><input type="text" class="form_text_long" id="contact_apell" name="contact_apell" value="" /></div>
+                            </div>
+                            <div id="contactFieldsTR" align="left">
+                                <div id="contactTRDesc"><span><?php echo $this->translate("CONTACT_FIELD_EMPRESA");?>:</span></div>
+                                <div id="contactTRInput"><input type="text" class="form_text_long" value="" name="contact_empresa" /></div>
+                            </div>
+                            <div id="contactFieldsTR" align="left">
+                                <div id="contactTRDesc"><span><?php echo $this->translate("CONTACT_FIELD_CORREO");?>:</span></div>
+                                <div id="contactTRInput"><input type="text" class="form_text_long" id="contact_correo" name="contact_correo" value="" /></div>
+                            </div>
+                            <div id="contactFieldsTR" align="left">
+                                <div id="contactTRDesc"><span><?php echo $this->translate("CONTACT_FIELD_TELEF");?>:</span></div>
+                                <div id="contactTRInput"><input type="text" class="form_text_long" value="" name="contact_telef" /></div>
+                            </div>
+                            <div id="contactFieldsTR" align="left">
+                                <div id="contactTRDesc"><span><?php echo $this->translate("CONTACT_FIELD_MSJ");?>:</span></div>
+                                <div id="contactTRInputTEA">
+                                    <textarea id="contact_msj" class="form_text_long" name="contact_msj" rows="4"></textarea><br />
+                                    <div id="contactBtn" align="right">
+                                        <input type="submit" class="form_button" value="<?php echo $this->translate("CONTACT_BTN_ENVIAR");?>"/>&nbsp;&nbsp;
+                                        <input type="reset" class="form_button" value="<?php echo $this->translate("CONTACT_BTN_BORRAR");?>" onclick="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                
+                
+                </div>
+            </div>
+        </div>
+        
+        <div id="content-right">
+            <img src="<?php echo $this->baseUrl() . '/m_web/images/interior/empresa.jpg';?>" width="86%" border="0" align="absmiddle" style="cursor:pointer;"/>
+        </div>
+    </div>
+</div>
+<div id="sub-free"></div>
+
+<script type="text/javascript">
+	$('#divSubContentCompText').jScrollPane();
+</script>

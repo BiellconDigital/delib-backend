@@ -1,0 +1,111 @@
+web\Entity\CmsUser:
+    type: entity
+    table: cms_users
+    fields:
+        iduser:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __idUser
+            generator:
+                strategy: IDENTITY
+        role:
+            type: string
+            length: 6
+            fixed: false
+            nullable: false
+            column: __role
+        nameUser:
+            type: string
+            length: 70
+            fixed: false
+            nullable: false
+            column: __name_user
+        addressUser:
+            type: string
+            length: 150
+            fixed: false
+            nullable: false
+            column: __address_user
+        documentUser:
+            type: string
+            length: 20
+            fixed: false
+            nullable: true
+            column: __document_user
+        ocupationUser:
+            type: string
+            length: 70
+            fixed: false
+            nullable: true
+            column: __ocupation_user
+        phoneUser:
+            type: string
+            length: 20
+            fixed: false
+            nullable: true
+            column: __phone_user
+        mobileUser:
+            type: string
+            length: 28
+            fixed: false
+            nullable: true
+            column: __mobile_user
+        emailUser:
+            type: string
+            length: 150
+            fixed: false
+            nullable: false
+            column: __email_user
+        nickUser:
+            type: string
+            length: 15
+            fixed: false
+            nullable: false
+            column: __nick_user
+        passUser:
+            type: string
+            length: 60
+            fixed: false
+            nullable: false
+            column: __pass_user
+        typeUser:
+            type: string
+            length: 8
+            fixed: false
+            nullable: false
+            column: __type_user
+        stateUser:
+            type: boolean
+            nullable: false
+            column: __state_user
+        registrationUser:
+            type: datetime
+            nullable: true
+            column: __registration_user
+        modificationDateUser:
+            type: datetime
+            nullable: true
+            column: __modification_date_user
+    indexes:
+        user_role_idx:
+            columns: [ __role ]
+        user_email_idx:
+            columns: [ __email_user ]
+        user_pass_idx:
+            columns: [ __pass_user ]
+        user_state_idx:
+            columns: [ __state_user ]
+    manyToOne:
+        typeDocuUser:
+            targetEntity: web\Entity\CmsTipoDocumento
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __type_docu_user:
+                    onUpdate: CASCADE
+                    referencedColumnName: __idtipo_documento
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,52 @@
+CartCarritoProducto:
+    type: entity
+    table: cart_carrito__producto
+    fields:
+        idCarritoProducto:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_carrito_producto
+            generator:
+                strategy: IDENTITY
+        cantidad:
+            type: float
+            nullable: false
+            column: __cantidad
+        precio:
+            type: float
+            nullable: false
+            column: __precio
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+        fechaModificacion:
+            type: datetime
+            nullable: true
+            column: __fecha_modificacion
+    manyToOne:
+        carrito:
+            targetEntity: cart\Entity\CartCarrito
+            cascade: {  }
+            mappedBy: null
+            inversedBy: detalle
+            joinColumns:
+                __id_carrito:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_carrito
+            orphanRemoval: false
+        producto:
+            targetEntity: cart\Entity\CartProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idProducto:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idProducto
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

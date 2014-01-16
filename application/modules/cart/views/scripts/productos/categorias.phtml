@@ -1,0 +1,75 @@
+        <div id="sub-content-interior-news">
+            <div id="lineRedTop"></div>
+            <div id="divTitleContent">
+                <a href="<?php echo $this->url(array('controller'=>'productos', 'action'=>'categorias'),'cart',true); ?>" style="text-decoration: none;">
+                    <span class="text_rojo_med"><?php echo $this->translate("SUBCONT_PRODUCTOS");?></span>
+                </a>
+            </div>
+                <?php if (count($this->messages) > 0) : ?>
+                <ul class="message-error">
+                <?php foreach ($this->messages as $message) : ?>
+                    <li><?php echo $message ?></li>
+                <?php endforeach; ?>
+                </ul>
+                <?php endif; ?>
+            
+            <div id="divSubContentProducts_2" align="center">
+        
+<?php 
+    $totalProductosCategorias = count($this->aProductoCategorias);
+//    var_dump($this->aProductoCategorias);
+    
+    $pathAdjunto = null;
+    if ($totalProductosCategorias > 0) {
+        $contador = 0;
+        foreach ($this->aProductoCategorias as $aProductoCategoria) {
+            if( is_file(PTH_FILES_CART . DS . 'producto'. DS . $aProductoCategoria['imagenCate']) and !is_dir(PTH_FILES_CART . DS.'producto'. DS . $aProductoCategoria['imagenCate']))
+                $pathImgProd = $this->baseUrl() . '/m_cart/files/producto/' . $aProductoCategoria['imagenCate'];
+            else
+                $pathImgProd = $this->baseUrl() . '/m_web/images/sin-imagen.png';
+//            if( file_exists(PTH_FILES_CART . DS .'producto'. DS . $aProductoCategoria['adjunto']) and !is_dir(PTH_FILES_CART . DS . 'producto'. DS . $aProductoCategoria['adjunto']))
+//                $pathAdjunto = $this->baseUrl() . '/m_cart/files/producto/' . $aProductoCategoria['adjunto'];
+//            $fechaPub = (!is_null($aProductoCategoria['fechainipub']))?$aProductoCategoria['fechainipub']->format("d-m-Y"):"";
+            $contador++;
+?>
+
+            <?php if($contador%3 == 1 or $contador==1 ) { ?>
+                <div id="divSubContProdTRImg">
+            <?php }?>
+
+                    <div id="divSubContProdTDImg">
+                        <a href="<?php echo $this->url(array('controller'=>'productos', 'action'=>'index', 'id'=> $aProductoCategoria['idcontcate']),'cart',true); ?>" class="text_no_underline">
+                        <span class="text_plomo_2_small"><?php echo $aProductoCategoria['descripcion'];?></span><br /><br />
+                        <img src="<?php echo $pathImgProd;?>" width="250" height="158" border="0" />
+                        </a>                     
+                    </div>
+                    
+                    <?php if($contador%3 != 0) { ?>
+                        <div id="divLineVertProd"></div>
+                    <?php } ?>
+
+            <?php if($contador == $totalProductosCategorias  or $contador%3 == 0) { ?>
+                </div>
+            <?php } ?>
+                
+            <?php if($contador%3 == 0 and $contador != $totalProductosCategorias) { ?>
+                <div id="divLineHorizProd"></div>
+            <?php } ?>
+                
+                
+
+<?php 
+        }
+    }
+?>
+        
+                
+    </div>
+    <div id="linePlomoTop" align="center"></div>
+</div>
+<script type="text/javascript">
+	$('#divSubContentProducts_2').jScrollPane();
+	changeStyleDivContentUp(2);
+	habilitOpcSubContent(2);
+</script>
+

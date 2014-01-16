@@ -1,0 +1,47 @@
+cart\Entity\CartOrdenEstadoLanguage:
+    type: entity
+    repositoryClass: cart\Repositories\CartOrdenEstadoLanguageRepository
+    table: cart_orden__estado_language
+    fields:
+        idOrdenestadoLanguage:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_OrdenEstado_Language
+            generator:
+                strategy: IDENTITY
+        nombre:
+            type: string
+            length: 140
+            fixed: false
+            nullable: false
+            column: __nombre
+        detalle:
+            type: text
+            nullable: true
+            column: __detalle
+    manyToOne:
+        ordenEstado:
+            targetEntity: cart\Entity\CartOrdenEstado
+            cascade: {  }
+            mappedBy: null
+            inversedBy: languages
+            joinColumns:
+                __id_orden_estado:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_orden_estado
+            orphanRemoval: false
+        language:
+            targetEntity: web\Entity\CmsLanguage
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_language:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_language
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,94 @@
+web\Entity\CmsContent:
+    type: entity
+    table: cms_content
+    fields:
+        idcontent:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __idContent
+            generator:
+                strategy: IDENTITY
+        imagen:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __imagen
+        adjunto:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __adjunto
+        orden:
+            type: integer
+            unsigned: false
+            nullable: true
+            column: __orden
+        estado:
+            type: boolean
+            nullable: false
+            column: __estado
+        fechainipub:
+            type: date
+            nullable: true
+            column: __fecha_IniPub
+        fechafinpub:
+            type: date
+            nullable: true
+            column: __fecha_FinPub
+        fechamodf:
+            type: datetime
+            nullable: true
+            column: __fecha_modf
+        fechareg:
+            type: datetime
+            nullable: true
+            column: __fecha_reg
+    indexes:
+        # the name of the index
+        content_estado_idx:
+            # Columns is an array, specify multiple columns for
+            # a compound index
+            columns: [ __estado ]
+        content_fechainipub_idx:
+            columns: [ __fecha_FinPub ]
+    manyToOne:
+        contcate:
+            targetEntity: web\Entity\CmsContentCategoria
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idContCate:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idContCate
+            orphanRemoval: false
+        tipo:
+            targetEntity: web\Entity\CmsContentTipo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idTipo:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idTipo
+            orphanRemoval: false
+    oneToMany:
+        languages:
+            targetEntity: web\Entity\CmsContentLanguage
+            mappedBy: content
+            cascade: [ "persist","remove" ]
+        galeria:
+            targetEntity: web\Entity\CmsContentGaleria
+            mappedBy: content
+            cascade: [ "persist","remove" ]
+        comentarios:
+            targetEntity: web\Entity\CmsContentComentario
+            mappedBy: content
+            cascade: [ "persist","remove" ]
+    lifecycleCallbacks: {  }

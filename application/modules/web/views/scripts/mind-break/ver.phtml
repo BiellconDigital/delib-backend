@@ -1,0 +1,58 @@
+<div id="sub-content-interior" align="center">
+    <div id="content-center">
+        <div id="content-left">
+                <?php if (count($this->messages) > 0) : ?>
+                <div>
+                    <ul class="message-error">
+                        <?php foreach ($this->messages as $message) : ?>
+                            <li><?php echo $message ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
+                
+                <?php        
+                $pathAdjunto = null;
+                $pathImg = null;
+                if($this->oContent instanceof \web\Entity\CmsContent) {
+                    if( file_exists(PTH_FILES . DS.'content'. DS . $this->oContent->getImagen()) and !is_dir(PTH_FILES . DS.'content'. DS . $this->oContent->getImagen()))
+                        $pathImg = $this->baseUrl() . '/m_web/files/content/' . $this->oContent->getImagen();
+                    else 
+                        $pathImg = $this->baseUrl() . '/m_web/images/sin-imagen.png';
+
+                    if( file_exists(PTH_FILES . DS .'content'. DS . $this->oContent->getAdjunto()) and !is_dir(PTH_FILES . DS . 'content'. DS . $this->oContent->getAdjunto()))
+                        $pathAdjunto = $this->baseUrl() . '/m_web/files/content/' . $this->oContent->getAdjunto();
+                ?>
+
+                        <div id="divTitleContent"><?php echo $this->oContentLang->getDescripcion();?></div>
+                        <div id="divSubContentCompText">
+                            <div>
+                                <?php echo $this->oContentLang->getDetalle();?>
+                            </div>
+                            <div id="content-right">
+                            <?php if (!is_null($pathAdjunto)) { ?>
+                                <p><a href="<?php echo $pathAdjunto ?>" target="_blank"><span>Ver más</span></a></p>
+                            <?php } ?>
+                            </div>
+                        </div>
+                <?php            
+                }
+                ?>
+        </div>
+        
+        <div id="content-right">
+                <?php            
+                if (!is_null($pathImg)) {
+                ?>
+                    <img src="<?php echo $pathImg;?>" width="86%" border="0" align="absmiddle" style="cursor:pointer;"/>
+                <?php            
+                }
+                ?>
+        </div>
+    </div>
+</div>
+<div id="sub-free"></div>
+
+<script type="text/javascript">
+	$('#divSubContentCompText').jScrollPane();
+</script>

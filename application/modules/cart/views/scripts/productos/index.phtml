@@ -1,0 +1,132 @@
+<style>
+        .output{margin:20px 40px;}
+        .output a{display:inline-block; text-decoration:none; padding:3px 15px; -webkit-border-radius:15px; -moz-border-radius:15px; border-radius:15px; background:#000; margin:5px 20px 5px 0;}
+        code{color:#5b70ff;}
+        /*.content{margin:40px; width:260px; height:500px; padding:20px; overflow:auto; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}*/
+        .content p:nth-child(even){color:#999; font-family:Georgia,serif; font-size:17px; font-style:italic;}
+        .content p:nth-child(3n+0){color:#c96;}
+</style>
+<script language="JavaScript">	
+	$(document).ready(function() {
+		$(".topnav").accordion({
+			accordion:false,
+			speed: 500,
+			closedSign: '<img src="<?php echo $this->baseUrl() . '/m_web/images/menu_vert/plus.png'; ?>" width="12px" height="12px" border="0" />',
+			openedSign: '<img src="<?php echo $this->baseUrl() . '/m_web/images/menu_vert/minus.png'; ?>" width="12px" height="12px" border="0" />'
+		});
+    <?php if (isset($this->idprod)) { ?>
+        loadProducto( <?php echo $this->idprod; ?> );
+    <?php } ?>
+                
+    <?php if (isset($this->idLista)) { ?>
+        loadProductos( <?php echo $this->idLista; ?> );
+    <?php } ?>
+                
+	});
+</script>
+
+        <div id="sub-content-interior-news">
+            <div id="lineRedTop"></div>
+            <div id="divTitleContent">
+                <a href="<?php echo $this->url(array('controller'=>'productos', 'action'=>'categorias'),'cart',true); ?>" style="text-decoration: none;">
+                	<span id="titleProd" class="text_rojo_med"><?php echo  $this->translate("SUBCONT_PRODUCTOS");?></span>&nbsp;
+                </a>
+                <span id="titleProdAddc" class="text_rojo_small_2">
+                    <?php if (!is_null($this->oProductoCategoriaLang)) { ?>
+                         / <?php echo $this->oProductoCategoriaLang->getDescripcion();?>
+                    <?php } ?>
+                </span>
+            </div>
+                <?php if (count($this->messages) > 0) : ?>
+                <ul class="message-error">
+                <?php foreach ($this->messages as $message) : ?>
+                    <li><?php echo $message ?></li>
+                <?php endforeach; ?>
+                </ul>
+                <?php endif; ?>
+            
+            <div id="contentProdDetail">
+                <div id="divProdDetMenuVer" class="content">
+                    <?php 
+                        echo $this->htmlCategorias;
+                    ?>
+                </div>
+                
+                <div id="divSubContentProductsDet"  class="content" align="center">
+                    
+<?php 
+    $totalProductosCategorias = count($this->aProductoCategorias);
+//    var_dump($this->aProductoCategorias);
+    
+    $pathAdjunto = null;
+    if ($totalProductosCategorias > 0) {
+        $contador = 0;
+        foreach ($this->aProductoCategorias as $aProductoCategoria) {
+            if( is_file(PTH_FILES_CART . DS . 'producto'. DS . $aProductoCategoria['imagenCate']) and !is_dir(PTH_FILES_CART . DS.'producto'. DS . $aProductoCategoria['imagenCate']))
+                $pathImgProd = $this->baseUrl() . '/m_cart/files/producto/' . $aProductoCategoria['imagenCate'];
+            else
+                $pathImgProd = $this->baseUrl() . '/m_web/images/sin-imagen.png';
+//            if( file_exists(PTH_FILES_CART . DS .'producto'. DS . $aProductoCategoria['adjunto']) and !is_dir(PTH_FILES_CART . DS . 'producto'. DS . $aProductoCategoria['adjunto']))
+//                $pathAdjunto = $this->baseUrl() . '/m_cart/files/producto/' . $aProductoCategoria['adjunto'];
+//            $fechaPub = (!is_null($aProductoCategoria['fechainipub']))?$aProductoCategoria['fechainipub']->format("d-m-Y"):"";
+            $contador++;
+?>
+
+            <?php if($contador%3 == 1 or $contador==1 ) { ?>
+                <div id="divSubContProdDetTRImg">
+            <?php }?>
+
+                    <div id="divSubContProdDetTDImg" onclick="loadProductos(<?php echo $aProductoCategoria['idcontcate'];?>)" style="cursor: pointer;">
+                        <span class="text_plomo_2_small"><?php echo $aProductoCategoria['descripcion'];?></span><br /><br />
+                        <img src="<?php echo $pathImgProd;?>" width="200" height="143" border="0" />
+                    </div>
+                    <?php if($contador%3 != 0) { ?>
+                        <div id="divLineVertProdDet"></div>
+                    <?php } ?>
+
+            <?php if($contador == $totalProductosCategorias  or $contador%3 == 0) { ?>
+                </div>
+            <?php } ?>
+                
+            <?php if($contador%3 == 0 and $contador != $totalProductosCategorias) { ?>
+                <div id="divSubContProdDetLineHor"></div>
+            <?php } ?>
+                
+                
+
+<?php 
+        }
+    }
+?>
+                    
+                 </div>
+            </div>
+            <div id="linePlomoTop" align="center"></div>
+        </div>
+
+<script type="text/javascript">
+    (function($){
+        $(window).load(function(){
+            $("#divProdDetMenuVer").mCustomScrollbar({
+                scrollButtons:{
+                    enable:true
+                },
+                theme:"dark-thick"
+//                ,updateOnContentResize: true
+            });
+            $("#divSubContentProductsDet").mCustomScrollbar({
+                scrollButtons:{
+                    enable:true
+                }
+                ,theme:"dark-thick"
+//                ,updateOnContentResize: true
+            });
+        });
+    })(jQuery);
+    
+    
+//	$('#divProdDetMenuVer').jScrollPane();
+//	$('#divSubContentProductsDet').jScrollPane();
+//	changeStyleDivContentUp(2);
+//	habilitOpcSubContent(2);
+</script>

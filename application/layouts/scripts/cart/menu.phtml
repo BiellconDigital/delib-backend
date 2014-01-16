@@ -1,0 +1,29 @@
+<?php
+//$item = 0;
+//$controller = Zend_Controller_Request_Http::;
+$item = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+//echo "valor:" . $item;
+?>
+<div id='cssmenu'>
+    <ul>
+       <li class="item_menu_head" id="menu_li_novedades"><a class="item_menu_head_a" id="menu_a_novedades" href="#"><span><?php echo $this->translate("MENU_NOVEDADES");?></span></a>
+            <ul>
+                <li><a id="menu_a_9" onmouseover="styleUL(true);" onmouseout="styleUL(false);" href="<?php echo $this->url(array('controller'=>'novedades', 'action'=>'index'),'default',true); ?>"><span><?php echo $this->translate("MENU_SUB_ACTUALD");?></span></a></li>
+                <li><a id="menu_a_10" onmouseover="styleUL(true);" onmouseout="styleUL(false);" href="<?php echo $this->url(array('controller'=>'novedades', 'action'=>'datos-de-interes'),'default',true); ?>"><span><?php echo $this->translate("MENU_SUB_DATINT");?></span></a></li>
+            </ul>
+       </li>
+       <li class="item_menu_head" id="menu_li_representaciones"><a class="item_menu_head_a" id="menu_a_representaciones" href="<?php echo $this->url(array('controller'=>'representaciones', 'action'=>'index'),'default',true); ?>"><span><?php echo $this->translate("MENU_REPRESENTACIONES");?></span></a></li>
+       <li class="item_menu_head" id="menu_li_clientes"><a class="item_menu_head_a" id="menu_a_clientes" href="<?php echo $this->url(array('controller'=>'clientes', 'action'=>'index'),'default',true); ?>"><span><?php echo $this->translate("MENU_CLIENTES");?></span></a></li>
+       <li class="item_menu_head" id="menu_li_empleados"><a class="item_menu_head_a" id="menu_a_empleados" href="<?php echo $this->url(array('controller'=>'empleados', 'action'=>'index'),'default',true); ?>"><span><?php echo $this->translate("MENU_EMPLEADOS");?></span></a></li>
+       <li class="item_menu_head" id="menu_li_responsabilidad-social" style="border-right:none;"><a class="item_menu_head_a" id="menu_a_responsabilidad-social" href="<?php echo $this->url(array('controller'=>'responsabilidad-social', 'action'=>'index'),'default',true); ?>"><span><?php echo $this->translate("MENU_RESPONS_SOCIAL");?></span></a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+// LIMPIANDO IMÁGENES DEL MENÚ
+	clearImgMenu("<?php echo $item;?>");
+//openScriptScroll(1);
+</script>
+
+
+
+

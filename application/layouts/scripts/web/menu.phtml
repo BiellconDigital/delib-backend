@@ -1,0 +1,30 @@
+<?php
+    $item = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+    $authSesion = new Zend_Session_Namespace(SES_USER);
+//    $objContent = new \web\Services\Content();
+//    list($aContenido1, $count1, $oContenido1Cate) = $objContent->aList(2, $authSesion->oLanguage, 1);
+//    list($aContenido2, $count2, $oContenido2Cate) = $objContent->aList(4, $authSesion->oLanguage, 1);
+?>
+<div id='cssmenu' align="center">
+    <ul>
+       <li class="item_menu_head" id="menu_li_index"><a class="item_menu_head_a" id="menu_a_index" href="<?php echo $this->url(array('controller'=>'index', 'action'=>'index'),'default',true); ?>"><span>INICIO</span></a></li>
+       <li class="item_menu_head" id="menu_li_empresa"><a class="item_menu_head_a" id="menu_a_empresa" href="<?php echo $this->url(array('controller'=>'empresa', 'action'=>'index'),'default',true); ?>"><span>EMPRESA</span></a></li>
+       <li class="item_menu_head" id="menu_li_yoga"><a class="item_menu_head_a" id="menu_a_yoga" href="#"><span>OFFICE YOGA</span></a>
+       </li>
+       <li class="item_menu_head" id="menu_li_mind_break"><a class="item_menu_head_a" id="menu_a_mind_break" href="#"><span>MIND BREAK</span></a>
+       </li>
+       <li class="item_menu_head" id="menu_li_nutricion"><a class="item_menu_head_a" id="menu_a_nutricion" href="<?php echo $this->url(array('controller'=>'nutricion', 'action'=>'index'),'default',true); ?>"><span>CHARLAS DE NUTRICION</span></a></li>
+       <li class="item_menu_head" id="menu_li_noticias"><a class="item_menu_head_a" id="menu_a_noticias" href="<?php echo $this->url(array('controller'=>'noticias', 'action'=>'index'),'default',true); ?>"><span>NOTICIAS</span></a></li>
+       <li class="item_menu_head" id="menu_li_contactenos"><a class="item_menu_head_a" id="menu_a_contactenos" href="<?php echo $this->url(array('controller'=>'contactenos', 'action'=>'index'),'default',true); ?>"><span>CONTACTENOS</span></a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+// LIMPIANDO IMÁGENES DEL MENÚ
+	clearImgMenu("<?php echo $item;?>");
+//openScriptScroll(1);
+</script>
+
+
+
+
+

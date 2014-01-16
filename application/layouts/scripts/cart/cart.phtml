@@ -1,0 +1,77 @@
+<?php echo $this->doctype()."\n";
+//xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    $translate = Zend_Registry::get('Zend_Translate');
+    $locale = $translate->getLocale();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="image/x-icon" href="<?php echo $this->baseUrl() . '/m_web/images/favicon.ico';?>" rel="shortcut icon"/>
+    <?php echo $this->headMeta()."\n"; ?>
+    <?php echo $this->headTitle()."\n"; ?>
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/styles.css';?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/style_menu.css';?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/style_scroll.css';?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/style_slider.css';?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/scroll/jquery.jscrollpane.css';?>" rel="stylesheet" type="text/css" />
+    
+    <link href="<?php echo $this->baseUrl() . '/m_web/css/' . $locale . '.css';?>" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/lib.js';?>"></script>
+<?php    
+$layoutZ=Zend_Layout::getMvcInstance();
+$view=$layoutZ->getView();
+ZendX_JQuery::enableView($view);
+//ZendX_JQuery_View_Helper_JQuery::enableNoConflictMode();
+
+   if ($this->jQuery()->isEnabled()) {
+    $this->jQuery()
+        ->setLocalPath($this->baseUrl()."/common/vendors/jquery/jquery.tools.min.js")
+        ->setUiLocalPath($this->baseUrl()."/common/vendors/jquery/jquery-ui3/js/jquery-ui.js")
+        ->addStylesheet($this->baseUrl()."/common/vendors/jquery/jquery-ui3/css/jquery-ui.css")
+        ->addStylesheet($this->baseUrl()."/common/vendors/jquery/spinner/ui.spinner.css")
+        ->addJavascriptFile($this->baseUrl()."/common/vendors/jquery/spinner/ui.spinner.min.js")
+        ->addJavascriptFile($this->baseUrl()."/common/vendors/jquery/uniform/jquery.uniform.min.js")
+        ->addStylesheet($this->baseUrl()."/common/vendors/jquery/uniform/css/uniform.default.css");
+    echo $this->jQuery().PHP_EOL;
+   } else {
+?>    
+   <link href="<?php echo $this->baseUrl() . '/common/vendors/jquery/jquery-ui3/css/jquery-ui.css';?>" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/common/vendors/jquery/jquery.tools.min.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/common/vendors/jquery/jquery-ui3/js/jquery-ui.js';?>"></script>
+<?php    
+   }
+?>    
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/common/vendors/jquery/jquery-ui3/development-bundle/ui/i18n/jquery.ui.datepicker-es.js';?>"></script>
+    
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/common/js/swfobject.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/common/vendors/jquery/jquery.form.js';?>"></script>
+    
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/functions.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/scroll/jquery.mousewheel.js';?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl() . '/m_web/js/scroll/jquery.jscrollpane.min.js';?>"></script>
+    
+    <script type="text/javascript" charset="utf-8">
+        Tonyprr.BASE_PATH = '<?php echo $this->baseUrl();?>';
+        Tonyprr.BASE_URL = '<?php echo $this->baseUrl();?>';
+    </script>
+</head>
+<body>
+<div id="page">
+    <div id="main-content">
+        <div id="header" align="center">
+            <?php echo $this->render('header.phtml') ?>
+        </div>
+        <div id="menu" align="center">
+        <?php echo $this->render('menu.phtml');?>
+        </div>
+            <?php echo $this->layout()->content; ?>
+        <div id="sub-content">
+            <?php echo $this->render('bannerinf.phtml') ?>
+        </div>
+        
+    </div>
+</div>
+<div id="footer">
+    <?php echo $this->render('footer.phtml') ?>
+</div>
+</body>
+</html>

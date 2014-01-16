@@ -1,0 +1,149 @@
+web\Entity\CmsCliente:
+    type: entity
+    table: cms_cliente
+    fields:
+        idCliente:
+            id: true
+            type: bigint
+            nullable: false
+            column: __id_cliente
+            generator:
+                strategy: IDENTITY
+        role:
+            type: string
+            length: 6
+            fixed: false
+            nullable: false
+            column: __role
+        nombres:
+            type: string
+            length: 30
+            fixed: false
+            nullable: false
+            column: __nombres
+        apellidoPaterno:
+            type: string
+            length: 25
+            fixed: false
+            nullable: false
+            column: __apellido_paterno
+        apellidoMaterno:
+            type: string
+            length: 25
+            fixed: false
+            nullable: true
+            column: __apellido_materno
+        email:
+            type: string
+            length: 150
+            fixed: false
+            nullable: false
+            column: __email
+        nroDocumento:
+            type: string
+            length: 45
+            fixed: false
+            nullable: true
+            column: __nro_documento
+        genero:
+            type: string
+            length: 1
+            fixed: false
+            nullable: true
+            column: __genero
+        fechaNacimiento:
+            type: date
+            nullable: true
+            column: __fecha_nacimiento
+        telefonoCasa:
+            type: string
+            length: 30
+            fixed: false
+            nullable: true
+            column: __telefono_casa
+        telefonoOficina:
+            type: string
+            length: 30
+            fixed: false
+            nullable: true
+            column: __telefono_oficina
+        movil:
+            type: string
+            length: 30
+            fixed: false
+            nullable: true
+            column: __movil
+        clave:
+            type: string
+            length: 70
+            fixed: false
+            nullable: true
+            column: __clave
+        recibirOfertasMail:
+            type: boolean
+            nullable: true
+            column: __recibir_ofertas_mail
+        recibirOfertasMovil:
+            type: boolean
+            nullable: true
+            column: __recibir_ofertas_movil
+        estado:
+            type: boolean
+            nullable: false
+            column: __estado
+        foto:
+            type: string
+            length: 150
+            fixed: false
+            nullable: true
+            column: __foto
+        fechaModificacion:
+            type: datetime
+            nullable: true
+            column: __fecha_modificacion
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_Registro
+    indexes:
+        cliente_role_idx:
+            columns: [ __role ]
+        cliente_nombres_idx:
+            columns: [ __nombres ]
+        cliente_apepat_idx:
+            columns: [ __apellido_paterno ]
+        cliente_apemat_idx:
+            columns: [ __apellido_materno ]
+        cliente_mail_idx:
+            columns: [ __email ]
+        cliente_clave_idx:
+            columns: [ __clave ]
+        cliente_estado_idx:
+            columns: [ __estado ]
+    manyToOne:
+        pais:
+            targetEntity: CmsPais
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_Pais:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_Pais
+            orphanRemoval: false
+        tipoDocumento:
+            targetEntity: web\Entity\CmsTipoDocumento
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idtipo_documento:
+                    onUpdate: CASCADE
+                    referencedColumnName: __idtipo_documento
+            orphanRemoval: false
+    oneToMany:
+        direcciones:
+            targetEntity: web\Entity\CmsClienteDireccion
+            mappedBy: cliente
+            cascade: [ "persist","remove" ]
+    lifecycleCallbacks: {  }

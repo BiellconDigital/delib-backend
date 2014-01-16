@@ -1,0 +1,71 @@
+/*
+ * CSS Styles that are needed by jScrollPane for it to operate correctly.
+ *
+ * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
+ * may not operate correctly without them.
+ */
+ 
+#top-nav
+{
+	width: 780px;
+	background: #50506d;
+	padding: 0 20px 12px 0;
+	margin: 0 auto 20px;
+	overflow: hidden;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-border-radius-topleft: 0;
+	-webkit-border-top-left-radius: 0;
+	border-radius-topleft: 0;
+	-moz-border-radius-topright: 0;
+	-webkit-border-top-right-radius: 0;
+	border-radius-topright: 0;
+}
+
+#top-nav img
+{
+	float: left;
+}
+
+#top-nav ul
+{
+	margin: 28px 0 0;
+	overflow: hidden;
+	float: right;
+}
+
+#top-nav ul li
+{
+	float: left;
+	padding: 0 0 0 1em;
+	list-style: none;
+}
+
+#top-nav ul li a
+{
+	color: #fff;
+}
+
+#top-nav ul li a:hover
+{
+	color: #ffa;
+}
+
+#top-nav ul li:last-child
+{
+	padding-right: 0;
+}
+
+#container
+{
+	width: 760px;
+	background: #eeeef4;
+	padding: 20px;
+	margin: 20px auto;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}

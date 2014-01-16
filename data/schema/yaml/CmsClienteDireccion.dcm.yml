@@ -1,0 +1,88 @@
+web\Entity\CmsClienteDireccion:
+    type: entity
+    table: cms_cliente__direccion
+    fields:
+        idClienteDireccion:
+            id: true
+            type: bigint
+            nullable: false
+            column: __id_cliente_direccion
+            generator:
+                strategy: IDENTITY
+        dirprinDespacho:
+            type: boolean
+            nullable: true
+            column: __dirprin_despacho
+        dirDespacho:
+            type: boolean
+            nullable: false
+            column: __dir_despacho
+        dirFactura:
+            type: boolean
+            nullable: false
+            column: __dir_factura
+        direccion:
+            type: string
+            length: 130
+            fixed: false
+            nullable: true
+            column: __direccion
+        estado:
+            type: boolean
+            nullable: true
+            column: __estado
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_Registro
+        fechaModificacion:
+            type: datetime
+            nullable: true
+            column: __fecha_Modificacion
+        userModificacion:
+            type: bigint
+            nullable: true
+            column: __user_modificacion
+    manyToOne:
+        cliente:
+            targetEntity: web\Entity\CmsCliente
+            cascade: {  }
+            mappedBy: null
+            inversedBy: direcciones
+            joinColumns:
+                _id__cliente:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_cliente
+            orphanRemoval: false
+        tipoDireccion:
+            targetEntity: web\Entity\CmsTipoDireccion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_tipo_direccion:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_tipo_direccion
+            orphanRemoval: false
+        pais:
+            targetEntity: web\Entity\CmsPais
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_Pais:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_Pais
+            orphanRemoval: false
+        ubigeo:
+            targetEntity: web\Entity\CmsUbigeo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __cod_postal:
+                    onUpdate: CASCADE
+                    referencedColumnName: __cod_postal
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

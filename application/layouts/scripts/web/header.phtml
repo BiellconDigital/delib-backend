@@ -1,0 +1,21 @@
+<?php
+$authSesion = new Zend_Session_Namespace(SES_USER);
+$lang = $authSesion->idioma;
+?>
+<div id="groupHeader">
+        <a href="#" target="_blank"><img src="<?php echo $this->baseUrl() . '/m_web/images/footer/youtube.png';?>" height="26" border="0" style="cursor:pointer;" /></a>
+        <a href="#" target="_blank"><img src="<?php echo $this->baseUrl() . '/m_web/images/footer/facebook.png';?>" height="26" border="0" style="cursor:pointer;" /></a>
+        <img src="<?php echo $this->baseUrl() . '/m_web/images/footer/twitter.png';?>" height="26" border="0" style="cursor:pointer;" />
+</div>
+<div id="logo">
+        <img src="<?php echo $this->baseUrl() . '/m_web/images/header/logo.png';?>" height="80" border="0" align="absmiddle" onclick="window.location='<?php echo $this->url(array('controller'=>'index', 'action'=>'index'),'default',true); ?>';" style="cursor:pointer;"/>
+</div>
+<script type="text/javascript">
+<?php
+//$lang = (isset($_SESSION['lang'])) ? $_SESSION['lang'] : 'es';
+?>
+$("#lang_es").attr("class", "text_black");
+$("#lang_en").attr("class", "text_black");
+$("#lang_<?php echo $lang;?>").attr("class", "text_crema");
+</script>
+

@@ -1,0 +1,46 @@
+cart\Entity\CartMarcaLanguage:
+    type: entity
+    table: cart_marca_language
+    fields:
+        idMarcaLanguage:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_Marca_Language
+            generator:
+                strategy: IDENTITY
+        detalle:
+            type: text
+            nullable: true
+            column: __detalle
+        adjunto:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __adjunto
+    manyToOne:
+        language:
+            targetEntity: web\Entity\CmsLanguage
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_language:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_language
+            orphanRemoval: false
+        marca:
+            targetEntity: cart\Entity\CartMarca
+            cascade: {  }
+            mappedBy: null
+            inversedBy: languages
+            joinColumns:
+                __idMarca:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idMarca
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

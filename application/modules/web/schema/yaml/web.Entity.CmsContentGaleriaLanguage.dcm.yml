@@ -1,0 +1,50 @@
+web\Entity\CmsContentGaleriaLanguage:
+    type: entity
+    repositoryClass: web\Repositories\CmsContentGaleriaLanguageRepository
+    table: cms_content__galeria_language
+    fields:
+        idContentgaleLanguage:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_ContentGale_Language
+            generator:
+                strategy: IDENTITY
+        titulo:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __titulo
+        descripcion:
+            type: text
+            nullable: true
+            column: __descripcion
+    indexes:
+        contentGaleLang_titulo_idx:
+            columns: [ __titulo ]
+    manyToOne:
+        contgale:
+            targetEntity: web\Entity\CmsContentGaleria
+            cascade: {  }
+            mappedBy: null
+            inversedBy: languages
+            joinColumns:
+                __idContGale:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idContGale
+            orphanRemoval: false
+        language:
+            targetEntity: web\Entity\CmsLanguage
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_language:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_language
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,32 @@
+web\Entity\CmsLanguage:
+    type: entity
+    table: cms_language
+    fields:
+        idLanguage:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_language
+            generator:
+                strategy: IDENTITY
+        idioma:
+            type: string
+            length: 70
+            fixed: false
+            nullable: false
+            column: __idioma
+        nombreCorto:
+            type: string
+            length: 6
+            fixed: false
+            nullable: true
+            column: __nombre_corto
+        estado:
+            type: boolean
+            nullable: false
+            column: __estado
+    indexes:
+        keys_estado_idx:
+            columns: [ __estado ]
+    lifecycleCallbacks: {  }
