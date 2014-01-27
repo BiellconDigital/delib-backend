@@ -5,16 +5,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initConfigView() {
 //        $_SERVER['TEMP'] =  realpath(dirname(__FILE__) . '/Proxies');
-        define("SES_ADMIN", "wiltons_admin");
-        define("SES_USER", "wiltons_user");
-        define("SES_CART", "wiltons_cart");
+        define("SES_ADMIN", "delibouquet_admin");
+        define("SES_USER", "delibouquet_user");
+        define("SES_CART", "delibouquet_cart");
         //http://rmf.fciencias.unam.mx/~paris/zend/zend-acl-y-zend-auth/
         //http://otroblogmas.com/zend_acl-autorizacion-y-permisos-en-zend-framework/
         
         $view = new Zend_View();
 //        $view->headMeta()->appendHttpEquiv('Cache-Control', 'no-cache');
         $view->headTitle()->setSeparator(' - ');
-        $view->headTitle(utf8_encode('Wiltons'));
+        $view->headTitle(utf8_encode('Delibouquet'));
         Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
 
         // toma los valores de Zend_Auth, aun no vemos esto no desesperes
@@ -25,11 +25,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         // setup FrontController
         $front = Zend_Controller_Front::getInstance();
+        $router = $front->getRouter();
+        
 //        $front->registerPlugin(new Tonyprr_Plugin_Access());
         $front->registerPlugin(new Tonyprr_Plugin_Authorization($auth, $acl));
         $front->registerPlugin(new Tonyprr_Plugin_Control());
         Zend_Loader_Autoloader::getInstance()->suppressNotFoundWarnings(true);
 //        Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(false);
+        
+        
+        // Specifying the \"api\" module only as RESTful:
+//        $restRoute = new Zend_Rest_Route($front, array(), array(
+//            'productos',
+//        ));
+//        $router->addRoute('rest', $restRoute);        
+        
         $front->throwExceptions(true);
         
 //        $db = Zend_Db::factory($this->_config->db);
@@ -37,6 +47,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 //        $db->query("set time_zone = 'America/Lima'");
 
     } 
+
+    protected function _initRestRoute() {
+        $this->bootstrap('frontController');	 
+        $front = Zend_Controller_Front::getInstance();
+        $restRoute = new Zend_Rest_Route($front, array(), 
+                array('api' => array('productos', 'login'))
+        );
+        $front->getRouter()->addRoute('rest', $restRoute);
+        
+//        $this->bootstrap('frontController');
+//        $fc = Zend_Controller_Front::getInstance();
+//        $route = new Zend_Rest_Route($fc);
+//        $fc->getRouter()->addRoute('default', $route);
+    }
     
     protected function _initTimeZone() {
         date_default_timezone_set('America/Lima');
@@ -111,5 +135,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         
     }
+    
+    protected function _initRequest() {
+        $this->bootstrap('FrontController'); 
+        $front = $this->getResource('FrontController'); 
+        $request = $front->getRequest(); 
+        if (null === $front->getRequest()) {
+            $request = new Zend_Controller_Request_Http(); 
+            $front->setRequest($request); 
+        } 
+        return $request; 
+    }
+    
 }
 

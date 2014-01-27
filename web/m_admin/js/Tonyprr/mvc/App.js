@@ -22,7 +22,12 @@ Ext.define("Tonyprr.mvc.App",{
             'Tonyprr.mvc.controller.Init'
         ],
 	useQuickTips: true,
-	constructor	: function() {
+//        appFolder : 'Tonyprr.mvc',
+//        name: 'Tonyprr.App',
+        launch: function() {
+        }
+        
+	,constructor	: function() {
 		var me = this;
                 me.listController = [];
 		
@@ -232,10 +237,10 @@ Ext.define("Tonyprr.mvc.App",{
                                         text: 'Pedidos',
                                         leaf: true
                                     }
-//                                    ,{
-//                                        text: 'Movimiento de Stock',
-//                                        leaf: true
-//                                    }
+                                    ,{
+                                        text: 'Movimiento de Stock',
+                                        leaf: true
+                                    }
                                 ]
                                 
                             }
@@ -415,7 +420,7 @@ Ext.define("Tonyprr.mvc.App",{
 //                    id : 'idController_'+controllerName
 //                });
 
-                var controllerLoad = Tonyprr.App.getController( 'Tonyprr.mvc.controller.' + module + '.'+controllerName );
+                var controllerLoad = this.getController( 'Tonyprr.mvc.controller.' + module + '.'+controllerName );
                 controllerLoad.init(this.name);
                 this.addListController('Tonyprr.mvc.controller.' + module + '.'+controllerName);
                 this.iniViewController(controllerName, parent, module);
@@ -425,7 +430,8 @@ Ext.define("Tonyprr.mvc.App",{
         },
         
         iniViewController : function (controllerName, parent, module) {
-            Tonyprr.App.getController( 'Tonyprr.mvc.controller.' + module + '.'+controllerName ).initView(parent);
+            this.getController( 'Tonyprr.mvc.controller.' + module + '.'+controllerName ).initView(parent);
         }
         
 });
+

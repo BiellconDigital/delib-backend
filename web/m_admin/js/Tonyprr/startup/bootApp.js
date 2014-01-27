@@ -30,4 +30,6 @@ Ext.onReady(function() {
                 }
             }
     });
+    
+//Ext.application('Tonyprr.mvc.App');    
 });

@@ -7,8 +7,8 @@
         <?php echo $this->headTitle()."\n"; ?>
         <?php //echo $this->headLink()->prependStylesheet($this->baseUrl()."/css/biblioteca.css")."\n"; ?>
         <meta http-equiv="Author" content="Biellcon Digital S.A.C." />
-        <meta http-equiv="Keywords" content="wiltons" />
-        <meta http-equiv="Description" content="wiltons" />
+        <meta http-equiv="Keywords" content="Delibouquet" />
+        <meta http-equiv="Description" content="Delibouquet" />
         <meta content="Spanish" name="Language" />
 
         <link href='<?php echo $this->baseUrl()."/common/css/icons.css";?>' rel='stylesheet' type='text/css' media='screen' />
@@ -28,21 +28,18 @@
 		<p id="msg_load"><b>Espere por favor: Cargando librerias...</b></p>
 	</div>
 
-        <link href='<?php echo $this->baseUrl()."/../../libs/Ext/resources/css/ext-all.css";?>' rel='stylesheet' type='text/css' media='screen' />
-        
-<!--	
-        <link href='<?php //echo $this->baseUrl()."/../../libs/Ext/resources/css/ext-all-gray.css";?>' rel='stylesheet' type='text/css' media='screen' />
-        <script src='<?php //echo $this->baseUrl()."/../../libs/Ext/locale/ext-lang-es.js";?>' type='text/javascript' ></script>
--->
-	<script src='<?php echo $this->baseUrl()."/../../libs/Ext/ext-all-debug-w-comments.js";?>' type='text/javascript' ></script>
+        <link href='<?php echo $this->baseUrl()."/../../../libs/Ext/resources/css/ext-all-gray.css";?>' rel='stylesheet' type='text/css' media='screen' />
+
+	<script src='<?php echo $this->baseUrl()."/../../../libs/Ext/ext-all-dev.js";?>' type='text/javascript' ></script>
+        <script src='<?php echo $this->baseUrl()."/../../../libs/Ext/locale/ext-lang-es.js";?>' type='text/javascript' ></script>
 
         <script src='<?php echo $this->baseUrl()."/m_admin/js/Tonyprr/core/Ajax.js";?>' type='text/javascript' ></script>
 	<script type="text/javascript">document.getElementById('msg_load').innerHTML = '<b>Cargando interfaz inicial del Sistema...</b>';</script> 
         
         <link href='<?php echo $this->baseUrl()."/m_admin/js/vendors/ext/view/data-view.css";?>' rel='stylesheet' type='text/css' media='screen' />
         <script src='<?php echo $this->baseUrl()."/m_admin/js/Tonyprr/core/Constants.js";?>' type='text/javascript' ></script>
-        <script src='<?php echo $this->baseUrl()."/m_admin/js/Tonyprr/startup/bootApp.js";?>' type='text/javascript' ></script>
         <script src='<?php echo $this->baseUrl()."/m_admin/js/vendors/ux/form/field/tinymce/tiny_mce.js";?>' type='text/javascript' ></script>
+        <script src='<?php echo $this->baseUrl()."/m_admin/js/Tonyprr/startup/bootApp.js";?>' type='text/javascript' ></script>
             
             <?php echo $this->layout()->content; ?>            
 	</body>

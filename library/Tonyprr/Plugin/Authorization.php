@@ -136,9 +136,9 @@ class Tonyprr_Plugin_Authorization extends Zend_Controller_Plugin_Abstract
 		// entonces no ha echo "login" y lo dirigo al controlador "login" del modulo "auth"
 		else if ( !$this->_acl->isAllowed($role, $resource) && $role == 'invitado' )
 		{
-                    $request->setModuleName('web');
-                    $request->setControllerName('cliente');
-                    $request->setActionName('login');
+                    $request->setModuleName('api');
+                    $request->setControllerName('login');
+                    $request->setActionName('no-auth');
 		}
 		// Ahora si la persona tiene un "role" distinto de 'guest' y aun as� no pasa
 		// la prueba de identificaci�n lo mando a una p�gina de error.

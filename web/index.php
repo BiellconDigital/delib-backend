@@ -12,16 +12,15 @@ define('BP', dirname(dirname(__FILE__)));
 define('PTH_FILES',BP . DS . 'web' . DS . 'm_web' . DS . 'files');
 define('PTH_FILES_CART',BP . DS . 'web' . DS . 'm_cart' . DS . 'files');
 define('PTH_PUBLIC',BP . DS . 'web' );
-define('DIR_WEB','http://localhost:8052/reset' . '/' . 'web/' );//$_SERVER['SERVER_NAME']
-define('WEB_DOMAIN','http://localhost:8052' );//$_SERVER['SERVER_NAME']
+define('DIR_WEB','http://localhost/delibouquet' . '/' . 'web/' );//$_SERVER['SERVER_NAME']
+define('WEB_DOMAIN','http://localhost' );//$_SERVER['SERVER_NAME']
 
 // Ensure library/ is on include_pathm
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
 //    realpath(APPLICATION_PATH . '/../library/Vendors/Excel'),
     realpath(APPLICATION_PATH . DS . 'modules'),
-//    realpath(APPLICATION_PATH . DS . 'Entity'),
-    realpath(APPLICATION_PATH . '/../../libs'),
+    realpath(APPLICATION_PATH . '/../../../libs'),
     get_include_path(),
 )));
 

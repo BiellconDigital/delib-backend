@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-12-2013 a las 02:20:34
+-- Tiempo de generación: 26-01-2014 a las 12:20:13
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.3.13
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `wiltons`
+-- Base de datos: `delibouquet`
 --
 
 -- --------------------------------------------------------
@@ -83,10 +83,9 @@ CREATE TABLE IF NOT EXISTS `cart_marca` (
 --
 
 INSERT INTO `cart_marca` (`__idMarca`, `__nombre`, `__logo`, `__estado`, `__orden`, `__fecha_actualizacion`, `__fecha_registro`) VALUES
-(1, 'Otro xxcvvv', 'marca_1387114247_1.jpg', 1, 1, '2013-12-15 08:52:19', '2012-11-04 08:05:11'),
-(2, 'otra marquita', NULL, 1, 2, '2013-12-15 08:53:53', NULL),
-(3, 'ds  sdsss', NULL, 1, 3, '2013-12-15 10:50:47', NULL),
-(4, 'dsdsds', NULL, 1, 4, '2013-12-15 11:02:59', NULL);
+(1, 'Wilton''s', 'marca_1388299397_1.jpg', 1, 1, '2013-12-29 01:46:02', '2012-11-04 08:05:11'),
+(3, 'nueva marca', 'marca_1388620480_.jpg', 1, 2, '2014-01-01 18:54:40', NULL),
+(4, 'mdsdsss', 'marca_1388631762_.jpg', 1, 3, '2014-01-01 22:02:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,22 +102,17 @@ CREATE TABLE IF NOT EXISTS `cart_marca_language` (
   PRIMARY KEY (`__id_Marca_Language`),
   KEY `IDX_B0B7710080E64D77` (`__id_language`),
   KEY `IDX_B0B771004A46E613` (`__idMarca`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `cart_marca_language`
 --
 
 INSERT INTO `cart_marca_language` (`__id_language`, `__id_Marca_Language`, `__detalle`, `__adjunto`, `__idMarca`) VALUES
-(1, 1, 'Otra marca xx aaaa', NULL, 1),
-(2, 2, 'Other <b>marca </b>pes', NULL, 1),
-(1, 3, 'detalle...spanish', NULL, 2),
-(2, 4, 'detalle... zxzxzxz', NULL, 2),
-(1, 5, 'detalle... zzzz qww', NULL, 3),
-(2, 6, 'detalle... ssdd qqqq', NULL, 3),
-(NULL, 7, '', NULL, 3),
-(1, 8, 'detalle... wewewww', NULL, 4),
-(2, 9, 'detalle... zzzz', NULL, 4);
+(1, 1, 'Marca Wilton''s...', NULL, 1),
+(2, 2, '<b>Trademark</b>&nbsp;Wilton''s ...', NULL, 1),
+(1, 4, 'ingresar detalle...', NULL, 3),
+(1, 5, 'ingresar detalle... xccc', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -152,14 +146,22 @@ CREATE TABLE IF NOT EXISTS `cart_movimiento__stock` (
   `__cantidad` int(11) DEFAULT NULL,
   `__idUser` int(11) DEFAULT NULL,
   `__fecha_caducidad` datetime DEFAULT NULL,
-  `__fecha_registro` datetime NOT NULL,
+  `__fecha_ingreso` datetime DEFAULT NULL,
+  `__fecha_registro` datetime DEFAULT NULL,
   `__fecha_actualizacion` datetime DEFAULT NULL,
   `__idProducto` int(11) DEFAULT NULL,
   PRIMARY KEY (`__id_movimiento_stock`),
   KEY `IDX_1A096F3A6CF16A9A` (`__id_orden`),
   KEY `IDX_1A096F3AC9EE6EC8` (`__idProducto`),
   KEY `IDX_1A096F3AEECA34F6` (`__id_movimiento_stock_tipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `cart_movimiento__stock`
+--
+
+INSERT INTO `cart_movimiento__stock` (`__id_movimiento_stock`, `__id_orden`, `__id_movimiento_stock_tipo`, `__cantidad`, `__idUser`, `__fecha_caducidad`, `__fecha_ingreso`, `__fecha_registro`, `__fecha_actualizacion`, `__idProducto`) VALUES
+(1, NULL, 2, 5, 1, '2013-12-31 00:00:00', '2013-12-16 00:00:00', '2013-12-17 22:01:20', '2013-12-17 22:01:20', 2);
 
 -- --------------------------------------------------------
 
@@ -174,7 +176,15 @@ CREATE TABLE IF NOT EXISTS `cart_movimiento__stock_tipo` (
   `__fecha_registro` datetime DEFAULT NULL,
   `__fecha_actualizacion` datetime DEFAULT NULL,
   PRIMARY KEY (`__id_movimiento_stock_tipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `cart_movimiento__stock_tipo`
+--
+
+INSERT INTO `cart_movimiento__stock_tipo` (`__id_movimiento_stock_tipo`, `__nombre`, `signo`, `__fecha_registro`, `__fecha_actualizacion`) VALUES
+(1, 'Venta', -1, '2012-06-24 07:15:10', '2012-06-24 07:14:22'),
+(2, 'Ingreso', 1, '2012-06-24 07:15:10', '2012-06-24 07:14:38');
 
 -- --------------------------------------------------------
 
@@ -210,11 +220,13 @@ CREATE TABLE IF NOT EXISTS `cart_orden` (
   `_persona__recepcion` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `__fecha_deposito` date DEFAULT NULL,
   `__hora_deposito` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `__id_ubigeo` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`__id_orden`),
   KEY `IDX_BEC2A2DF948D5523` (`__id_carrito`),
   KEY `IDX_BEC2A2DF177770D3` (`__id_cliente`),
   KEY `IDX_BEC2A2DFB8EBCFA5` (`__id_moneda`),
-  KEY `IDX_BEC2A2DF391D3278` (`__id_orden_estado`)
+  KEY `IDX_BEC2A2DF391D3278` (`__id_orden_estado`),
+  KEY `IDX_BEC2A2DFCF0E7B73` (`__id_ubigeo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -252,7 +264,17 @@ CREATE TABLE IF NOT EXISTS `cart_orden__estado` (
   `__color` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `__envio_email` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`__id_orden_estado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `cart_orden__estado`
+--
+
+INSERT INTO `cart_orden__estado` (`__id_orden_estado`, `__activo`, `__color`, `__envio_email`) VALUES
+(1, 1, NULL, 0),
+(2, 1, NULL, 0),
+(3, 1, NULL, 0),
+(4, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -269,7 +291,21 @@ CREATE TABLE IF NOT EXISTS `cart_orden__estado_language` (
   PRIMARY KEY (`__id_OrdenEstado_Language`),
   KEY `IDX_C48823DF391D3278` (`__id_orden_estado`),
   KEY `IDX_C48823DF80E64D77` (`__id_language`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+
+--
+-- Volcado de datos para la tabla `cart_orden__estado_language`
+--
+
+INSERT INTO `cart_orden__estado_language` (`__id_orden_estado`, `__id_language`, `__id_OrdenEstado_Language`, `__nombre`, `__detalle`) VALUES
+(1, 1, 1, 'Pendiente de Cancelar', NULL),
+(1, 2, 2, 'Pending Cancel', NULL),
+(2, 1, 3, 'Pendiente de Verificar Voucher', NULL),
+(2, 2, 4, 'Pending Check Voucher', NULL),
+(3, 1, 5, 'Cancelado', NULL),
+(3, 2, 6, 'Canceled', NULL),
+(4, 1, 7, 'Anulado', NULL),
+(4, 2, 8, 'annulled', NULL);
 
 -- --------------------------------------------------------
 
@@ -306,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `cart_producto` (
 --
 
 INSERT INTO `cart_producto` (`__idProducto`, `__codigo_producto`, `__precio`, `__cantidad`, `__cantidad_vendidos`, `__peso`, `__orden`, `__estado`, `__fechaIniPub`, `__fechaFinPub`, `__fechamodif`, `__fechareg`, `__idMarca`, `__idContCate`, `__imagen`, `__adjunto`, `__idTipo`) VALUES
-(2, 'PR00001', NULL, 0, 0, NULL, 1, 1, NULL, NULL, '2013-08-25 17:31:07', NULL, 1, 2, 'producto_1377469867_2.jpg', NULL, 1);
+(2, 'PR00001', NULL, 5, 0, NULL, 1, 1, NULL, NULL, '2013-08-25 17:31:07', NULL, 1, 2, 'producto_1377469867_2.jpg', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -370,7 +406,7 @@ CREATE TABLE IF NOT EXISTS `cart_producto__categoria` (
   `__idContCate_Padre` int(11) DEFAULT NULL,
   PRIMARY KEY (`__idContCate`),
   KEY `IDX_EBA38D2ED83BB542` (`__idContCate_Padre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `cart_producto__categoria`
@@ -378,8 +414,7 @@ CREATE TABLE IF NOT EXISTS `cart_producto__categoria` (
 
 INSERT INTO `cart_producto__categoria` (`__idContCate`, `__nivel_cate`, `__imagen_cate`, `__orden_cate`, `__state_cate`, `__fechamodf_cate`, `__fechareg_cate`, `__idContCate_Padre`) VALUES
 (1, 0, NULL, 1, 1, '2012-11-03 19:11:06', '2012-11-03 19:11:10', 1),
-(2, 1, NULL, 1, 1, '2012-11-03 19:17:28', '2012-11-03 19:17:32', 1),
-(10, 1, 'producto_cate_1359862683_10.jpg', 1, 1, '2013-02-02 22:38:03', '2013-02-02 22:38:03', 1);
+(2, 1, NULL, 1, 1, '2012-11-03 19:17:28', '2012-11-03 19:17:32', 1);
 
 -- --------------------------------------------------------
 
@@ -396,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `cart_producto__categoria_language` (
   PRIMARY KEY (`__id_ProductoCate_Language`),
   KEY `IDX_72D6DF5DA07E7B24` (`__idContCate`),
   KEY `IDX_72D6DF5D80E64D77` (`__id_language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `cart_producto__categoria_language`
@@ -405,11 +440,10 @@ CREATE TABLE IF NOT EXISTS `cart_producto__categoria_language` (
 INSERT INTO `cart_producto__categoria_language` (`__id_language`, `__id_ProductoCate_Language`, `__descripcion`, `__detalle`, `__idContCate`) VALUES
 (1, 1, 'categoria raiz', NULL, 1),
 (2, 2, 'root category', NULL, 1),
-(1, 3, 'Categoría 1', '​', 2),
+(1, 3, 'Categoría 1', '<font face="tahoma, arial, verdana, sans-serif"><span style="font-size: 12px;">​detalle de la&nbsp;</span></font><b><font color="#ff0000"><font face="tahoma, arial, verdana, sans-serif"><span style="font-size: 12px;">categoría&nbsp;1.</span></font></font></b>', 2),
 (2, 4, 'Línea de Productos 1', NULL, 2),
 (2, 8, 'descripcion', NULL, 1),
-(2, 10, 'descripcion', NULL, 1),
-(1, 17, 'Categoria 2', '​', 10);
+(2, 10, 'descripcion', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -611,7 +645,15 @@ CREATE TABLE IF NOT EXISTS `cms_content` (
   KEY `IDX_A0293FB88EAB4527` (`__idTipo`),
   KEY `content_estado_idx` (`__estado`),
   KEY `content_fechainipub_idx` (`__fecha_FinPub`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `cms_content`
+--
+
+INSERT INTO `cms_content` (`__idContent`, `__imagen`, `__adjunto`, `__orden`, `__estado`, `__fecha_IniPub`, `__fecha_FinPub`, `__fecha_modf`, `__fecha_reg`, `__idContCate`, `__idTipo`, `__url`, `__adicional1`, `__adicional2`, `__adicional3`, `__imagen2`) VALUES
+(1, 'content_1389322649_1.jpg', NULL, NULL, 1, '2014-01-08', NULL, '2014-01-09 22:31:53', NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'content_1389324745_2.jpg', NULL, NULL, 1, '2014-01-10', NULL, '2014-01-09 22:32:25', NULL, 6, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -655,7 +697,15 @@ CREATE TABLE IF NOT EXISTS `cms_content_language` (
   KEY `IDX_16737A20C0AB0A3E` (`__idContent`),
   KEY `IDX_16737A2080E64D77` (`__id_language`),
   KEY `contentLang_descripcion_idx` (`__descripcion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `cms_content_language`
+--
+
+INSERT INTO `cms_content_language` (`__id_language`, `__id_Content_Language`, `__descripcion`, `__intro`, `__detalle`, `__imagen`, `__adjunto`, `__idContent`, `__url`, `__adicional1`, `__adicional2`) VALUES
+(1, 1, 'descripcion xcx', 'xxdsds', '<p>abcd</p>', NULL, NULL, 1, NULL, NULL, NULL),
+(1, 2, 'descripcion', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -834,17 +884,19 @@ CREATE TABLE IF NOT EXISTS `cms_language` (
   `__idioma` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `__nombre_corto` varchar(6) COLLATE utf8_unicode_ci DEFAULT NULL,
   `__estado` tinyint(1) NOT NULL,
+  `__principal` tinyint(1) NOT NULL,
   PRIMARY KEY (`__id_language`),
-  KEY `keys_estado_idx` (`__estado`)
+  KEY `keys_estado_idx` (`__estado`),
+  KEY `keys_principal_idx` (`__principal`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `cms_language`
 --
 
-INSERT INTO `cms_language` (`__id_language`, `__idioma`, `__nombre_corto`, `__estado`) VALUES
-(1, 'Español', 'es', 1),
-(2, 'English', 'en', 0);
+INSERT INTO `cms_language` (`__id_language`, `__idioma`, `__nombre_corto`, `__estado`, `__principal`) VALUES
+(1, 'Español', 'es', 1, 1),
+(2, 'English', 'en', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1057,7 +1109,8 @@ ALTER TABLE `cart_orden`
   ADD CONSTRAINT `FK_BEC2A2DF177770D3` FOREIGN KEY (`__id_cliente`) REFERENCES `cms_cliente` (`__id_cliente`),
   ADD CONSTRAINT `FK_BEC2A2DF391D3278` FOREIGN KEY (`__id_orden_estado`) REFERENCES `cart_orden__estado` (`__id_orden_estado`),
   ADD CONSTRAINT `FK_BEC2A2DF948D5523` FOREIGN KEY (`__id_carrito`) REFERENCES `cart_carrito` (`__id_carrito`),
-  ADD CONSTRAINT `FK_BEC2A2DFB8EBCFA5` FOREIGN KEY (`__id_moneda`) REFERENCES `cart_moneda` (`__id_moneda`);
+  ADD CONSTRAINT `FK_BEC2A2DFB8EBCFA5` FOREIGN KEY (`__id_moneda`) REFERENCES `cart_moneda` (`__id_moneda`),
+  ADD CONSTRAINT `FK_BEC2A2DFCF0E7B73` FOREIGN KEY (`__id_ubigeo`) REFERENCES `cms_ubigeo` (`__cod_postal`);
 
 --
 -- Filtros para la tabla `cart_orden__detalle`
