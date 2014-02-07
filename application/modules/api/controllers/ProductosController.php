@@ -1,4 +1,7 @@
 <?php
+use cart\Services\Producto;
+use cart\Services\ProductoLanguage;
+use Tonyprr\Exception\ValidacionException;
 
 class Api_ProductosController extends Zend_Controller_Action
 {
@@ -13,35 +16,50 @@ class Api_ProductosController extends Zend_Controller_Action
 //        $contextSwitch = $this->_helper->getHelper('contextSwitch'); 
 //        $contextSwitch->addActionContext('index', array('xml','json'))->initContext();
         
-          $this->_todo = array (
-            "1" => "Buy milk",
-            "2" => "Pour glass of milk",
-            "3" => "Eat cookies"
-          );    
+        $this->_todo = array (
+            array("id" => "1", "nombre" => "producto 1"),
+            array("id" => "2", "nombre" => "producto 2"),
+            array("id" => "3", "nombre" => "producto 3"),
+        );    
     }
 
     public function indexAction()
     {
-        $apiKey = $this->getRequest()->getHeader('CommonApikey');
-        // get the hash of the request
-        $requestHash = $this->getRequest()->getHeader('CommonRequestHash');
-        echo 'apiKey: ' . $apiKey . '  --  requestHash: ' . $requestHash;
-        echo Zend_Json::encode($this->_todo);
+        if ($this->_request->isGet()) {
+            $this->_forward('get');
+        } else {
+            $this->getResponse()->setHttpResponseCode(500);
+        }
     }
 
     public function getAction()
     {
-//        echo Zend_Json::encode($this->_todo);
-//        $this->getResponse()->setBody('Hello World');
-//        $this->getResponse()->setHttpResponseCode(200);
+        try {
+            $data = $this->getRequest()->getParams();
+            $pageStart = isset($data['start'])?$data['start']:NULL;
+            $pageLimit = isset($data['limit'])?$data['limit']:NULL;
+            $idcontCate = isset($data['idcontcate'])?$data['idcontcate']:2;
+            $textoBusqueda = isset($data['query'])?$data['query']:NULL;
+
+            $srvProducto = new Producto();
+            list($aProductos, $total, $oProductoCategoria) = $srvProducto->aList($idcontCate, 1 ,"TODOS", $pageStart, $pageLimit, $textoBusqueda);
+            $objRecords=\Tonyprr_lib_Records::getInstance();
+            $objRecords->normalizeRecords($aProductos);
+            $result['success'] = 1;
+            $result['data'] = $aProductos;
+            $result['total'] = $total;
+            echo Zend_Json::encode($result);
+        } catch(Exception $e) {
+            echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => "Error: ".$e->getMessage()) );
+        }
     }
 
     public function postAction()
     {
         // action body
-        echo Zend_Json::encode($this->_todo);
-        $this->getResponse()->setBody('Hello World');
-        $this->getResponse()->setHttpResponseCode(200);
+//        echo Zend_Json::encode($this->_todo);
+//        $this->getResponse()->setBody('Hello World');
+//        $this->getResponse()->setHttpResponseCode(200);
     }
 
     public function putAction()

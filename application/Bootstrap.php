@@ -30,6 +30,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 //        $front->registerPlugin(new Tonyprr_Plugin_Access());
         $front->registerPlugin(new Tonyprr_Plugin_Authorization($auth, $acl));
         $front->registerPlugin(new Tonyprr_Plugin_Control());
+        $front->registerPlugin(new Zend_Controller_Plugin_PutHandler());
+
         Zend_Loader_Autoloader::getInstance()->suppressNotFoundWarnings(true);
 //        Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(false);
         
