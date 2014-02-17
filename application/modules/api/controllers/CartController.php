@@ -41,6 +41,10 @@ class Api_CartController extends Zend_Controller_Action
                 $srvOrdenTipo = new OrdenTipoService();
                 list($aOrdenTipo, $total) = $srvOrdenTipo->lista();
                 $result['data'] = $aOrdenTipo;
+            } else if ($data['operacion'] == "lista_pedidos") {
+                $srvOrdenService = new OrdenService();
+                list($aOrdenTipo, $total) = $srvOrdenService->lista();
+                $result['data'] = $aOrdenTipo;
             }
             $result['success'] = 1;
             $result['total'] = $total;

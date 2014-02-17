@@ -12,6 +12,11 @@ class Api_ClienteController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        if ($this->_request->isGet()) {
+            $this->_forward('get');
+        } else {
+            $this->getResponse()->setHttpResponseCode(500);
+        }
     }
 
     public function getAction()
