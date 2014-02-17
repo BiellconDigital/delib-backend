@@ -73,25 +73,42 @@ class CartProductoRepository extends EntityRepository
      * @param boolean $soloActivo
      * @return \CmsProducto $oProducto
      */
-    public function getById($id, $language=null, $asArray=true, $soloActivo=false) {
+    public function getById($id, $oLanguage=null, $asArray=true, $soloActivo=false) {
         try {
-            $dqlList = 'SELECT mp FROM \cart\Entity\CartProducto mp WHERE mp.idproducto = ?1';
-            $qyProducto = $this->_em->createQuery($dqlList);
-            $qyProducto->setParameter(1,$id);
-            if($soloActivo) {
-                $dqlList .= ' AND  mp.estado = 1';
-            }
             if ($asArray) {
+                if(!$oLanguage instanceof \web\Entity\CmsLanguage)
+                    $oLanguage = $this->_em->getRepository("\web\Entity\CmsLanguage")->findOneByidLanguage($oLanguage);
+
+                $qbProducto = $this->_em->createQueryBuilder();
+                $qbProducto->select(
+                            '
+                            p.idproducto,p.precio,p.codigoProducto,
+                            p.cantidad,p.cantidadVendidos,p.peso,p.imagen,p.adjunto,p.orden,p.estado,p.fechainipub,
+                            p.fechafinpub,p.fechamodif,p.fechareg,
+                            pl.nombre as nombre_producto,pl.intro as intro_producto,pl.ficha,
+                            ca.idcontcate,cal.descripcion as nameCate,
+                            ma.idmarca,
+                            t.idTipo
+                            '
+                            )->from($this->_entityName,'p')
+                            ->innerJoin('p.contcate','ca')->innerJoin('p.languages','pl')->leftJoin('p.marca','ma')->leftJoin('p.tipo','t')
+                            ->innerJoin('ca.languages','cal')
+                            ->andWhere("pl.language = :lang")->setParameter('lang', $oLanguage)
+                            ->andWhere("cal.language = :lang")->setParameter('lang', $oLanguage)
+                            ->andWhere("p.estado = :estado")->setParameter('estado', $soloActivo)
+                            ->andWhere("p.idproducto = :id")->setParameter('id', $id);
+                $qyProducto = $qbProducto->getQuery();
                 $oProducto = $qyProducto->getArrayResult();
-                $objRecords = \Tonyprr_lib_Records::getInstance();
                 if (count($oProducto) != 1)
                     throw new \Exception('No existe este registro o no se encuentra disponible.', 1);
+                $objRecords=\Tonyprr_lib_Records::getInstance();
                 $objRecords->normalizeRecord($oProducto[0]);
                 $oProducto = $oProducto[0];
+                return $oProducto;
             } else {
                 try {
-                    $oProducto = $qyProducto->getSingleResult();
-                    $idsToFilter = array($language);
+                    $oProducto = $this->_em->getRepository($this->_entityName)->find($oLanguage);
+                    $idsToFilter = array($oLanguage);
                     $oProductoLang = $oProducto->getLanguages()->filter(
                             function($oProductoLang) use ($idsToFilter) {
                                 return in_array($oProductoLang->getLanguage(), $idsToFilter);
@@ -99,8 +116,8 @@ class CartProductoRepository extends EntityRepository
                 } catch(\Doctrine\ORM\NoResultException $e) {
                     throw new \Exception('No existe este registro o no se encuentra disponible.',1);
                 }
+                return array($oProducto, $oProductoLang);
             }
-            return array($oProducto, $oProductoLang);
         } catch(\Doctrine\ORM\NoResultException $e) {
             if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
             else throw new \Exception('Ocurrió un error en el procesamiento, estaremos solucionandolo en breve.',1);

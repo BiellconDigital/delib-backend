@@ -94,7 +94,7 @@ class Producto {
 //            $oProducto->setFichaConte($formData['fichaConte']);
             
 //            $oProducto->setPeso($formData['peso']);
-//            $oProducto->setPrecio($formData['precio']);
+            $oProducto->setPrecio($formData['precio']);
 //            $oProducto->setCantidad($formData['cantidad']);
             
             $oProducto->setEstado(isset($formData['estado'])?1:0);

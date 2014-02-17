@@ -120,6 +120,15 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
                             storeLanguage = grid.up('panel[itemId="viewCrudUIProd"]').down('grid[itemId="gridProdLanguage"]').getStore();
                             Ext.apply(storeLanguage.getProxy().extraParams, {idproducto: idReg});
                             storeLanguage.load();
+
+                            meProd.down('panel[itemId="panelGaleWidget"]').getComponent(0).getForm().reset();
+                            meProd.down('grid[itemId="gridProdGaleriaLanguage"]').getStore().removeAll();
+                            
+                            storeGaleria = meProd.down('dataview[itemId="viewGaleWidget"]').getStore();
+                            Ext.apply( storeGaleria.getProxy().extraParams, {idproducto: idReg} );
+                            storeGaleria.load();
+                            
+
 //                            storeGaleria = meProd.down('dataview[itemId="viewGaleWidget"]').getStore();
 //                            Ext.apply( storeGaleria.getProxy().extraParams, {idproducto: idReg} );
 //                            storeGaleria.load();

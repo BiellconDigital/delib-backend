@@ -80,7 +80,7 @@ class CmsClienteRepository extends EntityRepository
                 
             $oPais = $this->_em->find("\web\Entity\CmsPais", $formData['idPais'] );
             if(!$oPais)
-                throw new \Exception('No existe Pa�s. Seleccione primero una Pa�s.', 1);
+                throw new \Exception('No existe Pais. Seleccione primero una Pais.', 1);
 
             if (isset($formData['idLanguage']) ) {
                 $oLanguage = $this->_em->find("\web\Entity\CmsLanguage", $formData['idLanguage'] );

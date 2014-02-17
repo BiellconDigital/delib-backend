@@ -3,6 +3,7 @@
 namespace cart\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use Vendors\Paginate\Paginate;
 
 /**
  * CartProductoGaleriaLanguageRepository
@@ -12,4 +13,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class CartProductoGaleriaLanguageRepository extends EntityRepository
 {
+
+    public function listLanguage($oProductoGaleria, $isArray = true) {
+        $aProductoGaleriaLanguage = array();
+        if (!$oProductoGaleria instanceof \web\Entity\CartProductoGaleria)
+            $oProductoGaleria = $this->_em->find("\cart\Entity\CartProductoGaleria", $oProductoGaleria);
+        if ($isArray) {
+            $dqlList = "SELECT pgl.idProductogaleLanguage, pgl.titulo, pgl.descripcion 
+                        ,pg.idcontgale, l.idLanguage, l.idioma 
+                        FROM \cart\Entity\CartProductoGaleriaLanguage pgl 
+                        INNER JOIN pgl.language l INNER JOIN pgl.contgale pg 
+                        WHERE pgl.contgale = ?1 and l.estado = 1";
+            
+            $qbProdGaleriaLanguage =$this->_em->createQuery($dqlList);
+            $qbProdGaleriaLanguage->setParameter(1, $oProductoGaleria);
+            $aProductoGaleriaLanguage = $qbProdGaleriaLanguage->getArrayResult();
+            $objRecords= \Tonyprr_lib_Records::getInstance();
+            $objRecords->normalizeRecords($aProductoGaleriaLanguage);
+        } else {
+            $aProductoGaleriaLanguage = $this->_em->getRepository("\cart\Entity\CartProductoGaleriaLanguage")->findOneBy(array("contgale"=>$oProductoGaleria));//createQuery($dqlList)
+        }
+        return $aProductoGaleriaLanguage;
+    }
 }

@@ -120,6 +120,15 @@ cart\Entity\CartOrden:
             fixed: false
             nullable: true
             column: __hora_deposito
+        aceptaPolitica:
+            type: boolean
+            nullable: false
+            column: __acepta_politica
+        tipoPago:
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __tipo_pago
     manyToOne:
         carrito:
             targetEntity: cart\Entity\CartCarrito
@@ -169,6 +178,16 @@ cart\Entity\CartOrden:
                 __id_orden_estado:
                     onUpdate: CASCADE
                     referencedColumnName: __id_orden_estado
+            orphanRemoval: false
+        ordenTipo:
+            targetEntity: cart\Entity\CartOrdenTipo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_orden_tipo:
+                    onUpdate: CASCADE
+                    referencedColumnName: __id_orden_tipo
             orphanRemoval: false
     oneToMany:
         detalle:

@@ -44,7 +44,7 @@ class OrdenDetalleService {
      * @return \cart\Entity\CartOrdenDetalle 
      */
     public function save($formData, $oOrden = null, $oProducto = null) {
-        $oOrdenDetalle = $this->_em->getRepository($this->_entity)->listRecords($formData, $oOrden, $oProducto);
+        $oOrdenDetalle = $this->_em->getRepository($this->_entity)->save($formData, $oOrden, $oProducto);
         return $oOrdenDetalle;
     }
     

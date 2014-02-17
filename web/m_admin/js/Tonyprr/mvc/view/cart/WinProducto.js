@@ -103,23 +103,6 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                     },            
 //                                    {
 //                                        xtype : 'numberfield',
-//                                        name:'precio',
-//                                        minValue : 0,
-//                                        fieldLabel: 'Precio',
-//                                        anchor : '45%',
-////                                        width : 220,
-//                                        allowBlank:false 
-//                                    },
-//                                    {
-//                                        xtype : 'numberfield',
-//                                        name:'cantidad',
-//                                        minValue : 0,
-//                                        fieldLabel: 'Stock',
-//                                        anchor : '45%',
-//                                        readOnly : true
-//                                    },
-//                                    {
-//                                        xtype : 'numberfield',
 //                                        name:'pesoConte',
 //                                        minValue : 0,
 //                                        anchor : '45%',
@@ -162,6 +145,23 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                         displayField: 'descripcion',
                                         valueField: 'idTipo',
                                         allowBlank:false
+                                    },
+                                    {
+                                        xtype : 'numberfield',
+                                        name:'precio',
+                                        minValue : 0,
+                                        fieldLabel: 'Precio',
+                                        anchor : '45%',
+////                                        width : 220,
+                                        allowBlank:false 
+                                    },
+                                    {
+                                        xtype : 'numberfield',
+                                        name:'cantidad',
+                                        minValue : 0,
+                                        fieldLabel: 'Stock',
+                                        anchor : '45%',
+                                        readOnly : true
                                     },
                                     {
                                         xtype: 'fieldcontainer',
@@ -325,135 +325,15 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                     }
                                 ]
                             }
-//                            ,{
-//                                xtype :'panel',
-//                                itemId:'panelGaleWidget',
-//                                frame: false,
-//                                autoHeight:true,
-//                                title: 'Galeria del Producto',
-//                                items: [
-//                                    {
-//                                        xtype : 'form',
-//                                        fileUpload:true,
-//                                        frame : false,
-//                                        autoHeight: true,
-//                                        padding : '3 3 3 3',
-//                                        autoWidth: true,
-//                                        border : false,
-//                                        defaultType : 'textfield',
-//                                        layout              : 'anchor',
-//                                        fieldDefaults	: {
-//                                            labelAlign	: 'left',
-//                                            labelWidth      : 90,
-//                                            msgTarget	: 'side',
-//                                            anchor          : '96%'
-//                                        },
-//                                        items : [
-//                                            {
-//                                                xtype: 'hidden',
-//                                                name:'idcontgale'
-//                                            },
-//                                            {
-//                                                xtype: 'numberfield',
-//                                                name:'ordenGale',
-//                                                fieldLabel :'Orden',
-//                                                anchor:'33%'
-//                                            },
-//                                            {
-//                                                xtype:'filefield',
-//                                                name:'file_foto_gale',
-//                                                fieldLabel :'Foto',
-//                                                anchor:'98%',
-//                                                msgTarget: 'side',
-//                                                buttonConfig :{iconCls:'image_edit'},buttonText:''
-//                                            }
-//                                            ,{
-//                                                xtype : 'grid',
-//                                                itemId:'gridProdGaleriaLanguage',
-//                                                plugins: [rowEditingProducto],
-//                                                frame:true,
-//                                                columnLines : true,
-//                                                autoScroll:true,
-//                                                store: 'Tonyprr.mvc.store.cart.ProductoGaleriaLanguage',
-//                                                border:false,
-//                                                columns : [
-//                                                    {dataIndex: 'idProductoLanguage',header : 'ID',width:26, hidden : true},
-//                                                    {dataIndex: 'idcontgale',header : 'ID Categoria',width: 80, hidden : true},
-//                                                    {dataIndex: 'idLanguage',header : 'ID Idioma',hidden : true},
-//                                                    {dataIndex: 'idioma',header : 'Idioma', width : 110},
-//                                                    {
-//                                                        dataIndex: 'titulo',header : 'Titulo',width: 140,
-//                                                        field: {
-//                                                            xtype: 'textfield'
-//                                                        }
-//                                                    },
-//                                                    {
-//                                                        dataIndex: 'descripcion',header : 'Descripci&oacute;n',width: 170,
-//                                                        field: {
-//                                                            xtype: 'textarea'
-//                                                        }
-//                                                    }
-//                                                ]
-//                                            }
-//                                        ]
-//                                        ,buttons:[
-//                                            {
-//                                                text : 'Subir Foto',iconCls:'save',
-//                                                formBind: true,
-//                                                handler: function(btn){
-//                                                    
-//                                                    valuesForm=meWinProducto.getComponent(0).getForm().getValues();
-//                                                    valuesFormFoto = meWinProducto.down('panel[itemId="panelGaleWidget"]').getComponent(0).getForm().getValues();
-//
-//                                                    if(valuesFormFoto.descripcionGale=='' || valuesFormFoto.file_foto_gale=='') {
-//                                                        Ext.MessageBox.alert('Alerta','Ingrese los datos de la Foto a agregar.');
-//                                                        return;
-//                                                    }
-//                                                    if(!Ext.isNumeric(valuesForm.idproducto)) {
-//                                                        Ext.MessageBox.alert('Alerta','No ha seleccionado o creado un Producto para crear su Galeria.');
-//                                                        return;
-//                                                    }
-//
-//                                                    meWinProducto.down('panel[itemId="panelGaleWidget"]').getComponent(0).getForm().submit({
-//                                                        url : Tonyprr.BASE_URL + '/admin/producto-galeria/save',
-//                                                        waitMsg:'Guardando, espere por favor...',
-//                                                        method:'POST',
-//                                                        params : {
-//                                                            idproducto: valuesForm.idproducto
-//                                                        },
-//                                                        timeout: 90000,
-//                                                        scope:this,
-//                                                        success: function(request, action) {
-//                                                            try {
-//                                                                var json = Ext.JSON.decode(action.response.responseText);
-//                                                                if(json.success == 1) {
-//                                                                    viewtemp=meWinProducto.down('dataview[itemId="viewGaleWidget"]');
-//                                                                    viewtemp.getStore().load( { callback: function() {
-////                                                                            viewtemp.refresh();
-//                                                                            newImage = Ext.fly('gale_prod_img-'+json.idcontgale);
-//                                                                            newImage.hide().show({duration: 500}).frame("#ffcc33", 3, { duration: 3 });//hide().show({duration: 500}).
-////                                                                            winNewFoto.animateTarget = newImage; 
-//                                                                    }} );
-//                                                                    
-//                                                                    storeLanguage = meWinProducto.down('grid[itemId="gridProdGaleriaLanguage"]').getStore();
-//                                                                    Ext.apply(storeLanguage.getProxy().extraParams, {idcontgale : json.idcontgale});
-//                                                                    storeLanguage.load();
-//                                                                }
-//                                                                Tonyprr.App.showNotification({message:json.msg});
-//                                                            } catch(Exception) {
-//                                                                Tonyprr.core.Lib.exceptionAlert(Exception);
-//                                                            }
-//                                                        },
-//                                                        failure: function(request, action) {
-//                                                            Ext.MessageBox.alert('Error','Error en el servidor.');
-//                                                        }
-//                                                    });
-//                                                }
-//                                            }
-//                                        ]
-//                                    }
-//                                ]
-//                            }
+                            ,{
+                                xtype :'panel',
+                                title: 'Galeria del Producto',
+                                itemId:'panelGaleWidget',
+                                layout : 'anchor',
+                                frame: false,
+                                autoHeight:true
+                            }
+
                         ]
                     }
                     
@@ -479,11 +359,140 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
         ]
 
 	,initComponent	: function() {
-//		this.buttons = this.createButtons();
 		this.callParent();
                 meWinProducto = this;
-                /*
-                Ext.create('Tonyprr.mvc.store.cart.ProductoGaleria', {storeId:'prodGaleStore'});
+
+                /************************************************************************************************/
+                /*************************************  GALERIA DE IMAGENES  **************************************/
+                Ext.create('Tonyprr.mvc.store.cart.ProductoGaleriaLanguage', {storeId:'ProductoGaleLanguageStore'});
+                meWinProducto.down('panel[itemId="panelGaleWidget"]').add(                
+                                    {
+                                        xtype : 'form',
+                                        fileUpload:true,
+                                        frame : false,
+                                        autoHeight: true,
+                                        padding : '3 3 3 3',
+                                        autoWidth: true,
+                                        border : false,
+                                        defaultType : 'textfield',
+                                        layout              : 'anchor',
+                                        fieldDefaults	: {
+                                            labelAlign	: 'left',
+                                            labelWidth      : 90,
+                                            msgTarget	: 'side',
+                                            anchor          : '96%'
+                                        },
+                                        items : [
+                                            {
+                                                xtype: 'hidden',
+                                                name:'idcontgale'
+                                            },
+                                            {
+                                                xtype: 'numberfield',
+                                                name:'ordenGale',
+                                                fieldLabel :'Orden',
+                                                anchor:'33%'
+                                            },
+                                            {
+                                                xtype:'filefield',
+                                                name:'file_foto_gale',
+                                                fieldLabel :'Foto (JPG)',
+                                                anchor:'98%',
+                                                msgTarget: 'side',
+                                                regex: /^.*\.(jpg|JPG|jpeg|JPEG)$/,
+                                                regexText: 'Solo imagenes jpg',
+                                                buttonConfig :{iconCls:'image_edit'},buttonText:''
+                                            }
+                                            ,{
+                                                xtype : 'grid',
+                                                itemId:'gridProdGaleriaLanguage',
+                                                plugins: [rowEditingProducto],
+                                                height: 120,
+                                                frame:true,
+                                                columnLines : true,
+                                                autoScroll:true,
+                                                store: Ext.data.StoreManager.lookup('ProductoGaleLanguageStore'),
+                                                border:false,
+                                                columns : [
+                                                    {dataIndex: 'idProductogaleLanguage',header : 'ID',width:26, hidden : true},
+                                                    {dataIndex: 'idcontgale',header : 'ID Categoria',width: 80, hidden : true},
+                                                    {dataIndex: 'idLanguage',header : 'ID Idioma',hidden : true},
+                                                    {dataIndex: 'idioma',header : 'Idioma', width : 110},
+                                                    {
+                                                        dataIndex: 'titulo',header : 'Titulo',width: 140,
+                                                        field: {
+                                                            xtype: 'textfield'
+                                                        }
+                                                    },
+                                                    {
+                                                        dataIndex: 'descripcion',header : 'Descripci&oacute;n',width: 170,
+                                                        field: {
+                                                            xtype: 'textarea'
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                        ,buttons:[
+                                            {
+                                                text : 'Subir Foto',iconCls:'save',
+                                                formBind: true,
+                                                handler: function(btn){
+                                                    
+                                                    valuesForm=meWinProducto.getComponent(0).getForm().getValues();
+                                                    valuesFormFoto = meWinProducto.down('panel[itemId="panelGaleWidget"]').getComponent(0).getForm().getValues();
+
+                                                    if(valuesFormFoto.descripcionGale=='' || valuesFormFoto.file_foto_gale=='') {
+                                                        Ext.MessageBox.alert('Alerta','Ingrese los datos de la Foto a agregar.');
+                                                        return;
+                                                    }
+                                                    if(!Ext.isNumeric(valuesForm.idproducto)) {
+                                                        Ext.MessageBox.alert('Alerta','No ha seleccionado o creado un Producto para crear su Galeria.');
+                                                        return;
+                                                    }
+
+                                                    meWinProducto.down('panel[itemId="panelGaleWidget"]').getComponent(0).getForm().submit({
+                                                        url : Tonyprr.BASE_URL + '/admin/cart-producto-galeria/save',
+                                                        waitMsg:'Guardando, espere por favor...',
+                                                        method:'POST',
+                                                        params : {
+                                                            idproducto: valuesForm.idproducto,
+                                                            tipoGale: 1
+                                                        },
+                                                        timeout: 90000,
+                                                        scope:this,
+                                                        success: function(request, action) {
+                                                            try {
+                                                                var json = Ext.JSON.decode(action.response.responseText);
+                                                                if(json.success == 1) {
+                                                                    viewtemp=meWinProducto.down('dataview[itemId="viewGaleWidget"]');
+                                                                    viewtemp.getStore().load( { callback: function() {
+//                                                                            viewtemp.refresh();
+                                                                            newImage = Ext.fly('gale_prod_img-'+json.idcontgale);
+                                                                            newImage.hide().show({duration: 500}).frame("#ffcc33", 3, { duration: 3 });//hide().show({duration: 500}).
+//                                                                            winNewFoto.animateTarget = newImage; 
+                                                                    }} );
+                                                                    
+                                                                    storeLanguage = meWinProducto.down('grid[itemId="gridProdGaleriaLanguage"]').getStore();
+                                                                    Ext.apply(storeLanguage.getProxy().extraParams, {idcontgale : json.idcontgale});
+                                                                    storeLanguage.load();
+                                                                }
+                                                                Tonyprr.App.showNotification({message:json.msg});
+                                                            } catch(Exception) {
+                                                                Tonyprr.core.Lib.exceptionAlert(Exception);
+                                                            }
+                                                        },
+                                                        failure: function(request, action) {
+                                                            Ext.MessageBox.alert('Error','Error en el servidor.');
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        ]
+                                    }
+                );
+            
+                Ext.create('Tonyprr.mvc.store.cart.ProductoGaleria', {storeId:'ProductoGaleStore'});
                 panelGaleria = Ext.create('Ext.Panel',
                     {
                         itemId:'formGaleWidget',
@@ -499,7 +508,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                 handler: function(btn){
                                     valuesForm=meWinProducto.getComponent(0).getForm().getValues();
                                     if(!Ext.isNumeric(valuesForm.idproducto)) {
-                                        Ext.MessageBox.alert('Alerta','No ha seleccionado o creado un Producto para crear su Galeria.');
+                                        Ext.MessageBox.alert('Alerta','No ha seleccionado o creado un Producto para borrar su Galeria.');
                                         return;
                                     }
                                     var viewGal = meWinProducto.down('dataview[itemId="viewGaleWidget"]');
@@ -511,7 +520,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                          function (btn) {
                                             if (btn == 'yes')
                                                 Tonyprr.Ajax.request({
-                                                    url     : Tonyprr.BASE_URL + '/admin/producto-galeria/delete',
+                                                    url     : Tonyprr.BASE_URL + '/admin/cart-producto-galeria/delete',
                                                     params	: records[0].data,
                                                     el	: this.el,
                                                     scope	: this,
@@ -531,40 +540,16 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                             },'-'
                         ],
                         items: 
-//                        Ext.create("Ext.grid.Panel", {
-//                            frame:true,
-//                            itemId:'viewGaleWidget',
-//                            height: 250,
-//                            columnLines : true,
-//                            autoScroll:true,
-//                            store: Ext.data.StoreManager.lookup('prodGaleStore'),
-//                            border:false,
-//                            columns : [
-//                                {dataIndex: 'idcontgale',header : 'ID',width:66, sortable : false},
-//                                {dataIndex: 'descripcionGale',header : 'T&iacute;tulo',width: 205,sortable : false}
-//                            ],
-//                            plugins : [
-//                                {
-//                                    ptype: 'rowexpander',
-//                                    rowBodyTpl : [
-//                                        '<div style = "width:340px;">',
-//                                        '<p><img src="'+Tonyprr.Constants.FILES_DATA+'/producto/{imagenGale}" width="130" style="float:left;margin-right:5px;"/></p>',
-//                                        '</div>'
-//                                    ]
-//                                }
-//                            ]
-//                        })
-                            
                             Ext.create('Ext.view.View', 
                             {
                                 xtype : 'dataview',
                                 itemId:'viewGaleWidget',
                                 baseCls: 'data-view-gale',
-                                store: Ext.data.StoreManager.lookup('prodGaleStore'),
+                                store: Ext.data.StoreManager.lookup('ProductoGaleStore'),
                                 tpl: [
                                     '<tpl for=".">',
                                         '<div class="thumb-wrap" id="gale_prod-{idcontgale}">',
-                                        '<div class="thumb"><img src="'+Tonyprr.Constants.FILES_DATA+'/producto/thumb_{imagenGale}" title="{descripcionGale}" id="gale_prod_img-{idcontgale}"></div>',
+                                        '<div class="thumb"><img src="'+Tonyprr.Constants.FILES_DATA_CART+'/producto/galeria/thumb_{imagenGale}" title="{descripcionGale}" id="gale_prod_img-{idcontgale}"></div>',
                                         '<span class="x-editable">{shortDescription}</span></div>',
                                     '</tpl>',
                                     '<div class="x-clear"></div>'
@@ -587,11 +572,10 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                     itemdblclick : function(view, model, node, e) {
                                         idImagen = node.id;
 //                                        alert(name+ '-' +idImagen);
-                                        
                                         storeLanguage = meWinProducto.down('grid[itemId="gridProdGaleriaLanguage"]').getStore();
                                         Ext.apply(storeLanguage.getProxy().extraParams, {idcontgale : model.get('idcontgale')});
                                         storeLanguage.load();
-                                        
+                                        meWinProducto.down('panel[itemId="panelGaleWidget"]').getComponent(0).loadRecord(model);
                                     }
                                 }
                             }
@@ -599,8 +583,13 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                     }
                 );          
                 meWinProducto.down('panel[itemId="panelGaleWidget"]').add(panelGaleria);
+                
+
                 delete panelGaleria;
-                */
+
+
+
+
 	}
 	
 	

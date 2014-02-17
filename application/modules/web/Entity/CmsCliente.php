@@ -31,14 +31,14 @@ class CmsCliente
     /**
      * @var string $nombres
      *
-     * @ORM\Column(name="__nombres", type="string", length=30, nullable=false)
+     * @ORM\Column(name="__nombres", type="string", length=70, nullable=false)
      */
     private $nombres;
 
     /**
      * @var string $apellidoPaterno
      *
-     * @ORM\Column(name="__apellido_paterno", type="string", length=25, nullable=false)
+     * @ORM\Column(name="__apellido_paterno", type="string", length=25, nullable=true)
      */
     private $apellidoPaterno;
 

@@ -83,7 +83,7 @@ class CartOrdenDetalleRepository extends EntityRepository
             return $oOrdenDetalle;
         } catch(\Exception $e) {
             if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
-            throw new \Exception('Error al guardar registro direcci�n.',1);
+            throw new \Exception('Error al guardar registro dirección.',1);
         }
     }
     

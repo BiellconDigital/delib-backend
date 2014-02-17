@@ -41,7 +41,9 @@ class CartProductoCategoriaRepository extends EntityRepository
             $count = Paginate::getTotalQueryResults($qyProductoCategoria);
             $qyProductoCategoria->setFirstResult($pageStart)->setMaxResults($pageLimit);
         }
-        $aProductoCategoria = $qyProductoCategoria->getResult();
+        $aProductoCategoria = $qyProductoCategoria->getArrayResult();
+        $objRecords = \Tonyprr_lib_Records::getInstance();
+        $objRecords->normalizeRecord($aProductoCategoria);
         
         return $aProductoCategoria;
     }

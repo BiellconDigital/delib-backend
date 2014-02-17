@@ -18,7 +18,7 @@ web\Entity\CmsCliente:
             column: __role
         nombres:
             type: string
-            length: 30
+            length: 70
             fixed: false
             nullable: false
             column: __nombres
@@ -26,7 +26,7 @@ web\Entity\CmsCliente:
             type: string
             length: 25
             fixed: false
-            nullable: false
+            nullable: true
             column: __apellido_paterno
         apellidoMaterno:
             type: string

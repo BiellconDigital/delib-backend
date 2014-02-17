@@ -110,6 +110,10 @@ class CartOrdenRepository extends EntityRepository
             if(!$oOrdenEstado)
                 throw new \Exception('No existe el estado de orden de compra.',1);
                 
+            $oOrdenTipo = $this->_em->find("\cart\Entity\CartOrdenTipo", $formData['idOrdenTipo'] );
+            if(!$oOrdenTipo)
+                throw new \Exception('No existe tipo de orden.',1);
+                
             $oUbigeo = $this->_em->find("\web\Entity\CmsUbigeo", $formData['codPostal'] );
             if(!$oUbigeo)
                 throw new \Exception('No existe ubigeo.', 1);
@@ -117,8 +121,10 @@ class CartOrdenRepository extends EntityRepository
             $oOrden->setCliente($oCliente);
             $oOrden->setDireccionEnvio($formData['direccionEnvio']);
             $oOrden->setUbigeo($oUbigeo);
-            $oOrden->setDireccionPago($formData['direccionPago']);
-            $oOrden->setPersonaRecepcion($formData['personaRecepcion']);
+            if (isset($formData['direccionPago']))
+                $oOrden->setDireccionPago($formData['direccionPago']);
+            if (isset($formData['personaRecepcion']))
+                $oOrden->setPersonaRecepcion($formData['personaRecepcion']);
 //            $oOrden->setFechaEnvio($formData['fechaEnvio']);
             $oOrden->setHoraEnvio($formData['horaEnvio']);
             $oOrden->setImpuestoRatio($formData['impuestoRatio']);
@@ -136,13 +142,17 @@ class CartOrdenRepository extends EntityRepository
                 $oOrden->setRucCliente ($formData['rucCliente']);
             if(isset ($formData['razonSocial']))
                 $oOrden->setRazonSocial ($formData['razonSocial']);
+            $oOrden->setOrdenTipo($oOrdenTipo);
+            $oOrden->setTipoPago($formData['tipoPago']);
+            $oOrden->setAceptaPolitica($formData['aceptaPolitica']);
+            
 //            $oOrden->setFechaModificacion( new \DateTime() );
             $this->_em->persist($oOrden);
             $this->_em->flush();
             return $oOrden;
         } catch(\Exception $e) {
             if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
-            throw new \Exception('Error al guardar registro Orden.',1);
+            throw new \Exception('Error al guardar registro Orden. ' . $e->getMessage(),1);
         }
     }
     

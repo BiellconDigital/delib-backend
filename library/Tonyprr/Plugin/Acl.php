@@ -33,6 +33,10 @@ class Tonyprr_Plugin_Acl extends Zend_Acl
 //		$this->add($this->get('index'), 'admin');
  
 		$this->add(new Zend_Acl_Resource('api'));
+		$this->addResource('api_login');
+		$this->addResource('api_cliente');
+		$this->addResource('api_auth');
+		$this->addResource('api_cart');
 		// Asignar permisos
 		// guest
 //		$this->allow('invitado', array('auth') );//'index', 
@@ -44,12 +48,20 @@ class Tonyprr_Plugin_Acl extends Zend_Acl
 //		$this->deny('invitado', array('web_compra_despacho') );
 //		$this->deny('invitado', array('web_producto_agregar-comentario') );
 		$this->allow('invitado', array('api') );
+		$this->allow('invitado', array('api_auth') );
+		$this->allow('invitado', array('api_login') );
+                $this->deny('invitado',  array('api_cliente'));
+                $this->deny('invitado',  array('api_cart'));
 		// user
 		$this->allow('user', array('web') );
 		$this->allow('user', array('cart') );
 		$this->allow('user', array('admin') );
-		$this->deny('user', array('api') );
-//		$this->deny('user', array('web_cliente') );
+		
+                $this->allow('user', array('api') );
+		$this->allow('user', array('api_auth') );
+                $this->deny('user',  array('api_login'));
+                $this->allow('user',  array('api_cliente'));
+                $this->allow('user',  array('api_cart'));
 		// admin
 		$this->allow('admin');
 //		$this->deny('admin', array('web_mi-cuenta', 'web') );

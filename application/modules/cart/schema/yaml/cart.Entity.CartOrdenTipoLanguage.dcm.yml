@@ -1,0 +1,47 @@
+cart\Entity\CartOrdenTipoLanguage:
+    type: entity
+    repositoryClass: cart\Repositories\CartOrdenTipoLanguageRepository
+    table: cart_orden__tipo_language
+    fields:
+        idOrdentipoLanguage:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_OrdenTipo_Language
+            generator:
+                strategy: IDENTITY
+        descripcion:
+            type: string
+            length: 140
+            fixed: false
+            nullable: false
+            column: __descripcion
+        detalle:
+            type: text
+            nullable: true
+            column: __detalle
+    manyToOne:
+        ordenTipo:
+            targetEntity: cart\Entity\CartOrdenTipo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: languages
+            joinColumns:
+                __id_orden_tipo:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_orden_tipo
+            orphanRemoval: false
+        language:
+            targetEntity: web\Entity\CmsLanguage
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __id_language:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __id_language
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

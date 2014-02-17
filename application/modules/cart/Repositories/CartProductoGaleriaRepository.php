@@ -3,6 +3,7 @@
 namespace cart\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use Vendors\Paginate\Paginate;
 
 /**
  * CartProductoGaleriaRepository
@@ -12,4 +13,51 @@ use Doctrine\ORM\EntityRepository;
  */
 class CartProductoGaleriaRepository extends EntityRepository
 {
+
+    public function listRecords($idProducto, $oLanguage=1, $pageStart=NULL, $pageLimit=NULL) {
+        $count= 0;
+        $oLanguage = $this->_em->getRepository("\web\Entity\CmsLanguage")->findOneByidLanguage($oLanguage);
+        
+        $oProducto = $this->_em->find("\cart\Entity\CartProducto", $idProducto );
+        if(!$oProducto)
+            throw new \Exception('No existe el registro.');
+
+        $dqlList = 'SELECT pg.idcontgale, pg.ordenGale, pg.imagenGale,pg.fecharegGale,
+                           pgl.titulo, pgl.descripcion,
+                           p.idproducto
+                    from \cart\Entity\CartProductoGaleria pg 
+                    INNER JOIN pg.producto p INNER JOIN pg.languages pgl 
+                    WHERE pg.producto = ?1 AND pgl.language =?2  
+                    ORDER BY pg.ordenGale ASC';
+        $qyProductoCategoria = $this->_em->createQuery($dqlList);
+        $qyProductoCategoria->setParameter(1, $oProducto)->setParameter(2, $oLanguage);
+        
+        if ($pageStart!= NULL and $pageLimit!=NULL) {
+            $count = Paginate::getTotalQueryResults($qyProductoCategoria);
+            $qyProductoCategoria->setFirstResult($pageStart)->setMaxResults($pageLimit);
+            $aProductoGale = $qyProductoCategoria->getResult();
+        } else {
+            $aProductoGale = $qyProductoCategoria->getResult();
+            $count = count($aProductoGale);
+        }
+        return array($aProductoGale, $count, $oProducto);
+    }
+
+    public function getById($id, $asArray=true) {
+        $dqlList = 'SELECT pg FROM \cart\Entity\CartProductoGaleria pg WHERE pg.idcontgale = ?1';
+        $qyProductoGale = $this->_em->createQuery($dqlList);
+        $qyProductoGale->setParameter(1,$id);
+        if ($asArray) {
+            $oProductoGale = $qyProductoGale->getArrayResult();
+            $objRecords = \Tonyprr_lib_Records::getInstance();
+            if (count($oProductoGale) != 1)
+                throw new Exception('No existe este registro.',1);
+            $objRecords->normalizeRecord($oProductoGale[0]);
+            $oProductoGale = $oProductoGale[0];
+        } else {
+            $oProductoGale = $qyProductoGale->getSingleResult();
+        }
+        return $oProductoGale;
+    }
+    
 }

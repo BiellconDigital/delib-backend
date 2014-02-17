@@ -88,6 +88,8 @@ class Tonyprr_Plugin_Authorization extends Zend_Controller_Plugin_Abstract
 //        }
 //    }
     
+    
+    
 	public function preDispatch ( Zend_Controller_Request_Abstract $request )
 	{
                 
@@ -97,7 +99,7 @@ class Tonyprr_Plugin_Authorization extends Zend_Controller_Plugin_Abstract
 //		$role = $this->_auth->hasIdentity() ? $this->_auth->getInstance()->getIdentity()->role : 'invitado';
 		$role = $this->_auth->hasIdentity() ? $storageUser['role'] : 'invitado';
 //		$role = 'user';
-                //echo $role . '<br/>';
+//                echo $role . '<br/>';
 //                var_dump($this->_auth->getInstance()->getIdentity());//Zend_Auth_Storage_Session
 //                var_dump($this->_auth->getStorage()->read());
 //                $authSesion = new Zend_Auth_Storage_Session(SES_USER);
@@ -119,6 +121,8 @@ class Tonyprr_Plugin_Authorization extends Zend_Controller_Plugin_Abstract
 		else if( $this->_acl->has( $moduleName ) )
 			$resource = $moduleName;
  
+//                echo $resource;
+                
                 if($moduleName == 'admin' 
                         and $this->getRequest()->getControllerName() != 'login'
                         and $actionName != 'access'
@@ -137,18 +141,17 @@ class Tonyprr_Plugin_Authorization extends Zend_Controller_Plugin_Abstract
 		else if ( !$this->_acl->isAllowed($role, $resource) && $role == 'invitado' )
 		{
                     $request->setModuleName('api');
-                    $request->setControllerName('login');
-                    $request->setActionName('no-auth');
+                    $request->setControllerName('auth');
+                    $request->setActionName('noauth');
 		}
 		// Ahora si la persona tiene un "role" distinto de 'guest' y aun as� no pasa
 		// la prueba de identificaci�n lo mando a una p�gina de error.
 		else if (!$this->_acl->isAllowed($role, $resource) )
 		{
-//                    $this->_redirect('/consejos');
-//                    echo '  xzz';
-                    $request->setModuleName('web');
-                    $request->setControllerName('index');
-                    $request->setActionName('index');
+//                    echo 'esta validando';
+                    $request->setModuleName('api');
+                    $request->setControllerName('auth');
+                    $request->setActionName('noauth');
                     
 		}
  	}

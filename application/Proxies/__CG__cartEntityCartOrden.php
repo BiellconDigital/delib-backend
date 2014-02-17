@@ -393,10 +393,46 @@ class CartOrden extends \cart\Entity\CartOrden implements \Doctrine\ORM\Proxy\Pr
         return parent::getUbigeo();
     }
 
+    public function setAceptaPolitica($aceptaPolitica)
+    {
+        $this->__load();
+        return parent::setAceptaPolitica($aceptaPolitica);
+    }
+
+    public function getAceptaPolitica()
+    {
+        $this->__load();
+        return parent::getAceptaPolitica();
+    }
+
+    public function setOrdenTipo(\cart\Entity\CartOrdenTipo $ordenTipo = NULL)
+    {
+        $this->__load();
+        return parent::setOrdenTipo($ordenTipo);
+    }
+
+    public function getOrdenTipo()
+    {
+        $this->__load();
+        return parent::getOrdenTipo();
+    }
+
+    public function setTipoPago($tipoPago)
+    {
+        $this->__load();
+        return parent::setTipoPago($tipoPago);
+    }
+
+    public function getTipoPago()
+    {
+        $this->__load();
+        return parent::getTipoPago();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idOrden', 'tipoDocumento', 'direccionEnvio', 'direccionPago', 'subTotal', 'totalImpuesto', 'impuestoRatio', 'total', 'totalDescuento', 'totalFinal', 'costoEnvio', 'cuentaBanco', 'fechaProcesado', 'fechaEnvio', 'horaEnvio', 'fechaModificado', 'codigoVoucher', 'nroFactura', 'rucCliente', 'razonSocial', 'personaRecepcion', 'fechaDeposito', 'horaDeposito', 'detalle', 'carrito', 'cliente', 'ubigeo', 'moneda', 'ordenEstado');
+        return array('__isInitialized__', 'idOrden', 'tipoDocumento', 'direccionEnvio', 'direccionPago', 'subTotal', 'totalImpuesto', 'impuestoRatio', 'total', 'totalDescuento', 'totalFinal', 'costoEnvio', 'cuentaBanco', 'fechaProcesado', 'fechaEnvio', 'horaEnvio', 'fechaModificado', 'codigoVoucher', 'nroFactura', 'rucCliente', 'razonSocial', 'personaRecepcion', 'fechaDeposito', 'horaDeposito', 'aceptaPolitica', 'tipoPago', 'detalle', 'carrito', 'cliente', 'ubigeo', 'moneda', 'ordenEstado', 'ordenTipo');
     }
 
     public function __clone()

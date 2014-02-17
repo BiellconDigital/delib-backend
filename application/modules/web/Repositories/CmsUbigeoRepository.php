@@ -3,6 +3,7 @@
 namespace web\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use Vendors\Paginate\Paginate;
 
 /**
  * CmsUbigeoRepository
@@ -12,4 +13,41 @@ use Doctrine\ORM\EntityRepository;
  */
 class CmsUbigeoRepository extends EntityRepository
 {
-}
+    /**
+     * 
+     * @param type $asArray
+     * @param type $oPais
+     * @param type $pageStart
+     * @param type $pageLimit
+     * @return type
+     */
+    public function listRecords($asArray, $oPais, $pageStart = NULL, $pageLimit = NULL) {
+        $count= 0;
+        if(!$oPais instanceof \web\Entity\CmsPais)
+            $oPais = $this->_em->getRepository("\web\Entity\CmsPais")->findOneByidPais($oPais);
+        
+        $qbPais = $this->_em->createQueryBuilder();
+        $qbPais->select(
+                    '
+                    u.codPostal, u.dpto, u.prov, u.dist
+                    ')->from($this->_entityName,'u')
+                   ->orderBy('u.dist','ASC')
+                    ->andWhere('u.pais = :pais')->setParameter('pais', $oPais);
+        $qyPais = $qbPais->getQuery();
+        
+        
+        if ($pageStart != NULL and $pageLimit != NULL) {
+            $count = Paginate::getTotalQueryResults($qyPais);
+            $qyPais->setFirstResult($pageStart)->setMaxResults($pageLimit);
+        }
+        if ($asArray) {
+            $resultados = $qyPais->getArrayResult();
+            $objRecords=\Tonyprr_lib_Records::getInstance();
+            $objRecords->normalizeRecords($resultados);
+        } else  {
+            $resultados = $qyPais->getResult();
+        }
+        
+        return array($resultados, $count);
+    }
+ }

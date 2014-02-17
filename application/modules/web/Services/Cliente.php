@@ -59,10 +59,12 @@ class Cliente {
                 
             }
 
-            
-            $oPais = $this->_em->find("\web\Entity\CmsPais", $formData['idPais'] );
-            if(!$oPais)
-                throw new \Exception('No existe categoría. Seleccione primero una Categoria.', 1);
+            if (isset($formData['idPais'])) {
+                $oPais = $this->_em->find("\web\Entity\CmsPais", $formData['idPais'] );
+                if(!$oPais)
+                    throw new \Exception('No existe categoría. Seleccione primero una Categoria.', 1);
+                $oCliente->setPais($oPais);
+            }
                 
             if (isset($formData['idtipoDocumento'])) {
                 $oTipoDocumento = $this->_em->find("web\Entity\CmsTipoDocumento", $formData['idtipoDocumento'] );
@@ -70,7 +72,6 @@ class Cliente {
                     throw new \Exception('No existe Tipo de Documento. Seleccione primero un Tipo de Documento.');
                 $oCliente->setTipoDocumento($oTipoDocumento);
             }
-            $oCliente->setPais($oPais);
             
 //            if (isset($formData['idLanguage']) ) {
 //                $oLanguage = $this->_em->find("\web\Entity\CmsLanguage", $formData['idLanguage'] );
@@ -78,13 +79,18 @@ class Cliente {
 //            }
             
             $oCliente->setNombres($formData['nombres']);
-            $oCliente->setApellidoPaterno($formData['apellidoPaterno']);
-            $oCliente->setApellidoMaterno($formData['apellidoMaterno']);
-            $oCliente->setNroDocumento($formData['nroDocumento']);
-            $oCliente->setGenero($formData['genero']);
+            if (isset($formData['apellidoPaterno']))
+                $oCliente->setApellidoPaterno($formData['apellidoPaterno']);
+            if (isset($formData['apellidoMaterno']))
+                $oCliente->setApellidoMaterno($formData['apellidoMaterno']);
+            if (isset($formData['nroDocumento']))
+                $oCliente->setNroDocumento($formData['nroDocumento']);
+            if (isset($formData['genero']))
+                $oCliente->setGenero($formData['genero']);
             $oCliente->setFechaNacimiento(new \DateTime($formData['fechaNacimiento']));
             $oCliente->setTelefonoCasa($formData['telefonoCasa']);
-            $oCliente->setTelefonoOficina($formData['telefonoOficina']);
+            if (isset($formData['telefonoOficina']))
+                $oCliente->setTelefonoOficina($formData['telefonoOficina']);
             $oCliente->setMovil($formData['movil']);
             if (isset ($formData['clave']))
                 $oCliente->setClave($formData['clave']);

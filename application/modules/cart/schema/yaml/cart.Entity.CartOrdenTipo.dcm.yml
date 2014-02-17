@@ -1,0 +1,23 @@
+cart\Entity\CartOrdenTipo:
+    type: entity
+    repositoryClass: cart\Repositories\CartOrdenTipoRepository
+    table: cart_orden__tipo
+    fields:
+        idOrdenTipo:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __id_orden_tipo
+            generator:
+                strategy: IDENTITY
+        activo:
+            type: boolean
+            nullable: true
+            column: __activo
+    oneToMany:
+        languages:
+            targetEntity: cart\Entity\CartOrdenTipoLanguage
+            mappedBy: ordenTipo
+            cascade: [ "persist","remove" ]
+    lifecycleCallbacks: {  }
