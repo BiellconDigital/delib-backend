@@ -20,7 +20,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
 //    realpath(APPLICATION_PATH . '/../library/Vendors/Excel'),
     realpath(APPLICATION_PATH . DS . 'modules'),
-    realpath(APPLICATION_PATH . '/../../../libs'),
+    realpath(APPLICATION_PATH . '/../../libs'),
     get_include_path(),
 )));
 

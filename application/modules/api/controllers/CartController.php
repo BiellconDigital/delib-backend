@@ -32,6 +32,7 @@ class Api_CartController extends Zend_Controller_Action
             $pageLimit = isset($data['limit'])?$data['limit']:NULL;
             $idcontCate = isset($data['idcontcate'])?$data['idcontcate']:NULL;
             $textoBusqueda = isset($data['query'])?$data['query']:NULL;
+            $dataStorage = Zend_Auth::getInstance()->getStorage()->read();
             
             if ($data['operacion'] == "distritos") {
                 $srvUbigeo = new UbigeoService();
@@ -43,8 +44,17 @@ class Api_CartController extends Zend_Controller_Action
                 $result['data'] = $aOrdenTipo;
             } else if ($data['operacion'] == "lista_pedidos") {
                 $srvOrdenService = new OrdenService();
-                list($aOrdenTipo, $total) = $srvOrdenService->lista();
-                $result['data'] = $aOrdenTipo;
+                list($aOrdenesCliente, $total) = $srvOrdenService->listRecordsXClienteThumb($dataStorage['idCliente']);
+                $result['data'] = $aOrdenesCliente;
+            } else if ($data['operacion'] == "get_pedido") {
+                $srvOrdenService = new OrdenService();
+                $srvOrdenDetalleService = new OrdenDetalleService();
+                $oOrden = $srvOrdenService->getById($data['idOrden']);
+                $oOrdenDetalle = $srvOrdenDetalleService->aList($data['idOrden']);
+//                var_dump($oOrden);
+                $total = 1;
+                $result['data']['head'] = $oOrden;
+                $result['data']['detalle'] = $oOrdenDetalle[0];
             }
             $result['success'] = 1;
             $result['total'] = $total;

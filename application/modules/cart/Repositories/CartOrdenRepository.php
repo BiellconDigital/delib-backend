@@ -81,6 +81,55 @@ class CartOrdenRepository extends EntityRepository
     
     /**
      *
+     * @param CmsCliente $oCliente
+     * @param \cart\Entity\CartOrdenEstado $ordenEstado
+     * @param int $pageStart
+     * @param int $pageLimit
+     * @return array 
+     */
+    public function listRecordsXClienteThumb($oCliente, $ordenEstado=NULL, $oLanguage=1, $pageStart=NULL, $pageLimit=NULL) {
+        $count= 0;
+        if (!$oCliente instanceof \web\Entity\CmsCliente)
+            $oCliente = $this->_em->getRepository("\web\Entity\CmsCliente")->find($oCliente);
+        
+        if (!$oLanguage instanceof \web\Entity\CmsLanguage)
+            $oLanguage = $this->_em->getRepository("\web\Entity\CmsLanguage")->findOneByidLanguage($oLanguage);
+        
+        $qbOrden = $this->_em->createQueryBuilder();
+        $qbOrden->select( array(
+                    "o.idOrden,o.tipoDocumento,o.total,o.fechaProcesado
+                     ,m.idMoneda,m.signo,oe.idOrdenEstado,oel.nombre as nombre_estado,
+                     od.productoNombre,odp.imagen
+                    ",
+                    //select("MIN(od.idOrdenDetalle) as idOrden, od.productoNombre")->from("cart\Entity\CartOrdenDetalle", "od")
+                        
+                    ))->from($this->_entityName, 'o')
+                    ->innerJoin('o.moneda','m')->innerJoin('o.ordenEstado','oe')//,od.productoNombre,odp.imagen ->where("od.orden = o")
+                    ->innerJoin("oe.languages", "oel")
+                    ->leftJoin("o.detalle", "od")//, \Doctrine\ORM\Query\Expr\Join::WITH, "o = od.orden and MIN(od.idOrdenDetalle) > 0" )
+                    ->leftJoin("od.producto", "odp")
+                    ->where("oel.language = ?1 AND o.cliente = ?2")
+                    ->setParameter(1, $oLanguage)->setParameter(2, $oCliente)
+                    ->andWhere($qbOrden->expr()->in("od.idOrdenDetalle", "select MIN(odt.idOrdenDetalle) as idOrdenDetalle from cart\Entity\CartOrdenDetalle odt where odt.orden = o"));
+//                    ->having($qbOrden->expr()->min("od.idOrdenDetalle") . " > 0");
+
+        if ($ordenEstado != NULL) $qbOrden->andWhere('o.ordenEstado = ?3')->setParameter(3, $ordenEstado);
+//        echo $qbOrden->getDQL();
+        $qyOrden = $qbOrden->getQuery();
+        if ($pageStart!= NULL and $pageLimit!=NULL) {
+            $count = Paginate::getTotalQueryResults($qyOrden);
+            $qyOrden->setFirstResult($pageStart)->setMaxResults($pageLimit);
+        }
+        $resultados = $qyOrden->getArrayResult();
+        $objRecords=\Tonyprr_lib_Records::getInstance();
+        $objRecords->normalizeRecords($resultados);
+        
+        return array($resultados, $count);
+    }
+
+    
+    /**
+     *
      * @param array $formData
      * @return \cart\Entity\CartOrden $oOrden
      */
@@ -189,15 +238,26 @@ class CartOrdenRepository extends EntityRepository
     }
     
     
-    public function getById($id, $asArray=true, $oCliente=NULL) {
-        $dqlList = 'SELECT o FROM \cart\Entity\CartOrden o WHERE o.idOrden = ?1';
-        if($oCliente != NULL) $dqlList .= ' AND o.cliente = ?2';
-        
-        $qyOrden = $this->_em->createQuery($dqlList);
-        $qyOrden->setParameter(1, $id);
-        if($oCliente != NULL) $qyOrden->setParameter(2, $oCliente);
+    public function getById($id, $asArray=true, $oCliente=NULL, $oLanguage = 1) {
         
         if ($asArray) {
+            if (!$oLanguage instanceof \web\Entity\CmsLanguage)
+                $oLanguage = $this->_em->getRepository("\web\Entity\CmsLanguage")->findOneByidLanguage($oLanguage);
+        
+            $qbOrden = $this->_em->createQueryBuilder();
+            $qbOrden->select( array("o", "m","oe","oel"))->from($this->_entityName, 'o')
+/*                        "o.idOrden,o.tipoDocumento,o.total,o.fechaProcesado
+                         ,m.idMoneda,m.signo,oe.idOrdenEstado,oel.nombre as nombre_estado
+                        ",
+  */                      
+                        ->innerJoin('o.moneda','m')->innerJoin('o.ordenEstado','oe')//,od.productoNombre,odp.imagen ->where("od.orden = o")
+                        ->innerJoin("oe.languages", "oel")
+                        ->where("oel.language = ?1 AND o.idOrden = ?2")
+                        ->setParameter(1, $oLanguage)->setParameter(2, $id);
+    //                    ->having($qbOrden->expr()->min("od.idOrdenDetalle") . " > 0");
+
+            if ($oCliente != NULL) $qbOrden->andWhere('o.cliente = ?3')->setParameter(3, $oCliente);
+            $qyOrden = $qbOrden->getQuery();
             $oOrden = $qyOrden->getArrayResult();
             $objRecords = \Tonyprr_lib_Records::getInstance();
             if (count($oOrden) != 1)
@@ -205,7 +265,15 @@ class CartOrdenRepository extends EntityRepository
             $objRecords->normalizeRecord($oOrden[0]);
             $oOrden = $oOrden[0];
         } else {
+            $dqlList = 'SELECT o FROM \cart\Entity\CartOrden o WHERE o.idOrden = ?1';
+            $qyOrden = $this->_em->createQuery($dqlList);
+            $qyOrden->setParameter(1, $id);
+            if($oCliente != NULL) $dqlList .= ' AND o.cliente = ?2';
+            if($oCliente != NULL) $qyOrden->setParameter(2, $oCliente);
             $oOrden = $qyOrden->getSingleResult();
+//            $oOrdenHead = \Vendors\Util\Serializor::json_encode($oOrden);
+//            $oOrdenDetalle = \Vendors\Util\Serializor::json_encode($oOrden->getDetalle());
+//            $this->_em->detach($oOrden);
         }
         return $oOrden;
     }

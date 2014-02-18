@@ -25,9 +25,9 @@ class CartOrdenDetalleRepository extends EntityRepository
         $qbOrdenDetalle = $this->_em->createQueryBuilder();
         $qbOrdenDetalle->select(
                     '
-                    od.idOrdenDetalle,od.productoNombre,od.cantidad,od.precioUnitario,od.precioTotal
+                    od.idOrdenDetalle,od.productoNombre,od.cantidad,od.precioUnitario,od.precioTotal,p.imagen
                     ')->from($this->_entityName, 'od')
-//                   ->innerJoin('cd.tipoDireccion','td')->innerJoin('cd.pais','pa')->innerJoin('cd.cliente','c')
+                   ->innerJoin('od.producto','p')
                    ->orderBy('od.fechaRegistro','DESC')
                    ->where('od.orden = :orden')->setParameter('orden', $oOrden);
         $qyOrdenDetalle = $qbOrdenDetalle->getQuery();//,pa.nombre as nombre_pais

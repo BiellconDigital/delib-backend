@@ -34,13 +34,19 @@ class OrdenService {
         return array($resultados, $total);
     }
 
-    public function aListRecordsXCliente($ordenEstado=NULL, $oLanguage=1, $pageStart=NULL, $pageLimit=NULL) {
+    public function aListRecordsXCliente($oCliente, $ordenEstado=NULL, $oLanguage=1, $pageStart=NULL, $pageLimit=NULL) {
         
-        list($qyOrden, $total) = $this->_em->getRepository($this->_entity)->listRecordsXCliente($ordenEstado, $oLanguage, $pageStart, $pageLimit);
+        list($qyOrden, $total) = $this->_em->getRepository($this->_entity)->listRecordsXCliente($oCliente, $ordenEstado, $oLanguage, $pageStart, $pageLimit);
         $resultados = $qyOrden->getArrayResult();
         $objRecords=\Tonyprr_lib_Records::getInstance();
         $objRecords->normalizeRecords($resultados);
         return array($resultados, $total);
+    }
+
+    public function listRecordsXClienteThumb($oCliente, $ordenEstado=NULL, $oLanguage=1, $pageStart=NULL, $pageLimit=NULL) {
+        
+        return $this->_em->getRepository($this->_entity)->
+                listRecordsXClienteThumb($oCliente, $ordenEstado, $oLanguage, $pageStart, $pageLimit);
     }
 
     
