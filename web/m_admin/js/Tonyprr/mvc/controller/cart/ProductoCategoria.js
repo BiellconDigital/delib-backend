@@ -85,9 +85,9 @@ Ext.define('Tonyprr.mvc.controller.cart.ProductoCategoria', {
         if(nodeSel.length == 0) return;
         idReg = nodeSel[0].get('idcontcate');
         this.getFormservprod().loadUIForm(idReg);
-        storeLanguage = this.getFormservprod().down('grid[itemId="gridProdCateLanguage"]').getStore();
-        Ext.apply(storeLanguage.getProxy().extraParams, {idcontcate : idReg});
-        storeLanguage.load();
+        // storeLanguage = this.getFormservprod().down('grid[itemId="gridProdCateLanguage"]').getStore();
+        // Ext.apply(storeLanguage.getProxy().extraParams, {idcontcate : idReg});
+        // storeLanguage.load();
         
 //        storeCateTipos = this.getFormservprod().down('grid[itemId="gridProdCateTipo"]').getStore();
 //        Ext.apply(storeCateTipos.getProxy().extraParams, {idcontcate : idReg});
@@ -131,9 +131,9 @@ Ext.define('Tonyprr.mvc.controller.cart.ProductoCategoria', {
                     var json = Ext.JSON.decode(action.response.responseText);
                     if(json.success == 1) {
                         controller.getFormservprod().getForm().setValues({idcontcate:json.idcontcate});
-                        storeLanguage = controller.getFormservprod().down('grid[itemId="gridProdCateLanguage"]').getStore();
-                        Ext.apply(storeLanguage.getProxy().extraParams, {idcontcate : json.idcontcate});
-                        storeLanguage.load();
+                        // storeLanguage = controller.getFormservprod().down('grid[itemId="gridProdCateLanguage"]').getStore();
+                        // Ext.apply(storeLanguage.getProxy().extraParams, {idcontcate : json.idcontcate});
+                        // storeLanguage.load();
                         
                         controller.loadTreeStore();
                     }

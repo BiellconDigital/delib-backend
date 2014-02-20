@@ -86,8 +86,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                             {
                                                 xtype:'textfield',
                                                 name:'nombre_producto',
-                                                width : 370,
-                                                disabled:true 
+                                                width : 370
                                             },
                                             {
                                                 xtype: 'splitter',
@@ -221,7 +220,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                             
                             ,{
                                 xtype :'panel',
-                                title: 'Idiomas',
+                                title: 'Ficha',
                                 itemId:'panelProdLanguage',
                                 layout : 'anchor',
                                 padding : '6 6 6 6', 
@@ -229,6 +228,22 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                 defaultType : 'textfield',
                                 items:[
                                     {
+                                        xtype: 'tinymcefield',
+                                        name: 'ficha',
+                                        fieldLabel: 'Detalle',
+                                        labelAlign: 'top',
+                                        height: 290,
+                                        anchor: '100%',
+                                        tinymceConfig: {
+                                            theme_advanced_buttons1: 'fullscreen,|,undo,redo,|,bold,italic,underline,strikethrough,|,forecolor,backcolor,removeformat,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,|,code',
+                                            theme_advanced_buttons2: 'fontsizeselect,|,cut,copy,paste,pastetext,pasteword,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink',
+                                            theme_advanced_buttons3: '',
+                                            theme_advanced_buttons4: '',
+                                            skin_variant : 'gray'
+                                        }
+                                    }
+
+/*                                    {
                                         xtype : 'grid',
                                         itemId:'gridProdLanguage',
                                         frame:true,
@@ -323,7 +338,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                             ,'-'
                                         ]
                                     }
-                                ]
+*/                                ]
                             }
                             ,{
                                 xtype :'panel',

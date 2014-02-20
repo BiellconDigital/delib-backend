@@ -55,6 +55,12 @@ class Producto {
             
             if (is_numeric($formData['idproducto']) ) {
                 $oProducto = $this->_em->find($this->_entityName, $formData['idproducto'] );
+                if ((sizeof($oProducto->getLanguages()) > 0) ) {
+                    foreach ($oProducto->getLanguages() as $language) {
+                        $language-> setNombre($formData['nombre_producto'])
+                                 -> setFicha($formData['ficha']);
+                    }
+                }
             }
             else {
                 $oProducto = new CartProducto();
@@ -68,7 +74,8 @@ class Producto {
                     $oProductoLanguage = new CartProductoLanguage();
                     $oProductoLanguage ->setProducto($oProducto)
                                     -> setLanguage($oLanguage)
-                                    -> setNombre("producto");
+                                    -> setNombre($formData['nombre_producto'])
+                                    -> setFicha($formData['ficha']);
                     $oProducto->addLanguage($oProductoLanguage);
                 }
             }

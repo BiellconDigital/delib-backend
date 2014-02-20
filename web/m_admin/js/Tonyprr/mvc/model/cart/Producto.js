@@ -18,6 +18,7 @@ Ext.define("Tonyprr.mvc.model.cart.Producto",{
         
         {name : 'nombre_producto'},
         {name : 'intro_producto'},
+        {name : 'ficha'},
         
         {name:"idcontcate",type:"integer"},
         {name:"idmarca",type:"integer"},

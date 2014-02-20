@@ -67,10 +67,10 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
             ,'panel[itemId="winProducto"] button[text="Guardar"]': {
                 click : this.onClickSaveProd
             }
-            ,'panel[itemId="winProducto"] button[text="guardar idioma"]': {
+/*            ,'panel[itemId="winProducto"] button[text="guardar idioma"]': {
                 click : this.onClickSaveLanguage
             }
-        });
+*/        });
     },
     
     initView: function(parent) {
@@ -106,8 +106,8 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
             this.getWinproducto().getComponent(0).getForm().reset();
             this.getWinproducto().getComponent(0).getForm().setValues({idcontcate: idCategoria, nameCate:idDescCate});
             
-            this.getWinproducto().down(('form[itemId="formProdLanguage"]')).getForm().reset();
-            this.getWinproducto().down(('grid[itemId="gridProdLanguage"]')).getStore().removeAll();
+            //this.getWinproducto().down(('form[itemId="formProdLanguage"]')).getForm().reset();
+//            this.getWinproducto().down(('grid[itemId="gridProdLanguage"]')).getStore().removeAll();
         } catch(Exception) {
             Tonyprr.core.Lib.exceptionAlert(Exception);
         }
@@ -130,9 +130,9 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                             formProd = controller.getWinproducto().getComponent(0);
                             formProd.getForm().setValues({idproducto:json.idproducto});
                             
-                            storeLanguage = controller.getWinproducto().down('grid[itemId="gridProdLanguage"]').getStore();
-                            Ext.apply(storeLanguage.getProxy().extraParams, {idproducto : json.idproducto});
-                            storeLanguage.load();
+                            // storeLanguage = controller.getWinproducto().down('grid[itemId="gridProdLanguage"]').getStore();
+                            // Ext.apply(storeLanguage.getProxy().extraParams, {idproducto : json.idproducto});
+                            // storeLanguage.load();
                             
                         }
                         Tonyprr.App.showNotification({message:json.msg});
@@ -162,7 +162,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                 },
                 success: function(form, action) {
                     Tonyprr.App.showNotification({message:action.result.msg});
-                    controller.getWinproducto().down('grid[itemId="gridProdLanguage"]').getStore().load();
+//                    controller.getWinproducto().down('grid[itemId="gridProdLanguage"]').getStore().load();
                     controller.getListviewprod().getComponent(1).getStore().load();
                 }
                 ,failure: function(form, action) {

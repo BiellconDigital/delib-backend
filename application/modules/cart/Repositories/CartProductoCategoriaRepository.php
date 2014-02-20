@@ -126,17 +126,20 @@ class CartProductoCategoriaRepository extends EntityRepository
     public function getById($id, $language=null, $asArray=true, $soloActivo=false) {
         $oProductoCategoriaLang = null;
         try {
+            if(!$language instanceof \web\Entity\CmsLanguage)
+                $language = $this->_em->getRepository("\web\Entity\CmsLanguage")->findOneByidLanguage($language);
+        
             if ($asArray) {
                 $qbProductoCategoria = $this->_em->createQueryBuilder();
                 $qbProductoCategoria->select(
                             '
                             pc.idcontcate, pc.nivelCate, pc.imagenCate, pc.ordenCate, pc.stateCate,
-                            pcp.idcontcate as idcontcatePadre
+                            pcp.idcontcate as idcontcatePadre, pcl.descripcion as nameCate
                             '
                             )->from($this->_entityName,'pc')->distinct()//, pcpl.descripcion as nombre_padre
                             ->innerJoin('pc.contcatePadre','pcp')
-//                            ->innerJoin('pcp.languages','pcpl')
-//                            ->andWhere("pcpl.language = :lang")->setParameter('lang', $language)
+                            ->innerJoin('pc.languages','pcl')
+                            ->andWhere("pcl.language = :lang")->setParameter('lang', $language)
                             ->andWhere("pc.idcontcate = :id")->setParameter('id', $id);
                 if ($soloActivo) $qbProductoCategoria->andWhere('pc.stateCate = :estado')->setParameter('estado', 1);
                 $qyProductoCategoria = $qbProductoCategoria->getQuery();
@@ -351,7 +354,7 @@ class CartProductoCategoriaRepository extends EntityRepository
     public function deleteRecursive($oCategoriaPadre, $pathProdCategoria, $profundidad = 0) {
         try {
             $qbProdCate = $this->_em->createQueryBuilder();
-            $qbProdCate->select('ps')->from($this->_entity,'ps')
+            $qbProdCate->select('ps')->from($this->_entityName,'ps')
                        ->andWhere('ps.contcatePadre = :padre')
                        ->setParameter('padre', $oCategoriaPadre)->orderBy('ps.ordenCate','ASC');
             $qyProductoCategoria = $qbProdCate->getQuery();

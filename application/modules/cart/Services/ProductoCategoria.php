@@ -67,7 +67,7 @@ class ProductoCategoria {
      * 
      * @return array
      */
-    public function getById($id, $language=null, $asArray=true, $soloActivo=false) {
+    public function getById($id, $language=1, $asArray=true, $soloActivo=false) {
         $aResult = $this->_em->getRepository($this->_entity)->getById($id, $language, $asArray, $soloActivo);
         return $aResult;
     }
@@ -90,6 +90,11 @@ class ProductoCategoria {
             
             if (is_numeric($formData['idcontcate']) ) {
                 $oProductoCategoria = $this->_em->find($this->_entity, $formData['idcontcate'] );
+                if ((sizeof($oProductoCategoria->getLanguages()) > 0) ) {
+                    foreach ($oProductoCategoria->getLanguages() as $language) {
+                        $language-> setDescripcion($formData['nameCate']);
+                    }
+                }
             }
             else {
                 $oProductoCategoria = new CartProductoCategoria();
@@ -100,7 +105,7 @@ class ProductoCategoria {
                     $oProductoCategoriaLanguage = new CartProductoCategoriaLanguage();
                     $oProductoCategoriaLanguage ->setContcate($oProductoCategoria)
                                     -> setLanguage($oLanguage)
-                                    ->setDescripcion("descripcion");
+                                    ->setDescripcion($formData['nameCate']);
                     $oProductoCategoria->addLanguage($oProductoCategoriaLanguage);
                 }
             }

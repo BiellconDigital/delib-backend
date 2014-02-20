@@ -16,7 +16,7 @@ Ext.define("Tonyprr.mvc.view.cart.ProductoCategoriaForm", {
     border : true, 
     autoScroll : true,
     loadUIForm : function(id) {
-        this.down(('form[itemId="formProdCateLanguage"]')).getForm().reset();
+        //this.down(('form[itemId="formProdCateLanguage"]')).getForm().reset();
         this.form.load({
             url: Tonyprr.BASE_URL + '/admin/cart-producto-categoria/form',
             method:'POST',
@@ -34,9 +34,9 @@ Ext.define("Tonyprr.mvc.view.cart.ProductoCategoriaForm", {
         });
     },
     newUIForm : function(idcontcatePadre, nombrePadre, nivel) {
-        this.down(('form[itemId="formProdCateLanguage"]')).getForm().reset();
+        //this.down(('form[itemId="formProdCateLanguage"]')).getForm().reset();
         this.form.reset();
-        this.down(('grid[itemId="gridProdCateLanguage"]')).getStore().removeAll();
+        //this.down(('grid[itemId="gridProdCateLanguage"]')).getStore().removeAll();
 //        this.down(('grid[itemId="gridProdCateTipo"]')).getStore().removeAll();
 //        this.form.setValues({idpadre: idPadre, nombre_padre: nombrePadre, nivel: nivel});
         this.form.setValues({idcontcatePadre: idcontcatePadre, nombre_padre: nombrePadre, nivelCate: nivel});
@@ -95,6 +95,11 @@ Ext.define("Tonyprr.mvc.view.cart.ProductoCategoriaForm", {
                         {
                             xtype : 'hidden',
                             name:'idcontcatePadre'
+                        },
+
+                        {
+                            fieldLabel:'Descripcion',
+                            name:'nameCate'
                         },
                         {
                             fieldLabel:'Padre',
@@ -155,7 +160,7 @@ Ext.define("Tonyprr.mvc.view.cart.ProductoCategoriaForm", {
 //                        }
                     ]
                 }
-                ,{
+/*                ,{
                     xtype :'panel',
                     title: 'Idiomas',
                     itemId:'panelProdCateLanguage',
@@ -246,7 +251,7 @@ Ext.define("Tonyprr.mvc.view.cart.ProductoCategoriaForm", {
                         }
                     ]
                 }
-            ]
+*/            ]
         }
     ]
 });
