@@ -116,25 +116,30 @@ class ProductoCategoria {
             $this->_em->persist($oProductoCategoria);
             $this->_em->flush();
             
+            
             /* Subir archivo de imagen */
-            $tipo = $_FILES['file_image']['type'];
-            if ($tipo == "image/jpg" || $tipo =="image/jpeg" || $tipo =="image/pjpeg" || $tipo =="image/png") {
-                $aInfoImg = pathinfo($_FILES['file_image']['name']);
-                $nomArchivoImg = trim("producto_cate_" . time() . '_' . $oProductoCategoria->getIdcontcate()) .'.' . $aInfoImg['extension'];//$aInfoImg['extension']
-                @move_uploaded_file($_FILES['file_image']['tmp_name'], $this->_pathProducto . $nomArchivoImg);
-//                $objThumb = new \Tonyprr_Thumb();
-//                $res1=$objThumb->thumbjpeg_replace_fijo($this->_pathProducto . $nomArchivoImg,200,130);
-//                $res2=$objThumb->thumbjpeg($this->_pathProducto . $nomArchivoImg,"",140,'thumb_');
-                @unlink($this->_pathProducto . trim($oProductoCategoria->getImagenCate()));
-//                @unlink($this->_pathProducto . 'thumb_' . trim($oProductoCategoria->getImagenConte()));
-                $oProductoCategoria->setImagenCate($nomArchivoImg);
-                $subioArchivo = true;
-            }
+            if (isset($_FILES['file_image'])) {
+                $tipo = $_FILES['file_image']['type'];
+                if ($tipo == "image/jpg" || $tipo =="image/jpeg" || $tipo =="image/pjpeg" || $tipo =="image/png") {
+                    $aInfoImg = pathinfo($_FILES['file_image']['name']);
+                    $nomArchivoImg = trim("producto_cate_" . time() . '_' . $oProductoCategoria->getIdcontcate()) .'.' . $aInfoImg['extension'];//$aInfoImg['extension']
+                    @move_uploaded_file($_FILES['file_image']['tmp_name'], $this->_pathProducto . $nomArchivoImg);
+    //                $objThumb = new \Tonyprr_Thumb();
+    //                $res1=$objThumb->thumbjpeg_replace_fijo($this->_pathProducto . $nomArchivoImg,200,130);
+    //                $res2=$objThumb->thumbjpeg($this->_pathProducto . $nomArchivoImg,"",140,'thumb_');
+                    @unlink($this->_pathProducto . trim($oProductoCategoria->getImagenCate()));
+    //                @unlink($this->_pathProducto . 'thumb_' . trim($oProductoCategoria->getImagenConte()));
+                    $oProductoCategoria->setImagenCate($nomArchivoImg);
+                    $subioArchivo = true;
+                }
 
-            if ($subioArchivo == true) {
-                $this->_em->persist($oProductoCategoria);
-                $this->_em->flush();
+                if ($subioArchivo == true) {
+                    $this->_em->persist($oProductoCategoria);
+                    $this->_em->flush();
+                }
             }
+            
+            
             return $oProductoCategoria;
         } catch(\Exception $e) {
             throw new \Exception("Error al guardar registro. ", 1);//$e->getMessage()

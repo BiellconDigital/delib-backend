@@ -62,8 +62,8 @@ Ext.define("Tonyprr.mvc.view.cart.ProductoCategoria", {
         itemId:'menuContextProdCate',
         items: [
             deleteProdCateAction,
-            editarProdCateAction,
-            agregarProdCateAction
+            editarProdCateAction
+            //agregarProdCateAction
         ]
     });
 

@@ -133,26 +133,26 @@ Ext.define("Tonyprr.mvc.view.cart.ProductoCategoriaForm", {
                                     name:'stateCate'
                                 }
                             ]
-                        },
-                        {
-                            xtype: 'fieldcontainer',
-                            fieldLabel: 'Foto (200x122)',
-                            layout: 'hbox',
-                            items: [
-                                {
-                                    xtype :'textfield',
-                                    name :'imagenCate',
-                                    width : 270, disabled : true
-                                },
-                                {xtype: 'splitter'},
-                                {
-                                    xtype:'filefield',
-                                    name:'file_image',
-                                    msgTarget: 'side',
-                                    buttonConfig :{iconCls:'image_edit'},buttonText:''
-                                }
-                            ]
                         }
+//                        {
+//                            xtype: 'fieldcontainer',
+//                            fieldLabel: 'Foto (200x122)',
+//                            layout: 'hbox',
+//                            items: [
+//                                {
+//                                    xtype :'textfield',
+//                                    name :'imagenCate',
+//                                    width : 270, disabled : true
+//                                },
+//                                {xtype: 'splitter'},
+//                                {
+//                                    xtype:'filefield',
+//                                    name:'file_image',
+//                                    msgTarget: 'side',
+//                                    buttonConfig :{iconCls:'image_edit'},buttonText:''
+//                                }
+//                            ]
+//                        }
                     ]
                 }
                 ,{
