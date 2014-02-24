@@ -5,15 +5,19 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                     'Tonyprr.mvc.store.cart.Producto','Tonyprr.mvc.store.cart.ProductoLanguage',
                     'Tonyprr.mvc.store.cart.ProductoCategoria'
                     
-                    ,'Tonyprr.mvc.store.cart.Marca','Tonyprr.mvc.store.cart.ProductoGaleria'
-                    ,'Tonyprr.mvc.store.cart.ProductoGaleriaLanguage','Tonyprr.mvc.store.cart.ProductoTipo'
+//                    ,'Tonyprr.mvc.store.cart.Marca'
+                    ,'Tonyprr.mvc.store.cart.ProductoGaleria'
+                    ,'Tonyprr.mvc.store.cart.ProductoGaleriaLanguage'
+//                    ,'Tonyprr.mvc.store.cart.ProductoTipo'
                   ],
     models	: [
                     'Tonyprr.abstract.Model','Tonyprr.mvc.model.cart.ProductoCategoria',
                     'Tonyprr.mvc.model.cart.Producto','Tonyprr.mvc.model.cart.ProductoLanguage'
                     
-                    ,'Tonyprr.mvc.model.cart.Marca','Tonyprr.mvc.model.cart.ProductoGaleria'
-                    ,'Tonyprr.mvc.model.cart.ProductoGaleriaLanguage','Tonyprr.mvc.model.cart.ProductoTipo'
+//                    ,'Tonyprr.mvc.model.cart.Marca'
+                    ,'Tonyprr.mvc.model.cart.ProductoGaleria'
+                    ,'Tonyprr.mvc.model.cart.ProductoGaleriaLanguage'
+//                    ,'Tonyprr.mvc.model.cart.ProductoTipo'
                   ],
 
     views	: [
@@ -34,14 +38,14 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
             ref: 'winproducto',
             selector: 'panel[itemId="winProducto"]'
         }
-        ,{
-            ref: 'cbomarcaprod',
-            selector: 'combobox[itemId="cboMarcaProdWinProd"]'
-        }
-        ,{
-            ref: 'cbotipoprod',
-            selector: 'combobox[itemId="cboTipoProdWinProd"]'
-        }
+//        ,{
+//            ref: 'cbomarcaprod',
+//            selector: 'combobox[itemId="cboMarcaProdWinProd"]'
+//        }
+//        ,{
+//            ref: 'cbotipoprod',
+//            selector: 'combobox[itemId="cboTipoProdWinProd"]'
+//        }
 //        ,{
 //            ref : 'viewgaleria',
 //            selector : 'dataview[itemId="viewGaleWidget"]'
@@ -80,8 +84,8 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
     }
     
     ,onGridAfterRender: function(grid, opts) {
-        if( Ext.isObject(this.getCbomarcaprod()) ) this.getCbomarcaprod().getStore().load();
-        if( Ext.isObject(this.getCbotipoprod()) ) this.getCbotipoprod().getStore().load();
+//        if( Ext.isObject(this.getCbomarcaprod()) ) this.getCbomarcaprod().getStore().load();
+//        if( Ext.isObject(this.getCbotipoprod()) ) this.getCbotipoprod().getStore().load();
     }
     ,onWinAfterRender: function(panel, opts) {
 //        this.getCbomarcaprod().getStore().load();

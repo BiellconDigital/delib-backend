@@ -84,18 +84,24 @@ class Producto {
             if(!$oProductoCate)
                 throw new \Exception('No existe categoría. Seleccione primero una Categoria.');
                 
-            $oProductoMarca = $this->_em->find("\cart\Entity\CartMarca", $formData['idmarca'] );
-            if(!$oProductoMarca)
-                throw new \Exception('No existe Marca. Seleccione primero una Marca.');
-            $oProductoTipo = $this->_em->find("\cart\Entity\CartProductoTipo", $formData['idTipo'] );
-            if(!$oProductoTipo)
-                throw new \Exception('No existe Tipo. Seleccione primero un tipo.');
+            if (isset($formData['idmarca'])) {
+                $oProductoMarca = $this->_em->find("\cart\Entity\CartMarca", $formData['idmarca'] );
+                if(!$oProductoMarca)
+                    throw new \Exception('No existe Marca. Seleccione primero una Marca.');
+                $oProducto->setMarca($oProductoMarca);
+            }
+
+            if (isset($formData['idTipo'])) {
+                $oProductoTipo = $this->_em->find("\cart\Entity\CartProductoTipo", $formData['idTipo'] );
+                if(!$oProductoTipo)
+                    throw new \Exception('No existe Tipo. Seleccione primero un tipo.');
+                $oProducto->setTipo($oProductoTipo);
+            }
                 
 //            $oProducto->setTituloConte($formData['tituloConte']);
             $oProducto->setContcate($oProductoCate);
             $oProducto->setCodigoProducto($formData['codigoProducto']);
-            $oProducto->setMarca($oProductoMarca);
-            $oProducto->setTipo($oProductoTipo);
+            
             $oProducto->setOrden($formData['orden']);
 //            $oProducto->setDescripcionConte($formData['descripcionConte']);
 //            $oProducto->setFichaConte($formData['fichaConte']);
