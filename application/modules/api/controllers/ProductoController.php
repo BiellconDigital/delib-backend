@@ -38,7 +38,7 @@ class Api_ProductoController extends Zend_Controller_Action
             $srvProducto = new Producto();
             
             if ($data['operacion'] == "lista") {
-                list($aProductos, $total, $oProductoCategoria) = $srvProducto->aList($idcontCate, 1 ,"TODOS", $pageStart, $pageLimit, $textoBusqueda);
+                list($aProductos, $total, $oProductoCategoria) = $srvProducto->aList($idcontCate, 1 ,1, $pageStart, $pageLimit, $textoBusqueda);
                 $objRecords=\Tonyprr_lib_Records::getInstance();
                 $objRecords->normalizeRecords($aProductos);
                 $result['data'] = $aProductos;
