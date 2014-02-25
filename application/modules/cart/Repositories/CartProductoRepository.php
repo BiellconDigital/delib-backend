@@ -29,7 +29,7 @@ class CartProductoRepository extends EntityRepository
         $qbProducto = $this->_em->createQueryBuilder();
         $qbProducto->select(
                     '
-                    p.idproducto,p.precio,p.codigoProducto,
+                    p.idproducto,p.precio,p.precio1,p.precio2,p.codigoProducto,
                     p.cantidad,p.cantidadVendidos,p.peso,p.imagen,p.adjunto,p.orden,p.estado,p.fechainipub,
                     p.fechafinpub,p.fechamodif,p.fechareg,
                     pl.nombre as nombre_producto,pl.intro as intro_producto,pl.ficha,
@@ -82,7 +82,7 @@ class CartProductoRepository extends EntityRepository
                 $qbProducto = $this->_em->createQueryBuilder();
                 $qbProducto->select(
                             '
-                            p.idproducto,p.precio,p.codigoProducto,
+                            p.idproducto,p.precio,p.precio1,p.precio2,p.codigoProducto,
                             p.cantidad,p.cantidadVendidos,p.peso,p.imagen,p.adjunto,p.orden,p.estado,p.fechainipub,
                             p.fechafinpub,p.fechamodif,p.fechareg,
                             pl.nombre as nombre_producto,pl.intro as intro_producto,pl.ficha,

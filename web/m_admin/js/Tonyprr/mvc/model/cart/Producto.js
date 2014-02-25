@@ -4,6 +4,8 @@ Ext.define("Tonyprr.mvc.model.cart.Producto",{
         {name:"idproducto",type:"integer"},
         {name: 'codigoProducto'},
         {name:"precio",type:"float"},
+        {name:"precio1",type:"float"},
+        {name:"precio2",type:"float"},
         {name:"cantidad",type:"integer"},
         {name: 'cantidadVendidos', type: 'integer'},
         {name:"peso",type:"float"},

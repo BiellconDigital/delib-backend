@@ -108,6 +108,12 @@ class Producto {
             
 //            $oProducto->setPeso($formData['peso']);
             $oProducto->setPrecio($formData['precio']);
+            
+            if (isset($formData['precio1']))
+                $oProducto->setPrecio1($formData['precio1']);
+            
+            if (isset($formData['precio2']))
+                $oProducto->setPrecio2($formData['precio2']);
 //            $oProducto->setCantidad($formData['cantidad']);
             
             $oProducto->setEstado(isset($formData['estado'])?1:0);

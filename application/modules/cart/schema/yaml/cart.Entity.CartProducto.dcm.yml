@@ -21,6 +21,14 @@ cart\Entity\CartProducto:
             type: float
             nullable: true
             column: __precio
+        precio1:
+            type: float
+            nullable: true
+            column: __precio1
+        precio2:
+            type: float
+            nullable: true
+            column: __precio2
         cantidad:
             type: float
             nullable: true
