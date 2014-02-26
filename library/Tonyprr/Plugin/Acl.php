@@ -37,6 +37,8 @@ class Tonyprr_Plugin_Acl extends Zend_Acl
 		$this->addResource('api_cliente');
 		$this->addResource('api_auth');
 		$this->addResource('api_cart');
+//		$this->addResource('api_distrito');
+//		$this->addResource('api_orden-tipo');
 		// Asignar permisos
 		// guest
 //		$this->allow('invitado', array('auth') );//'index', 

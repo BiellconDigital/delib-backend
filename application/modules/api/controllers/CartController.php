@@ -30,19 +30,9 @@ class Api_CartController extends Zend_Controller_Action
             $data = $this->getRequest()->getParams();
             $pageStart = isset($data['start'])?$data['start']:NULL;
             $pageLimit = isset($data['limit'])?$data['limit']:NULL;
-            $idcontCate = isset($data['idcontcate'])?$data['idcontcate']:NULL;
-            $textoBusqueda = isset($data['query'])?$data['query']:NULL;
             $dataStorage = Zend_Auth::getInstance()->getStorage()->read();
             
-            if ($data['operacion'] == "distritos") {
-                $srvUbigeo = new UbigeoService();
-                list($aUbigeo, $total) = $srvUbigeo->lista();
-                $result['data'] = $aUbigeo;
-            } else if ($data['operacion'] == "razon_compra") {
-                $srvOrdenTipo = new OrdenTipoService();
-                list($aOrdenTipo, $total) = $srvOrdenTipo->lista();
-                $result['data'] = $aOrdenTipo;
-            } else if ($data['operacion'] == "lista_pedidos") {
+            if ($data['operacion'] == "lista_pedidos") {
                 $srvOrdenService = new OrdenService();
                 list($aOrdenesCliente, $total) = $srvOrdenService->listRecordsXClienteThumb($dataStorage['idCliente']);
                 $result['data'] = $aOrdenesCliente;
