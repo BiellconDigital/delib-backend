@@ -297,10 +297,34 @@ class CartProducto extends \cart\Entity\CartProducto implements \Doctrine\ORM\Pr
         return parent::getTipo();
     }
 
+    public function setPrecio1($precio1)
+    {
+        $this->__load();
+        return parent::setPrecio1($precio1);
+    }
+
+    public function getPrecio1()
+    {
+        $this->__load();
+        return parent::getPrecio1();
+    }
+
+    public function setPrecio2($precio2)
+    {
+        $this->__load();
+        return parent::setPrecio2($precio2);
+    }
+
+    public function getPrecio2()
+    {
+        $this->__load();
+        return parent::getPrecio2();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idproducto', 'codigoProducto', 'precio', 'cantidad', 'cantidadVendidos', 'peso', 'imagen', 'adjunto', 'orden', 'estado', 'fechainipub', 'fechafinpub', 'fechamodif', 'fechareg', 'languages', 'galeria', 'comentarios', 'marca', 'contcate', 'tipo');
+        return array('__isInitialized__', 'idproducto', 'codigoProducto', 'precio', 'precio1', 'precio2', 'cantidad', 'cantidadVendidos', 'peso', 'imagen', 'adjunto', 'orden', 'estado', 'fechainipub', 'fechafinpub', 'fechamodif', 'fechareg', 'languages', 'galeria', 'comentarios', 'marca', 'contcate', 'tipo');
     }
 
     public function __clone()

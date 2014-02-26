@@ -649,4 +649,64 @@ class CartProducto
     {
         return $this->tipo;
     }
+    /**
+     * @var float $precio1
+     *
+     * @ORM\Column(name="__precio1", type="float", nullable=true)
+     */
+    private $precio1;
+
+    /**
+     * @var float $precio2
+     *
+     * @ORM\Column(name="__precio2", type="float", nullable=true)
+     */
+    private $precio2;
+
+
+    /**
+     * Set precio1
+     *
+     * @param float $precio1
+     * @return CartProducto
+     */
+    public function setPrecio1($precio1)
+    {
+        $this->precio1 = $precio1;
+    
+        return $this;
+    }
+
+    /**
+     * Get precio1
+     *
+     * @return float 
+     */
+    public function getPrecio1()
+    {
+        return $this->precio1;
+    }
+
+    /**
+     * Set precio2
+     *
+     * @param float $precio2
+     * @return CartProducto
+     */
+    public function setPrecio2($precio2)
+    {
+        $this->precio2 = $precio2;
+    
+        return $this;
+    }
+
+    /**
+     * Get precio2
+     *
+     * @return float 
+     */
+    public function getPrecio2()
+    {
+        return $this->precio2;
+    }
 }
