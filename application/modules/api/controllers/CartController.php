@@ -59,7 +59,7 @@ class Api_CartController extends Zend_Controller_Action
     {
             $body = $this->getRequest()->getRawBody();
             $cartData = Zend_Json::decode($body);
-//            var_dump($cartData);
+//            var_dump($cartData);   procesar_compra
             $dataStorage = Zend_Auth::getInstance()->getStorage()->read();
             $em = \Zend_Registry::get('em');
             $em->getConnection()->beginTransaction();
@@ -121,6 +121,7 @@ class Api_CartController extends Zend_Controller_Action
 
                 $result['success'] = 1;
                 $result['msg'] = "Se proceso la compra correctamente.";
+                $result['idOrden'] = $oOrden -> getIdOrden();
                 $this->_helper->json->sendJson($result);
             } catch(Exception $e) {
                 $em->getConnection()->rollback();
@@ -134,6 +135,20 @@ class Api_CartController extends Zend_Controller_Action
     public function putAction()
     {
         //
+            $body = $this->getRequest()->getRawBody();
+            $cartData = Zend_Json::decode($body);
+//            var_dump($cartData);
+//            $dataStorage = Zend_Auth::getInstance()->getStorage()->read();
+            try {
+                $srvOrden = new OrdenService();
+                $srvOrden->registrarCodigoTransaccion($cartData['idOrden'], $cartData['codigoTransaccion']);
+                $result['success'] = 1;
+                $result['msg'] = "Se proceso la compra correctamente.";
+                $this->_helper->json->sendJson($result);
+            } catch(Exception $e) {
+                $this->getResponse()->setHttpResponseCode(500);
+                echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => $e->getMessage()) );
+            }
     }
 
     public function deleteAction()

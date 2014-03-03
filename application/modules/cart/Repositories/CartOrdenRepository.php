@@ -60,7 +60,7 @@ class CartOrdenRepository extends EntityRepository
                     "o.idOrden,o.tipoDocumento,o.direccionEnvio,o.direccionPago,o.personaRecepcion,
                      o.subTotal,o.totalImpuesto,o.impuestoRatio,o.total,o.totalDescuento,o.totalFinal,o.costoEnvio,
                      o.cuentaBanco,o.fechaProcesado,o.fechaEnvio,o.horaEnvio,o.fechaModificado,
-                     o.codigoVoucher,o.nroFactura,o.fechaDeposito,o.horaDeposito
+                     o.codigoVoucher,o.nroFactura,o.fechaDeposito,o.horaDeposito, o.tipoPago, o.codigoTransaccion
                      ,m.idMoneda,m.signo
                      ,oe.idOrdenEstado,oel.nombre as nombre_estado
                     ")->from($this->_entityName, 'o')
@@ -227,6 +227,34 @@ class CartOrdenRepository extends EntityRepository
             $oOrden->setFechaDeposito(new \DateTime($formData['fechaDeposito']));
             $oOrden->setHoraDeposito($formData['horaDeposito']);
 //            $oOrden->setFechaModificado( new \DateTime() );
+            $this->_em->persist($oOrden);
+            $this->_em->flush();
+            return $oOrden;
+            
+        } catch(\Exception $e) {
+            if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
+            throw new \Exception('Error al guardar registro Orden.',1);
+        }
+    }
+    
+    /**
+     *
+     * @param array $formData
+     * @return \cart\Entity\CartOrden $oOrden
+     */
+    public function registrarCodigoTransaccion($idOrden, $codigoTransaccion) {
+        try {
+            
+            /**
+             * \cart\Entity\CartOrden
+             */
+            $oOrden = $this->_em->find($this->_entityName, $idOrden );
+//            $oOrden = new \cart\Entity\CartOrden();
+            if(!$oOrden)
+                throw new \Exception('No existe orden de compra.', 1);
+
+            $oOrden->setCodigoTransaccion($codigoTransaccion);
+            $oOrden->setFechaModificado( new \DateTime() );
             $this->_em->persist($oOrden);
             $this->_em->flush();
             return $oOrden;

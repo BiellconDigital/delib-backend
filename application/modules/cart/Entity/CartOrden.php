@@ -997,4 +997,34 @@ class CartOrden
     {
         return $this->tipoPago;
     }
+    /**
+     * @var string $codigoTransaccion
+     *
+     * @ORM\Column(name="__codigo_transaccion", type="string", length=30, nullable=true)
+     */
+    private $codigoTransaccion;
+
+
+    /**
+     * Set codigoTransaccion
+     *
+     * @param string $codigoTransaccion
+     * @return CartOrden
+     */
+    public function setCodigoTransaccion($codigoTransaccion)
+    {
+        $this->codigoTransaccion = $codigoTransaccion;
+    
+        return $this;
+    }
+
+    /**
+     * Get codigoTransaccion
+     *
+     * @return string 
+     */
+    public function getCodigoTransaccion()
+    {
+        return $this->codigoTransaccion;
+    }
 }

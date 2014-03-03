@@ -129,6 +129,12 @@ cart\Entity\CartOrden:
             unsigned: false
             nullable: false
             column: __tipo_pago
+        codigoTransaccion:
+            type: string
+            length: 30
+            fixed: false
+            nullable: true
+            column: __codigo_transaccion
     manyToOne:
         carrito:
             targetEntity: cart\Entity\CartCarrito

@@ -65,6 +65,11 @@ class OrdenService {
         return $aOrden;
     }
     
+    public function registrarCodigoTransaccion($idOrden, $codigoTransaccion) {
+        $aOrden = $this->_em->getRepository($this->_entity)->registrarCodigoTransaccion($idOrden, $codigoTransaccion);
+        return $aOrden;
+    }
+    
     /**
      * 
      * @param int $id

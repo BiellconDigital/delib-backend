@@ -429,10 +429,22 @@ class CartOrden extends \cart\Entity\CartOrden implements \Doctrine\ORM\Proxy\Pr
         return parent::getTipoPago();
     }
 
+    public function setCodigoTransaccion($codigoTransaccion)
+    {
+        $this->__load();
+        return parent::setCodigoTransaccion($codigoTransaccion);
+    }
+
+    public function getCodigoTransaccion()
+    {
+        $this->__load();
+        return parent::getCodigoTransaccion();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idOrden', 'tipoDocumento', 'direccionEnvio', 'direccionPago', 'subTotal', 'totalImpuesto', 'impuestoRatio', 'total', 'totalDescuento', 'totalFinal', 'costoEnvio', 'cuentaBanco', 'fechaProcesado', 'fechaEnvio', 'horaEnvio', 'fechaModificado', 'codigoVoucher', 'nroFactura', 'rucCliente', 'razonSocial', 'personaRecepcion', 'fechaDeposito', 'horaDeposito', 'aceptaPolitica', 'tipoPago', 'detalle', 'carrito', 'cliente', 'ubigeo', 'moneda', 'ordenEstado', 'ordenTipo');
+        return array('__isInitialized__', 'idOrden', 'tipoDocumento', 'direccionEnvio', 'direccionPago', 'subTotal', 'totalImpuesto', 'impuestoRatio', 'total', 'totalDescuento', 'totalFinal', 'costoEnvio', 'cuentaBanco', 'fechaProcesado', 'fechaEnvio', 'horaEnvio', 'fechaModificado', 'codigoVoucher', 'nroFactura', 'rucCliente', 'razonSocial', 'personaRecepcion', 'fechaDeposito', 'horaDeposito', 'aceptaPolitica', 'tipoPago', 'codigoTransaccion', 'detalle', 'carrito', 'cliente', 'ubigeo', 'moneda', 'ordenEstado', 'ordenTipo');
     }
 
     public function __clone()

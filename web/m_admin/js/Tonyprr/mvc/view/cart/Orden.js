@@ -265,6 +265,25 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                     ]
                 },
                 {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Tipo Pago',
+                    layout: 'hbox',
+                    defaultType: 'textfield',
+                    items: [
+                        {
+                            width : 150,
+                            name:'tipoPago',
+                            readOnly: true
+                        }
+                        ,{xtype: 'splitter', width : 10}
+                        ,{
+                            fieldLabel: 'Código Transacción',
+                            name: 'codigoTransaccion',
+                            readOnly: true
+                        }
+                    ]
+                }
+                ,{
                     xtype: 'grid',
                     itemId:'gridOrdenDetalle',
                     frame:true,
