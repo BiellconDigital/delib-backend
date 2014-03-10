@@ -174,8 +174,8 @@ class CartOrdenRepository extends EntityRepository
                 $oOrden->setDireccionPago($formData['direccionPago']);
             if (isset($formData['personaRecepcion']))
                 $oOrden->setPersonaRecepcion($formData['personaRecepcion']);
-//            $oOrden->setFechaEnvio($formData['fechaEnvio']);
-            $oOrden->setHoraEnvio($formData['horaEnvio']);
+            $oOrden->setFechaEnvio($formData['fechaEnvio']);
+//            $oOrden->setHoraEnvio($formData['horaEnvio']);
             $oOrden->setImpuestoRatio($formData['impuestoRatio']);
             $oOrden->setMoneda($oMoneda);
             $oOrden->setOrdenEstado($oOrdenEstado);

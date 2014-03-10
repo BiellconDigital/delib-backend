@@ -24,7 +24,7 @@ class Admin_CartProductoController extends Zend_Controller_Action
                 $data = $this->getRequest()->getParams();
                 $pageStart = isset($data['start'])?$data['start']:NULL;
                 $pageLimit = isset($data['limit'])?$data['limit']:NULL;
-                $idcontCate = isset($data['idcontcate'])?$data['idcontcate']:2;
+                $idcontCate = isset($data['idcontcate'])?$data['idcontcate']:NULL;
                 $textoBusqueda = isset($data['query'])?$data['query']:NULL;
                 
                 $srvProducto = new Producto();

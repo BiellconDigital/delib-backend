@@ -77,7 +77,7 @@ Ext.define("Tonyprr.mvc.view.cart.MovimientoStock", {
                 {dataIndex: 'idOrden',header : 'Pedido',width: 80,sortable : false},
 //                {dataIndex: 'iduser',header : 'Usuario',width: 100,sortable : false},
                 {dataIndex: 'fechaIngreso',header : 'Fecha Ingreso',width: 100,xtype: 'datecolumn',format:'d-m-Y'},
-                {dataIndex: 'fechaCaducidad',header : 'Fecha de Caducidad',width: 106,xtype: 'datecolumn',format:'d-m-Y'},
+//                {dataIndex: 'fechaCaducidad',header : 'Fecha de Caducidad',width: 106,xtype: 'datecolumn',format:'d-m-Y'},
                 {dataIndex: 'fechaRegistro',header : 'Fecha Registro',width: 100,xtype: 'datecolumn',format:'d-m-Y H:i:s'}
             ],
             bbar : Ext.create('Ext.toolbar.Paging', {
@@ -151,14 +151,14 @@ Ext.define("Tonyprr.mvc.view.cart.MovimientoStock", {
                     name:'fechaIngreso',
                     allowBlank:false
                 }
-                ,{
-                    xtype :'datefield',
-                    fieldLabel:'Fecha de Caducidad',
-                    anchor:'45%',
-                    format : 'd-m-Y',
-                    name:'fechaCaducidad',
-                    allowBlank:false
-                }
+                // ,{
+                //     xtype :'datefield',
+                //     fieldLabel:'Fecha de Caducidad',
+                //     anchor:'45%',
+                //     format : 'd-m-Y',
+                //     name:'fechaCaducidad',
+                //     allowBlank:false
+                // }
                 
             ]
             ,

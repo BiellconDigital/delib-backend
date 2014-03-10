@@ -95,7 +95,7 @@ class Api_CartController extends Zend_Controller_Action
                 $headOrden['direccionEnvio'] = $orden['direccionEnvio'];//$oDirDespacho->getDireccion();
                 $headOrden['direccionPago'] = $orden['direccionEnvio'];
                 $headOrden['fechaEnvio'] = new \DateTime($orden['fechaEnvio']);
-                $headOrden['horaEnvio'] = $orden['hora']['horaEnvio'];
+                //$headOrden['horaEnvio'] = $orden['hora']['horaEnvio'];
                 
                 $headOrden['codPostal'] = $orden['distrito']['codPostal'];
                 $headOrden['idOrdenTipo'] = $orden['razon_compra']['idOrdenTipo'];
