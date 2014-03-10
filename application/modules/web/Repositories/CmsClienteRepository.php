@@ -180,7 +180,7 @@ class CmsClienteRepository extends EntityRepository
         return $oCliente;
     }
     
-    public function cambiarClave($id, $clave, $claveConfir=null, $claveActual=null) {
+    public function cambiarClave($id, $clave, $claveNueva=null, $claveConfir=null) {
         try {
 //            $oCliente = new CmsCliente();
             $dqlList = 'SELECT c FROM \web\Entity\CmsCliente c WHERE c.idCliente = ?1';
@@ -194,13 +194,13 @@ class CmsClienteRepository extends EntityRepository
             if($claveConfir != null)
                 if ($oCliente->getEstado() != 1)
                     throw new \Exception('El usuario ya no esta disponible.', 1);
-            if($claveActual != null)
-                if ($oCliente->getClave() != md5($claveActual))
+            if($clave != null)
+                if ($oCliente->getClave() != md5($clave))
                     throw new \Exception('La clave actual ingresada no es correcta.',1);
             if($claveConfir != null)
-                if($claveConfir != $clave)
+                if($claveConfir != $claveNueva)
                     throw new \Exception('Las claves no son las mismas.',1);
-            $oCliente->setClave(md5($clave));
+            $oCliente->setClave(md5($claveNueva));
             $this->_em->persist($oCliente);
             $this->_em->flush();
             return true;

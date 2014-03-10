@@ -12,7 +12,7 @@ define('BP', dirname(dirname(__FILE__)));
 define('PTH_FILES',BP . DS . 'web' . DS . 'm_web' . DS . 'files');
 define('PTH_FILES_CART',BP . DS . 'web' . DS . 'm_cart' . DS . 'files');
 define('PTH_PUBLIC',BP . DS . 'web' );
-define('DIR_WEB','http://localhost/delibouquet' . '/' . 'web/' );//$_SERVER['SERVER_NAME']
+define('DIR_WEB','http://localhost/delib-frontend' . '/' . 'app/' );//$_SERVER['SERVER_NAME']
 define('WEB_DOMAIN','http://localhost' );//$_SERVER['SERVER_NAME']
 
 // Ensure library/ is on include_pathm

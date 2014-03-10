@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class CmsKeysRepository extends EntityRepository
 {
-    public function listRecords($estado="TODOS", $pageStart=NULL, $pageLimit=NULL) {
+    public function listRecords($pageStart=NULL, $pageLimit=NULL) {
         $count= 0;
         $dqlList = 'SELECT m from \web\Entity\CmsKeys m';
         $qyKeys = $this->_em->createQuery($dqlList);
@@ -31,7 +31,7 @@ class CmsKeysRepository extends EntityRepository
             $objFecha2 = new \DateTime();
             $objFecha2->setTimestamp( strtotime("+24 hours", $objFecha->getTimestamp()) );
 
-            $oKey = new CmsKeys();
+            $oKey = new \web\Entity\CmsKeys();
             $oKey->setIdKeys($keyValidacion);
             $oKey->setConsumido(0);
             $oKey->setFechaInicio($objFecha);
@@ -66,6 +66,7 @@ class CmsKeysRepository extends EntityRepository
     
     public function consumirKey($oKey) {
         try {
+//            $oKey = $this->find($key);
             $oKey->setConsumido(1);
             $this->_em->persist($oKey);
             $this->_em->flush();

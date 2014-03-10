@@ -49,7 +49,26 @@ class Api_ClienteController extends Zend_Controller_Action
 
     public function putAction()
     {
-        //
+        $body = $this->getRequest()->getRawBody();
+        $formData = Zend_Json::decode($body);
+        try {
+            
+            if ($formData['operacion'] == "change_password") {
+                
+                $daoCliente = new Cliente();
+                $daoCliente->cambiarClave($formData['idCliente'], $formData['clave'], $formData['claveNueva']);
+                $result['success'] = 1;
+                $result['msg'] = "Su contraseña ha sido actualizada.";
+                $this->_helper->json->sendJson($result);
+                
+//                $this->getResponse()->setHttpResponseCode(500);
+//                echo Zend_Json_Encoder::encode( array("success" => 0, "msg" => "No se ha enviado los parametros necesarios.") );
+            }
+            
+        } catch(Exception $e) {
+            $this->getResponse()->setHttpResponseCode(500);
+            echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => $e->getMessage()) );
+        }
     }
 
     public function deleteAction()

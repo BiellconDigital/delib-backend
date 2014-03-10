@@ -1,4 +1,5 @@
 <?php
+use web\Services\Cliente;
 
 class Api_LoginController extends Zend_Controller_Action
 {
@@ -75,7 +76,23 @@ class Api_LoginController extends Zend_Controller_Action
 
     public function putAction()
     {
-        //
+        $body = $this->getRequest()->getRawBody();
+        $formData = Zend_Json::decode($body);
+        try {
+            
+            if ($formData['operacion'] == "retrieve_key") {
+                
+                $daoCliente = new Cliente();
+                $daoCliente->recuperarClave($formData['email']);
+                $result['success'] = 1;
+                $result['msg'] = "Hemos enviado un email con su nueva clave de acceso, proceda a revisar su bandeja.";
+                $this->_helper->json->sendJson($result);
+            }
+            
+        } catch(Exception $e) {
+            $this->getResponse()->setHttpResponseCode(500);
+            echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => $e->getMessage()) );
+        }
     }
 
     public function deleteAction()

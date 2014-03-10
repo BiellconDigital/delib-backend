@@ -159,21 +159,51 @@ Ext.define("Tonyprr.mvc.App",{
                     iconCls:'key_small'
             });
 
-            me.treeMenu = Ext.create('Ext.tree.Panel', {
-                title: 'Gestión Web',
+//            me.treeMenu = Ext.create('Ext.tree.Panel', {
+//                title: 'Clientes',
+//                rootVisible: false,
+//                collapsed : true,
+//                root: 
+//                    {
+//                        text: 'root',
+//                        expanded: true,
+//                        children: [
+//                            {
+//                                text: 'Gestión de Usuarios',
+//                                expanded: true,
+//                                children: [
+//                                    {
+//                                        text: 'Clientes',
+//                                        leaf: true
+//                                    }
+//                                ]
+//                                
+//                            }
+//                        ]
+//                    },
+//                    listeners: {
+//                        itemclick: {
+//                            fn: function(view,record,item,index) {
+//                                switch (record.get('text')) {
+//                                    case 'Clientes' : me.agregarTab('Clientes', 'tabm_cliente', '', true,'Cliente', 'web');
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    }
+//            });
+            
+            me.treeMenuCarrito = Ext.create('Ext.tree.Panel', {
+                title: 'Gestión Carro de Compras',
                 rootVisible: false,
-                collapsed : true,
-//                lines: true,
-//                autoScroll: true,
-//                bodyStyle:'',
-//                animate:true,
+                collapsed : false,
                 root: 
                     {
                         text: 'root',
                         expanded: true,
                         children: [
                             {
-                                text: 'Gestión de Usuarios',
+                                text: 'Gestión de Clientes',
                                 expanded: true,
                                 children: [
                                     {
@@ -183,38 +213,15 @@ Ext.define("Tonyprr.mvc.App",{
                                 ]
                                 
                             }
-                        ]
-                    },
-                    listeners: {
-                        itemclick: {
-                            fn: function(view,record,item,index) {
-                                switch (record.get('text')) {
-                                    case 'Clientes' : me.agregarTab('Clientes', 'tabm_cliente', '', true,'Cliente', 'web');
-                                    break;
-                                }
-                            }
-                        }
-                    }
-            });
-            
-            me.treeMenuCarrito = Ext.create('Ext.tree.Panel', {
-                title: 'Productos',
-                rootVisible: false,
-                collapsed : false,
-                root: 
-                    {
-                        text: 'root',
-                        expanded: true,
-                        children: [
-                            {
+                            ,{
                                 text: 'Productos',
                                 expanded: true,
                                 children: [
+//                                    {
+//                                        text: 'Marcas de Productos',
+//                                        leaf: true
+//                                    }
                                     {
-                                        text: 'Marcas de Productos',
-                                        leaf: true
-                                    }
-                                    ,{
                                         text: 'Categorias de Productos',
                                         leaf: true
                                     }
@@ -251,8 +258,10 @@ Ext.define("Tonyprr.mvc.App",{
                         itemclick: {
                             fn: function(view,record,item,index) {
                                 switch (record.get('text')) {
-                                    case 'Marcas de Productos' : me.agregarTab('Marcas', 'tabm_marca', '', true, 'Marca', 'cart');
+                                    case 'Clientes' : me.agregarTab('Clientes', 'tabm_cliente', '', true,'Cliente', 'web');
                                     break;
+//                                    case 'Marcas de Productos' : me.agregarTab('Marcas', 'tabm_marca', '', true, 'Marca', 'cart');
+//                                    break;
                                     case 'Categorias de Productos' : me.agregarTab('Categoria de Productos', 'tabm_productoCategoria', '', true,'ProductoCategoria', 'cart');
                                     break;
                                     case 'Registro de Productos' : me.agregarTab('Productos', 'tabm_producto', '', true,'Producto', 'cart');
@@ -295,7 +304,7 @@ Ext.define("Tonyprr.mvc.App",{
                             animate:true
                         },
                         items: [
-                            me.treeMenu,
+//                            me.treeMenu,
                             me.treeMenuCarrito
                         ]
                     },

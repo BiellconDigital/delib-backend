@@ -56,7 +56,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $restRoute = new Zend_Rest_Route($front, array(), 
                 array('api' => array('productos', 'productos-categoria', 'login',
                                      'cliente', 'logout', 'cart',
-                                      'distrito','orden-tipo'))
+                                      'distrito','orden-tipo', 'registro'))
         );
         $front->getRouter()->addRoute('rest', $restRoute);
         

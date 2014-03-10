@@ -2,7 +2,7 @@
 
 namespace web\Services;
 use \web\Entity\CmsCliente;
-
+use web\Services\KeysService;
 /**
  * Description of Cliente
  *
@@ -48,7 +48,7 @@ class Cliente {
             
             $newRegister = false;
             $subioArchivo = false;
-            
+
             if (is_numeric($formData['idCliente']) ) {
                 $oCliente = $this->_em->find($this->_entityName, $formData['idCliente'] );
             }
@@ -162,7 +162,90 @@ class Cliente {
     }
 
     
+    public function activacionCliente($user, $key) {
+        try {
+
+            $daoKeys = new KeysService();
+            $oKey = $daoKeys->verificarActivo($key);
+            
+            $query = $this->_em->createQuery('SELECT c from ' . $this->_entityName . ' c 
+                WHERE c.email = :e_mail');// AND u.estado=1
+            $query->setParameter('e_mail' ,$user);
+            try {
+                $oCliente = $query->getSingleResult();
+            } catch(\Doctrine\ORM\NoResultException $e) {
+                throw new \Exception('No es un e-mail válido de usuario.',1);
+            }
+//            $oCliente = new CmsCliente();
+            if ($oCliente->getEstado())
+                throw new \Exception('El usuario ya se encuentra activo.',1);
+
+            $objEmail = new \Tonyprr_Email();
+            $mensaje = "Su usuario ha sido activado correctamente, ¡bienvenido estimado cliente!";
+            $objEmail->setBodyHtml($objEmail->convertString($mensaje));
+            $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
+            $objEmail->addTo($user);
+            $objEmail->setSubject($objEmail->convertString("Activación de Cuenta - Delibouquet"));
+            $objEmail->send($objEmail->getMailTrans());
+
+            $oCliente->setEstado(1);
+            $oCliente->setFechaModificacion( new \DateTime() );
+            $this->_em->persist($oCliente);
+            $this->_em->flush();
+            $daoKeys->consumirKey($oKey);
+            
+        } catch(\Doctrine\ORM\NoResultException $e) {
+            if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
+            throw new \Exception('Ocurrió un error en el procesamiento, estaremos solucionandolo en breve.',1);
+        }
+    }
     
+
+
+    public function recuperarClave($email) {
+        try {
+
+            $genClave = 'delib' . rand(10000, 99999);
+            //unset ($formData['estado']);
+            $clave = md5($genClave);
+            
+            $query = $this->_em->createQuery('SELECT c from ' . $this->_entityName . ' c 
+                WHERE c.email = :e_mail');// AND u.estado=1
+            $query->setParameter('e_mail', $email);
+            try {
+                $oCliente = $query->getSingleResult();
+            } catch(\Doctrine\ORM\NoResultException $e) {
+                throw new \Exception('No es un e-mail válido de usuario.',1);
+            }
+//            $oCliente = new CmsCliente();
+            if (!$oCliente->getEstado())
+                throw new \Exception('El usuario ya no está activo.', 1);
+
+            $objEmail = new \Tonyprr_Email();
+            $mensaje = "Su clave ha sido restaurada, estos son sus datos de acceso:";
+            $mensaje .= "Usuario: " . $oCliente->getEmail() . '<br>'; 
+            $mensaje .= "Clave: " . $genClave . ' (es recomendable que proceda a cambiarla.)<br>'; 
+            $objEmail->setBodyHtml($objEmail->convertString($mensaje));
+            $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
+            $objEmail->addTo($email);
+            $objEmail->setSubject($objEmail->convertString("Restauración de Clave - Delibouquet"));
+            $objEmail->send($objEmail->getMailTrans());
+            
+            $oCliente->setFechaModificacion( new \DateTime() );
+            $oCliente->setClave($clave);
+            $this->_em->persist($oCliente);
+            $this->_em->flush();
+            
+        } catch(\Doctrine\ORM\NoResultException $e) {
+            if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
+            throw new \Exception('Ocurrió un error en el procesamiento, estaremos solucionandolo en breve.',1);
+        }
+    }
+    
+    public function cambiarClave($id, $clave, $claveNueva=null, $claveConfir=null) {
+        $resp = $this->_em->getRepository($this->_entityName)->cambiarClave($id, $clave, $claveNueva, $claveConfir);
+        return $resp;
+    }
     
 }
 
