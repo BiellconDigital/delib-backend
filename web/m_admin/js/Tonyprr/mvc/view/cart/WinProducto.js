@@ -49,6 +49,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                 defaultType : 'textfield',
 //                                border : false,
                                 title : 'Informaci&oacute;n',
+                                itemId:'panelInfoWidget',
                                 items : [
                                     {
                                         xtype: 'hidden',
@@ -354,6 +355,14 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                             }
                             ,{
                                 xtype :'panel',
+                                title: 'Stock del Producto',
+                                itemId:'panelStockWidget',
+                                layout : 'anchor',
+                                frame: false,
+                                autoHeight:true
+                            }
+                            ,{
+                                xtype :'panel',
                                 title: 'Galeria del Producto',
                                 itemId:'panelGaleWidget',
                                 layout : 'anchor',
@@ -610,12 +619,157 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                     }
                 );          
                 meWinProducto.down('panel[itemId="panelGaleWidget"]').add(panelGaleria);
-                
-
                 delete panelGaleria;
 
 
+                Ext.create('Tonyprr.mvc.store.cart.MovimientoStockProducto', {storeId:'storeMovimientoStock'});
+                gridUIMovimientoStock = Ext.create("Ext.grid.Panel", {
+                    itemId:'gridWidgetMovimientoStock',
+                    frame:true,
+                    columnLines : true,
+                    autoScroll:true,
+                    store: Ext.data.StoreManager.lookup('storeMovimientoStock'),
+                    border:false,
+                    tbar : [
+                        '-',
+                        {
+                            text:'Nuevo',iconCls:'add',
+                            listeners : {
+                                click: function() {
+                                    data = meWinProducto.getComponent(0).getForm().getValues();
 
+                                    meWinProducto.down('form[itemId="formWidgetMovimientoStock"]').getForm().reset();
+                                    meWinProducto.down('form[itemId="formWidgetMovimientoStock"]').getForm().
+                                            setValues({idMovimientoStockTipo: 2, idproductostock: data.idproducto});
+                                }
+                            }
+                        },
+                         '-'
+                    ],
+                    columns : [
+                        {dataIndex: 'idMovimientoStock',header : 'ID',width:26, sortable : false},
+                        {dataIndex: 'cantidad',header : 'Cantidad',width: 80,sortable : false},
+                        {dataIndex: 'idMovimientoStockTipo',header : 'ID Tipo Moov',hidden : true},
+                        {dataIndex: 'movTipo_nombre',header : 'Tipo Movimiento',width: 170,sortable : false},
+                        {dataIndex: 'signo',header : 'Nombre',width: 90, hidden : true},
+                        {dataIndex: 'idproducto',header : 'ID Producto',width: 70,hidden : true},
+//                        {dataIndex: 'producto_nombre',header : 'Producto',width: 275,sortable : true},
+                        {dataIndex: 'idOrden',header : 'Pedido',width: 80,sortable : false},
+        //                {dataIndex: 'iduser',header : 'Usuario',width: 100,sortable : false},
+                        {dataIndex: 'fechaIngreso',header : 'Fecha Ingreso',width: 100,xtype: 'datecolumn',format:'d-m-Y'},
+        //                {dataIndex: 'fechaCaducidad',header : 'Fecha de Caducidad',width: 106,xtype: 'datecolumn',format:'d-m-Y'},
+                        {dataIndex: 'fechaRegistro',header : 'Fecha Registro',width: 100,xtype: 'datecolumn',format:'d-m-Y H:i:s'}
+                    ],
+                    bbar : Ext.create('Ext.toolbar.Paging', {
+                        pageSize: 15,
+                        store: Ext.data.StoreManager.lookup('storeMovimientoStock'),
+                        displayInfo: true
+                    })
+                });
+
+
+                meWinProducto.down('panel[itemId="panelStockWidget"]').add({
+                    xtype : 'form',
+                    itemId:'formWidgetMovimientoStock',
+                    autoWidth: true,
+                    margin:'0 23 12 1',
+                    fileUpload:true,
+                    waitMsgTarget: true,
+                    frame : false,
+                    autoHeight: true,
+                    padding : '3 3 3 3',
+                    border : false,
+                    defaultType : 'textfield',
+                    layout              : 'anchor',
+                    fieldDefaults	: {
+                        labelAlign	: 'left',
+                        labelWidth      : 90,
+                        msgTarget	: 'side',
+                        anchor          : '96%'
+                    },
+                    items : [
+                        {
+                            xtype: 'hidden',
+                            name:'idMovimientoStock'
+                        },
+                        {
+                            xtype: 'hidden',
+                            name:'idMovimientoStockTipo',
+                            allowBlank:false
+                        },
+                        {
+                            xtype: 'hidden',
+                            name:'idproductostock',
+                            allowBlank:false
+                        },
+                        {
+                            xtype :'numberfield',
+                            fieldLabel:'Cantidad',
+                            anchor : '40%',
+                            name:'cantidad',
+                            allowBlank:false 
+                        }
+                        ,{
+                            xtype:'filefield',
+                            name:'file_temp_stock',
+                            hidden : true
+                        }
+                        ,{
+                            xtype :'datefield',
+                            fieldLabel:'Fecha Ingreso',
+                            anchor:'45%',
+                            format : 'd-m-Y',
+                            name:'fechaIngreso',
+                            allowBlank:false
+                        }
+                    ]
+                    ,
+                    buttonsAlign:'right',
+                    buttons : [
+                        {
+                            text:'Guardar Stock',iconCls:'save',
+                            formBind: true,
+//                            scope: this,
+                            handler: function (btn,e) {
+                                //idMovimientoStockTipo
+                                data = meWinProducto.down('form[itemId="formWidgetMovimientoStock"]').getForm().getValues();
+                                if (!data.idproductostock > 0) {
+                                    Ext.MessageBox.alert('Alerta','No ha seleccionado un producto o aun no ha sido guardado.');
+                                }
+                                if (!data.cantidad > 0) {
+                                    Ext.MessageBox.alert('Alerta','La cantidad tiene que ser mayor que 0.');
+                                }
+                                var formStockProd = meWinProducto.down('form[itemId="formWidgetMovimientoStock"]').getForm();
+                                formStockProd.submit({
+                                    url : Tonyprr.BASE_URL + '/admin/cart-movimiento-stock/save',
+                                    waitMsg:'Guardando, espere por favor...',
+                                    method:'POST',
+                                    timeout: 90000,
+//                                    scope:this,
+                                    success: function(request, action) {
+                                        try{
+                                            var json = Ext.JSON.decode(action.response.responseText);
+                                            if(json.success == 1) {
+                                                meWinProducto.down('grid[itemId="gridWidgetMovimientoStock"]').getStore().load();
+                                                formStockProd.reset();
+                                                //formProd.getForm().setValues({idMovimientoStock:json.idMovimientoStock});
+                                            }
+                                            Tonyprr.App.showNotification({message:json.msg});
+                                        } catch(Exception) {
+                                            Tonyprr.core.Lib.exceptionAlert(Exception);
+                                        }
+                                    },
+                                    failure: function(request, action) {
+                                        Ext.MessageBox.alert('Error','Error en el servidor.');
+                                    }
+                                });
+                            }
+                        }
+                    ]
+                });
+
+                meWinProducto.down('panel[itemId="panelStockWidget"]').add(gridUIMovimientoStock);
+                delete gridUIMovimientoStock;
 
 	}
 	

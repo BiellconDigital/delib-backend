@@ -128,6 +128,10 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
                             Ext.apply( storeGaleria.getProxy().extraParams, {idproducto: idReg} );
                             storeGaleria.load();
                             
+                            meProd.down('form[itemId="formWidgetMovimientoStock"]').getForm().reset();
+                            storeMoviStock = meProd.down('grid[itemId="gridWidgetMovimientoStock"]').getStore();
+                            Ext.apply( storeMoviStock.getProxy().extraParams, {idproducto: idReg} );
+                            storeMoviStock.load();
 
 //                            storeGaleria = meProd.down('dataview[itemId="viewGaleWidget"]').getStore();
 //                            Ext.apply( storeGaleria.getProxy().extraParams, {idproducto: idReg} );

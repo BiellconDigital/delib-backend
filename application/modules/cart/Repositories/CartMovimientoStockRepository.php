@@ -69,6 +69,53 @@ class CartMovimientoStockRepository extends EntityRepository
     }
 
     
+    public function listRecordsXProducto($idProducto, $idMovStockTipo=NULL, $oLanguage=NULL, $asArray = true, $pageStart=NULL, $pageLimit=NULL) {
+        $count= NULL;
+        if ($idMovStockTipo != NULL) {
+            $oMovimientoStockTipo = $this->_em->find("\cart\Entity\CartMovimientoStockTipo", $idMovStockTipo );
+            if(!($oMovimientoStockTipo instanceof \cart\Entity\CartMovimientoStockTipo)) {
+                throw new \Exception('No existe el Tipo de Movimiento de Stock.', 1);
+            }
+        }
+        
+        if (!$oLanguage instanceof \web\Entity\CmsLanguage)
+            $oLanguage = $this->_em->getRepository("\web\Entity\CmsLanguage")->findOneByidLanguage($oLanguage);
+        
+        $qbMovimientoStock = $this->_em->createQueryBuilder();
+        $qbMovimientoStock->select(
+                    "
+                    ms.idMovimientoStock,ms.cantidad,ms.fechaRegistro,ms.fechaActualizacion,ms.iduser,
+                    ms.fechaIngreso,ms.fechaCaducidad,
+                    p.idproducto,pl.nombre as producto_nombre,
+                    o.idOrden,
+                    mst.idMovimientoStockTipo,mst.nombre as movTipo_nombre,mst.signo
+                    "
+                    )->from($this->_entityName,'ms')
+                    ->innerJoin('ms.producto','p')->innerJoin('p.languages','pl')
+                    ->leftJoin('ms.orden','o')->innerJoin('ms.movimientoStockTipo','mst')
+                    ->where("pl.language = :lang")->setParameter("lang", $oLanguage)
+                    ->andWhere("p.idproducto = :id")->setParameter("id", $idProducto)
+                    ->orderBy('ms.fechaRegistro','DESC');
+        if ($idMovStockTipo != NULL) $qbMovimientoStock->andWhere('ms.movimientoStockTipo = :movtipo')->setParameter('movtipo', $oMovimientoStockTipo);
+        
+        $qyMovimientoStock = $qbMovimientoStock->getQuery();
+        if ($pageStart!= NULL and $pageLimit!=NULL) {
+            $count = Paginate::getTotalQueryResults($qyMovimientoStock);
+            $qyMovimientoStock->setFirstResult($pageStart)->setMaxResults($pageLimit);
+        }
+        
+        if ($asArray) {
+            $resultados = $qyMovimientoStock->getArrayResult();
+            $objRecords=\Tonyprr_lib_Records::getInstance();
+            $objRecords->normalizeRecords($resultados);
+        } else  {
+            $resultados = $qyMovimientoStock->getResult();
+        }
+        
+        return array($resultados, $count);
+    }
+
+
     /**
      *
      * @param array $formData

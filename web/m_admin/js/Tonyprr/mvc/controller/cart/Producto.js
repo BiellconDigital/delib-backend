@@ -9,6 +9,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                     ,'Tonyprr.mvc.store.cart.ProductoGaleria'
                     ,'Tonyprr.mvc.store.cart.ProductoGaleriaLanguage'
 //                    ,'Tonyprr.mvc.store.cart.ProductoTipo'
+                    ,'Tonyprr.mvc.store.cart.MovimientoStockProducto'
                   ],
     models	: [
                     'Tonyprr.abstract.Model','Tonyprr.mvc.model.cart.ProductoCategoria',
@@ -18,6 +19,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                     ,'Tonyprr.mvc.model.cart.ProductoGaleria'
                     ,'Tonyprr.mvc.model.cart.ProductoGaleriaLanguage'
 //                    ,'Tonyprr.mvc.model.cart.ProductoTipo'
+                    ,'Tonyprr.mvc.model.cart.MovimientoStock'
                   ],
 
     views	: [
@@ -153,7 +155,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
     
     ,onClickSaveLanguage: function(button,e) {
         data = this.getWinproducto().getComponent(0).getForm().getValues();
-        if (data.ididproducto == "") {
+        if (data.idproducto == "") {
             return;
         }
         controller = this;

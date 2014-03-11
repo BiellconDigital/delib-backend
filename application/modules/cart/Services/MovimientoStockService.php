@@ -30,6 +30,12 @@ class MovimientoStockService {
         return $aResult;
     }
 
+    public function aListXProducto($idProducto, $idMovStockTipo=NULL, $oLanguage=NULL, $asArray = true, $pageStart=NULL, $pageLimit=NULL) {
+        
+        $aResult = $this->_em->getRepository($this->_entity)->listRecordsXProducto($idProducto, $idMovStockTipo, $oLanguage, $asArray, $pageStart, $pageLimit);
+        return $aResult;
+    }
+
     /**
      * 
      * @param type $formData
