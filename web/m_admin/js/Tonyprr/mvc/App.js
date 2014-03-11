@@ -229,6 +229,10 @@ Ext.define("Tonyprr.mvc.App",{
                                         text: 'Registro de Productos',
                                         leaf: true
                                     }
+                                    ,{
+                                        text: 'Pedidos',
+                                        leaf: true
+                                    }
 //                                    ,{
 //                                        text: 'Comentarios',
 //                                        leaf: true
@@ -236,21 +240,21 @@ Ext.define("Tonyprr.mvc.App",{
                                 ]
                                 
                             }
-                            ,{
-                                text: 'Movimiento de Productos',
-                                expanded: true,
-                                children: [
-                                    {
-                                        text: 'Pedidos',
-                                        leaf: true
-                                    }
-                                    ,{
-                                        text: 'Movimiento de Stock',
-                                        leaf: true
-                                    }
-                                ]
+                            // ,{
+                            //     text: 'Movimiento de Productos',
+                            //     expanded: true,
+                            //     children: [
+                            //         {
+                            //             text: 'Pedidos',
+                            //             leaf: true
+                            //         }
+                            //         ,{
+                            //             text: 'Movimiento de Stock',
+                            //             leaf: true
+                            //         }
+                            //     ]
                                 
-                            }
+                            // }
                             
                         ]
                     }
