@@ -27,8 +27,8 @@ class ProductoGaleria {
      * 
      * @return array
      */
-    public function aList($idcontCate=NULL, $oLanguage=1, $pageStart=NULL, $pageLimit=NULL) {
-        $aResult = $this->_em->getRepository($this->_entityName)->listRecords($idcontCate, $oLanguage, $pageStart, $pageLimit);
+    public function aList($idproducto=NULL, $oLanguage=1, $pageStart=NULL, $pageLimit=NULL) {
+        $aResult = $this->_em->getRepository($this->_entityName)->listRecords($idproducto, $oLanguage, $pageStart, $pageLimit);
         return $aResult;
     }
     
