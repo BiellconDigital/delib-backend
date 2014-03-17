@@ -1,5 +1,6 @@
 <?php
 use cart\Services\Producto;
+use cart\Services\ProductoGaleria;
 use cart\Services\ProductoLanguage;
 use Tonyprr\Exception\ValidacionException;
 
@@ -46,6 +47,10 @@ class Api_ProductoController extends Zend_Controller_Action
                 $aProducto = $srvProducto->getById($data['idprod'], 1, true, true);
                 $result['data'] = $aProducto;
                 $total = 1;
+            } else if ($data['operacion'] == "get_galeria") {
+                $srvProductoGaleria = new ProductoGaleria();
+                list($aProductoGaleria, $total, $oProducto) = $srvProductoGaleria->aList($data['idprod'], 1);
+                $result['data'] = $aProductoGaleria;
             }
             $result['success'] = 1;
             $result['total'] = $total;
