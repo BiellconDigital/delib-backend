@@ -8,7 +8,6 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
 //        height: 500,
         autoHeight: true,
         autoWidth: true,
-//        region : 'north',
         margin : '3 10 4 5',
         layout: 'fit',
 //        modal : true,
@@ -18,9 +17,11 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
         items : [
             {
                 xtype : 'form',
+                title : 'Información',
+                //collapsible: true,
                 fileUpload:true,
                 monitorValid : true,
-                frame : false,
+                frame : true,
                 autoHeight: true,
                 autoWidth: true,
                 defaultType : 'textfield',
@@ -48,7 +49,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                 defaults: {anchor : '98%'},
                                 defaultType : 'textfield',
 //                                border : false,
-                                title : 'Informaci&oacute;n',
+                                title : 'Data',
                                 itemId:'panelInfoWidget',
                                 items : [
                                     {
@@ -353,45 +354,52 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                     }
 */                                ]
                             }
-                            ,{
-                                xtype :'panel',
-                                title: 'Stock del Producto',
-                                itemId:'panelStockWidget',
-                                layout : 'anchor',
-                                frame: false,
-                                autoHeight:true
-                            }
-                            ,{
-                                xtype :'panel',
-                                title: 'Galeria del Producto',
-                                itemId:'panelGaleWidget',
-                                layout : 'anchor',
-                                frame: false,
-                                autoHeight:true
-                            }
-
                         ]
                     }
                     
                     
                     
                 ]
-            }
-//            )
+                ,buttons : [
+                    {
+                            text    : "Guardar",
+                            iconCls : 'save',
+                            formBind : true,
+                            scope   : this
+                    }
+        //            ,{
+        //                    text  : "Mostrar Lista",
+        //                    iconCls : 'cross',
+        //                    width : 130,
+        //                    scope : this
+        //            }
         ]
-        ,buttons : [
-            {
-                    text	: "Guardar",
-                    iconCls : 'save',
-                    formBind : true,
-                    scope	: this
             }
-//            ,{
-//                    text	: "Mostrar Lista",
-//                    iconCls : 'cross',
-//                    width : 130,
-//                    scope : this
-//            }
+            ,{
+                xtype :'panel',
+                title: 'Stock del Producto',
+                itemId:'panelStockWidget',
+                layout : 'anchor',
+                frame: true,
+                autoWidth: true,
+                autoHeight: true,
+                padding: '10px',
+                margin: '5px'
+            }
+            ,{
+                xtype :'panel',
+                title: 'Galeria del Producto',
+                itemId:'panelGaleWidget',
+                layout : 'anchor',
+                frame: true,
+                autoWidth: true,
+                autoHeight: true,
+                padding: '10px',
+                margin: '5px'
+            }
+
+
+//            )
         ]
 
 	,initComponent	: function() {
@@ -405,7 +413,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                     {
                                         xtype : 'form',
                                         fileUpload:true,
-                                        frame : false,
+                                        frame : true,
                                         autoHeight: true,
                                         padding : '3 3 3 3',
                                         autoWidth: true,
@@ -444,6 +452,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                                 itemId:'gridProdGaleriaLanguage',
                                                 plugins: [rowEditingProducto],
                                                 height: 120,
+                                                autoWidth: true,
                                                 frame:true,
                                                 columnLines : true,
                                                 autoScroll:true,
@@ -532,7 +541,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                 panelGaleria = Ext.create('Ext.Panel',
                     {
                         itemId:'formGaleWidget',
-                        frame: false,
+                        frame: true,
                         autoScroll: true,
                         height:240,
                         margin : '3 3 3 3',
@@ -592,6 +601,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                 ],
                                 multiSelect: true,
                                 autoHeight:true,
+                                autoWidth: true,
                                 trackOver: true,
                                 overItemCls: 'x-item-over',
                                 itemSelector: 'div.thumb-wrap',
@@ -675,7 +685,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                     margin:'0 23 12 1',
                     fileUpload:true,
                     waitMsgTarget: true,
-                    frame : false,
+                    frame : true,
                     autoHeight: true,
                     padding : '3 3 3 3',
                     border : false,
@@ -735,9 +745,11 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                 data = meWinProducto.down('form[itemId="formWidgetMovimientoStock"]').getForm().getValues();
                                 if (!data.idproductostock > 0) {
                                     Ext.MessageBox.alert('Alerta','No ha seleccionado un producto o aun no ha sido guardado.');
+                                    return;
                                 }
                                 if (!data.cantidad > 0) {
                                     Ext.MessageBox.alert('Alerta','La cantidad tiene que ser mayor que 0.');
+                                    return;
                                 }
                                 var formStockProd = meWinProducto.down('form[itemId="formWidgetMovimientoStock"]').getForm();
                                 formStockProd.submit({

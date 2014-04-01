@@ -46,7 +46,7 @@ class CartProductoRepository extends EntityRepository
         if ($estado != "TODOS")
             $qbProducto->andWhere('p.estado = :estado')->setParameter('estado', 1);
         if ($textoBusqueda != NULL) {
-            $qbProducto->andWhere($qbProducto->expr()->like('pl.nombre', '?1'))->setParameter(1, '%' . $textoBusqueda . '%')->orderBy('pl.nombre','ASC');
+            $qbProducto->andWhere($qbProducto->expr()->orX($qbProducto->expr()->like('pl.nombre', '?1'), $qbProducto->expr()->like('p.codigoProducto', '?1')))->setParameter(1, '%' . $textoBusqueda . '%')->orderBy('pl.nombre','ASC');
         } else {
             $qbProducto->orderBy('p.orden','ASC');
         }
