@@ -145,7 +145,7 @@ class Tonyprr_Auth_Adapter_Doctrine implements Zend_Auth_Adapter_Interface
     
     
     /**
-     * Permite agregar condiciones de validación.
+     * Permite agregar condiciones de validaciï¿½n.
      *
      * @param  array
      * @return void
@@ -203,7 +203,7 @@ class Tonyprr_Auth_Adapter_Doctrine implements Zend_Auth_Adapter_Interface
             $resultCount = count($result);
             if ($resultCount > 1) {
                 $authResult['code'] = Zend_Auth_Result::FAILURE_IDENTITY_AMBIGUOUS;
-                $authResult['messages'][] = 'Hay más de un registro que tienen la misma identidad.';
+                $authResult['messages'][] = 'Hay mï¿½s de un registro que tienen la misma identidad.';
             } else if ($resultCount < 1) {
                 $authResult['code'] = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
                 $authResult['messages'][] = 'El registro de usuario no existe.';
@@ -215,7 +215,7 @@ class Tonyprr_Auth_Adapter_Doctrine implements Zend_Auth_Adapter_Interface
 //                if ($result[0]->$this->credentialField != $this->credential) {
                 if ($result[0][$this->credentialField] != $this->credential) {
                     $authResult['code'] = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
-                    $authResult['messages'][] = 'Su clave no es válida.';
+                    $authResult['messages'][] = 'Su clave no es vï¿½lida.';
                     $this->_resultRow = null;
                 } else if (!$this->_validateConditions()) {
                     $authResult['code'] = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
@@ -224,7 +224,7 @@ class Tonyprr_Auth_Adapter_Doctrine implements Zend_Auth_Adapter_Interface
                 } else {
                     $authResult['code'] = Zend_Auth_Result::SUCCESS;
                     $authResult['identity'] = $this->identity;
-                    $authResult['messages'][] = 'Autentificación exitosa.';
+                    $authResult['messages'][] = 'Autentificaciï¿½n exitosa.';
                 }
             }
         } catch (\Doctrine\ORM\Query\QueryException $qe) {
@@ -278,8 +278,9 @@ class Tonyprr_Auth_Adapter_Doctrine implements Zend_Auth_Adapter_Interface
     protected function _getQuery()
     {
         $qb = $this->em->createQueryBuilder()
-            ->select( 'e')//'e.' . $this->credentialField . , 
+            ->select( array('e', 'td'))//'e.' . $this->credentialField . , 
             ->from($this->entityName, 'e')
+            ->leftJoin("e.tipoDocumento", "td")
 //            ->where('e.' . $this->identityField . ' = ?1');
             ->where('e.' . $this->identityField . ' = :' . $this->identityField )->setParameter($this->identityField, $this->identity);
 

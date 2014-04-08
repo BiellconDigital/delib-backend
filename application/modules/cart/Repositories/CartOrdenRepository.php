@@ -24,6 +24,7 @@ class CartOrdenRepository extends EntityRepository
                      o.subTotal,o.totalImpuesto,o.impuestoRatio,o.total,o.totalDescuento,o.totalFinal,o.costoEnvio,
                      o.cuentaBanco,o.fechaProcesado,o.fechaEnvio,o.horaEnvio,o.fechaModificado,
                      o.codigoVoucher,o.nroFactura,o.fechaDeposito,o.horaDeposito,o.rucCliente,o.razonSocial
+                     ,o.tipoPago
                      ,c.idCliente,CONCAT(CONCAT(CONCAT(CONCAT(c.nombres,' '),c.apellidoPaterno),' '),c.apellidoMaterno) as nombre_cliente
                      ,m.idMoneda,m.signo
                      ,oe.idOrdenEstado,oel.nombre as nombre_estado
@@ -174,7 +175,8 @@ class CartOrdenRepository extends EntityRepository
                 $oOrden->setDireccionPago($formData['direccionPago']);
             if (isset($formData['personaRecepcion']))
                 $oOrden->setPersonaRecepcion($formData['personaRecepcion']);
-            $oOrden->setFechaEnvio($formData['fechaEnvio']);
+            if (isset($formData['fechaEnvio']))
+                $oOrden->setFechaEnvio($formData['fechaEnvio']);
 //            $oOrden->setHoraEnvio($formData['horaEnvio']);
             $oOrden->setImpuestoRatio($formData['impuestoRatio']);
             $oOrden->setMoneda($oMoneda);

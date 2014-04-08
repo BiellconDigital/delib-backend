@@ -91,7 +91,8 @@ class Cliente {
             $oCliente->setTelefonoCasa($formData['telefonoCasa']);
             if (isset($formData['telefonoOficina']))
                 $oCliente->setTelefonoOficina($formData['telefonoOficina']);
-            $oCliente->setMovil($formData['movil']);
+            if (isset ($formData['movil']))
+                $oCliente->setMovil($formData['movil']);
             if (isset ($formData['clave']))
                 $oCliente->setClave($formData['clave']);
             if (isset ($formData['role']))

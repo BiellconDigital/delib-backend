@@ -22,7 +22,7 @@ class CmsTipoDocumentoRepository extends EntityRepository
         $qbTipoDocumento->select(
                     '
                     td.idtipoDocumento, td.longitudTdoc, td.estadoTipodoc, td.tiempoModif,
-                    tdl.nombreTdoc
+                    tdl.nombreTdoc, tdl.descripcionTdoc
                     ')->from('\web\Entity\CmsTipoDocumento','td')->innerJoin("td.languages", "tdl")
                     ->where("tdl.language = :lang")->setParameter("lang", $oLanguage);
         if ($estado != "TODOS") $qbTipoDocumento->andWhere('td.estadoTipodoc = :estado')->setParameter('estado', $estado);

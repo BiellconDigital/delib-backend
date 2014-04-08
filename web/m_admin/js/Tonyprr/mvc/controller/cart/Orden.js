@@ -4,9 +4,11 @@ Ext.define('Tonyprr.mvc.controller.cart.Orden', {
                     'Tonyprr.abstract.Store','Tonyprr.mvc.store.cart.Orden'
                     ,'Tonyprr.mvc.store.cart.OrdenDetalle','Tonyprr.mvc.store.cart.OrdenEstado'
                     ,'Tonyprr.mvc.store.web.Cliente'
+                    ,'Tonyprr.mvc.store.cart.TipoPago'
                   ],
     models	: ['Tonyprr.abstract.Model','Tonyprr.mvc.model.cart.Orden'
                     ,'Tonyprr.mvc.model.cart.OrdenDetalle','Tonyprr.mvc.model.cart.OrdenEstado','Tonyprr.mvc.model.web.Cliente'
+                    ,'Tonyprr.mvc.model.cart.TipoPago'
                   ],
 
     views	: [

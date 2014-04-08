@@ -1,0 +1,15 @@
+
+
+INSERT INTO  `delibouquet`.`cms_tipo__documento_language` (
+`idtipo_documento` ,
+`__id_language` ,
+`__id_tipoDocu_language` ,
+`__nombre_tdoc` ,
+`__descripcion_tdoc` ,
+`__detalle_tdoc`
+)
+VALUES (
+'2',  '1', NULL ,  'CE',  'Carnet de Extranjeria',  ''
+), (
+'3',  '1', NULL ,  'Pasaporte',  'Pasaporte',  ''
+);

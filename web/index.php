@@ -15,6 +15,12 @@ define('PTH_PUBLIC',BP . DS . 'web' );
 define('DIR_WEB','http://localhost/delib-frontend' . '/' . 'app/' );//$_SERVER['SERVER_NAME']
 define('WEB_DOMAIN','http://localhost' );//$_SERVER['SERVER_NAME']
 
+define('CODIGO_TIENDA','100030501');
+define('URL_FORMULARIO_VISA','http://qas.multimerchantvisanet.com/formularioweb/formulariopago.aspx');
+define('URL_WSGENERAETICKET_VISA','http://qas.multimerchantvisanet.com/WSGenerarEticket/WSEticket.asmx?wsdl');
+define('URL_WSCONSULTAETICKET_VISA','http://qas.multimerchantvisanet.com/WSConsulta/WSConsultaEticket.asmx?wsdl');
+
+
 // Ensure library/ is on include_pathm
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),

@@ -120,6 +120,32 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                     name:'idOrden'
                 },
                 {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Tipo Pago',
+                    layout: 'hbox',
+                    defaultType: 'textfield',
+                    items: [
+                        {
+                            xtype: 'combobox',
+                            itemId: 'cboTipoPago',
+                            name:'tipoPago',
+                            typeAhead: true,
+                            width : 195,
+                            store: 'Tonyprr.mvc.store.cart.TipoPago',
+                            queryMode: 'local',
+                            displayField: 'descripcion',
+                            valueField: 'tipoPago',
+                            allowBlank:false
+                        }
+                        ,{xtype: 'splitter', width : 10}
+                        ,{
+                            fieldLabel: 'Código Transacción',
+                            name: 'codigoTransaccion',
+                            readOnly: true
+                        }
+                    ]
+                }
+                ,{
                     xtype :'textfield',
                     fieldLabel: 'RUC',
                     name:'rucCliente',
@@ -186,17 +212,17 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
     //                width : 200,
                     name:'distritoEnvio'
                 }
-                ,{
-                    xtype :'textfield',
-                    fieldLabel: 'Persona de recepci&oacute;n',
-                    name : 'personaRecepcion'
-                }
-                ,{
-                    xtype :'textfield',
-                    fieldLabel:'Combo',
-                    name : 'direccionPago',
-                    allowBlank:false 
-                }
+//                ,{
+//                    xtype :'textfield',
+//                    fieldLabel: 'Persona de recepci&oacute;n',
+//                    name : 'personaRecepcion'
+//                }
+//                ,{
+//                    xtype :'textfield',
+//                    fieldLabel:'Combo',
+//                    name : 'direccionPago',
+//                    allowBlank:false 
+//                }
                 ,{
                     xtype :'textfield',
                     fieldLabel:'Banco',
@@ -265,25 +291,6 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                     ]
                 },
                 {
-                    xtype: 'fieldcontainer',
-                    fieldLabel: 'Tipo Pago',
-                    layout: 'hbox',
-                    defaultType: 'textfield',
-                    items: [
-                        {
-                            width : 150,
-                            name:'tipoPago',
-                            readOnly: true
-                        }
-                        ,{xtype: 'splitter', width : 10}
-                        ,{
-                            fieldLabel: 'Código Transacción',
-                            name: 'codigoTransaccion',
-                            readOnly: true
-                        }
-                    ]
-                }
-                ,{
                     xtype: 'grid',
                     itemId:'gridOrdenDetalle',
                     frame:true,

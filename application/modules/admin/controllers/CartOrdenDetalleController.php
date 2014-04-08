@@ -1,6 +1,6 @@
 <?php
-use Dao\Cart\Orden;
-use Dao\Cart\OrdenDetalle;
+use cart\Services\OrdenService;
+use cart\Services\OrdenDetalleService;
 
 class Admin_CartOrdenDetalleController extends Zend_Controller_Action
 {
@@ -23,14 +23,11 @@ class Admin_CartOrdenDetalleController extends Zend_Controller_Action
                 $data = $this->getRequest()->getParams();
                 $pageStart = isset($data['start'])?$data['start']:NULL;
                 $pageLimit = isset($data['limit'])?$data['limit']:NULL;
-                $daoOrden = new Orden();
+                $daoOrden = new OrdenService();
                 $oOrden = $daoOrden->getById($data['idOrden'], false);
                 
-                $daoOrdenDetalle = new OrdenDetalle();
-                list($qyOrdenDetalle,$total) = $daoOrdenDetalle->listRecords($oOrden, $pageStart, $pageLimit);
-                $resultados = $qyOrdenDetalle->getArrayResult();
-                $objRecords=\Tonyprr_lib_Records::getInstance();
-                $objRecords->normalizeRecords($resultados);
+                $daoOrdenDetalle = new OrdenDetalleService();
+                list($resultados,$total) = $daoOrdenDetalle->aList($oOrden, $pageStart, $pageLimit);
                 $result['success'] = 1;
                 $result['data'] = $resultados;
                 $result['total'] = $total;

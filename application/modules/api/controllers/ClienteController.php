@@ -32,6 +32,7 @@ class Api_ClienteController extends Zend_Controller_Action
             $user = $userData['user'];
             $user['role'] = $user['role']['title'];
             $user['nombres'] = $user['username'];
+//            $user['idtipoDocumento'] = $user['tipoDocumento']['idtipoDocumento'];
 //            fechaNacimiento
             
             $srvCliente = new Cliente();
