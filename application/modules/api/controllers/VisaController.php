@@ -41,78 +41,84 @@ class Api_VisaController extends Zend_Controller_Action
             if ($data['operacion'] == "obtener_eticket") {
                 $clientVisa = new Zend_Soap_Client($servicio);
                 $orden = $data['orden'];
+                $cliente = $data['cliente'];
                 $totalMonto = $orden['subTotal'] + $orden['costoEnvio'];
-		$datoComercio= "EJEMPLO VISANET";
+				$datoComercio= "TEST DELIBOUQUET";
 
-		//Se arma el XML de requerimiento
-		$xmlIn = "";
-		$xmlIn = $xmlIn . "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
-		$xmlIn = $xmlIn . "<nuevo_eticket>";
-		$xmlIn = $xmlIn . "	<parametros>";
-		$xmlIn = $xmlIn . "		<parametro id=\"CANAL\">3</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"PRODUCTO\">1</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"CODTIENDA\">" . CODIGO_TIENDA . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"NUMORDEN\">" . $orden['idOrden'] . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" . $totalMonto . "</parametro>";
-		
-		$xmlIn = $xmlIn . "		<parametro id=\"NOMBRE\">" . $nombre . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"APELLIDO\">" . $apellido . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"CIUDAD\">" . $ciudad . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"DIRECCION\">" . $direccion . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"CORREO\">" . $correo . "</parametro>";
-		
-		$xmlIn = $xmlIn . "		<parametro id=\"DATO_COMERCIO\">" . $datoComercio . "</parametro>";
-		$xmlIn = $xmlIn . "	</parametros>";
-		$xmlIn = $xmlIn . "</nuevo_eticket>";
-		
-            
-                //parametros de la llamada
-		$parametros=array(); 
-		$parametros['xmlIn']= $xmlIn;
-		
-		//Aqui captura la cadena de resultado
-		$result = $clientVisa->GeneraEticket($parametros);
+				//Se arma el XML de requerimiento
+				$xmlIn = "";
+				$xmlIn = $xmlIn . "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+				$xmlIn = $xmlIn . "<nuevo_eticket>";
+				$xmlIn = $xmlIn . "	<parametros>";
+				$xmlIn = $xmlIn . "		<parametro id=\"CANAL\">3</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"PRODUCTO\">1</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"CODTIENDA\">" . CODIGO_TIENDA . "</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"NUMORDEN\">" . $orden['idOrden'] . "</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" . $totalMonto . "</parametro>";
+				
+				$xmlIn = $xmlIn . "		<parametro id=\"NOMBRE\">" . $cliente['nombres'] . "</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"APELLIDO\">" . $cliente['apellidoPaterno'] . " " . $cliente['apellidoMaterno'] . "</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"CIUDAD\">" . "Lima" . "</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"DIRECCION\">" . "SJM" . "</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"CORREO\">" . $cliente['email'] . "</parametro>";
+				
+				$xmlIn = $xmlIn . "		<parametro id=\"DATO_COMERCIO\">" . $datoComercio . "</parametro>";
+				$xmlIn = $xmlIn . "	</parametros>";
+				$xmlIn = $xmlIn . "</nuevo_eticket>";
+				
+		            
+		                //parametros de la llamada
+				$parametros=array(); 
+				$parametros['xmlIn']= $xmlIn;
+				$mensaje = "";
+				
+				//Aqui captura la cadena de resultado
+				$result = $clientVisa->GeneraEticket($parametros);
 
-                //Muestra la cadena recibida
-		//echo 'Cadena de respuesta: ' . $result->GeneraEticketResult . '<br>' . '<br>';
-		
-		//Aqui carga la cadena resultado en un XMLDocument (DOMDocument)
-		$xmlDocument = new DOMDocument();
-		
-		if ($xmlDocument->loadXML($result->GeneraEticketResult)){
-			/////////////////////////[MENSAJES]////////////////////////
-			//Ejemplo para determinar la cantidad de mensajes en el XML
-			$iCantMensajes= $this->CantidadMensajes($xmlDocument);
-			//echo 'Cantidad de Mensajes: ' . $iCantMensajes . '<br>';
-			
-			//Ejemplo para mostrar los mensajes del XML 
-			for($iNumMensaje=0;$iNumMensaje < $iCantMensajes; $iNumMensaje++){
-				echo 'Mensaje #' . ($iNumMensaje +1) . ': ';
-				echo $this->RecuperaMensaje($xmlDocument, $iNumMensaje+1);
-				echo '<BR>';
-				echo "Numero de pedido: " . $numPedido;
-			}
-			/////////////////////////[MENSAJES]////////////////////////
-			
-			if ($iCantMensajes == 0){
-				$Eticket= $this->RecuperaEticket($xmlDocument);
-				//echo 'Eticket: ' . $Eticket;
-				$html= $this->htmlRedirecFormEticket($Eticket);
-				echo $html;
-				exit;
-			}
+		                //Muestra la cadena recibida
+				//echo 'Cadena de respuesta: ' . $result->GeneraEticketResult . '<br>' . '<br>';
+				
+				//Aqui carga la cadena resultado en un XMLDocument (DOMDocument)
+				$xmlDocument = new DOMDocument();
+				
+				$result['success'] = 0;
+				if ($xmlDocument->loadXML($result->GeneraEticketResult)) {
+					/////////////////////////[MENSAJES]////////////////////////
+					//Ejemplo para determinar la cantidad de mensajes en el XML
+					$iCantMensajes= $this->CantidadMensajes($xmlDocument);
+					//echo 'Cantidad de Mensajes: ' . $iCantMensajes . '<br>';
 					
-		}else{
-			echo "Error cargando XML";
-		}	
+					if ($iCantMensajes == 0) {
+						$Eticket= $this->RecuperaEticket($xmlDocument);
+						//echo 'Eticket: ' . $Eticket;
+						$html= $this->htmlRedirecFormEticket($Eticket);
+						echo $html;
+						exit;
+						$result['msg'] = "obtencion de nro ticket exitosa";
+			            $result['success'] = 1;
+
+					} else {
+						//Ejemplo para mostrar los mensajes del XML 
+						for($iNumMensaje=0;$iNumMensaje < $iCantMensajes; $iNumMensaje++){
+							$mensaje = 'Mensaje #' . ($iNumMensaje +1) . ': ';
+							$mensaje.=$this->RecuperaMensaje($xmlDocument, $iNumMensaje+1);
+							$mensaje.='<BR>';
+							$mensaje.="Numero de pedido: " . $orden['idOrden'];
+						}
+						/////////////////////////[MENSAJES]////////////////////////
+						$result['msg'] = $mensaje;
+					
+					}
+							
+				} else {
+					$result['msg'] = "Error en la obtencion de la data desde VISA";
+				}	
                 
             }
             
-            $result['success'] = 1;
-            $result['total'] = $total;
             echo Zend_Json::encode($result);
         } catch(Exception $e) {
-            echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => "Error: ".$e->getMessage()) );
+            echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => $e->getMessage()) );
         }
     
     }

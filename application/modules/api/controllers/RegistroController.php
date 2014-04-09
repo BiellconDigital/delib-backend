@@ -33,7 +33,7 @@ class Api_RegistroController extends Zend_Controller_Action
             $user = $userData['user'];
             $user['idCliente'] = null;
             $user['role'] = $user['role']['title'];
-            $user['nombres'] = $user['username'];
+            //$user['nombres'] = $user['username'];
             $user['idtipoDocumento'] = $user['tipoDocumento']['idtipoDocumento'];
 //            fechaNacimiento
             $genClave = 'delib' . rand(10000, 99999);

@@ -31,7 +31,7 @@ class Api_ClienteController extends Zend_Controller_Action
             $userData = Zend_Json::decode($body);
             $user = $userData['user'];
             $user['role'] = $user['role']['title'];
-            $user['nombres'] = $user['username'];
+            //$user['nombres'] = $user['username'];
 //            $user['idtipoDocumento'] = $user['tipoDocumento']['idtipoDocumento'];
 //            fechaNacimiento
             
