@@ -42,7 +42,7 @@ class Api_VisaController extends Zend_Controller_Action
                 $clientVisa = new Zend_Soap_Client($servicio);
                 $orden = $data['orden'];
                 $cliente = $data['cliente'];
-                $totalMonto = $orden['subTotal'] + $orden['costoEnvio'];
+                $totalMonto = round(1.0*($orden['subTotal'] + 1.0*$orden['costoEnvio']), 2);
 				$datoComercio= "TEST DELIBOUQUET";
 
 				//Se arma el XML de requerimiento
@@ -54,7 +54,8 @@ class Api_VisaController extends Zend_Controller_Action
 				$xmlIn = $xmlIn . "		<parametro id=\"PRODUCTO\">1</parametro>";
 				$xmlIn = $xmlIn . "		<parametro id=\"CODTIENDA\">" . CODIGO_TIENDA . "</parametro>";
 				$xmlIn = $xmlIn . "		<parametro id=\"NUMORDEN\">" . $orden['idOrden'] . "</parametro>";
-				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" . $totalMonto . "</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" .strval(round(1.0*$totalMonto, 2)) . "</parametro>";
+//				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">120.00</parametro>";
 				
 				$xmlIn = $xmlIn . "		<parametro id=\"NOMBRE\">" . $cliente['nombres'] . "</parametro>";
 				$xmlIn = $xmlIn . "		<parametro id=\"APELLIDO\">" . $cliente['apellidoPaterno'] . " " . $cliente['apellidoMaterno'] . "</parametro>";
@@ -73,7 +74,7 @@ class Api_VisaController extends Zend_Controller_Action
 				$mensaje = "";
 				
 				//Aqui captura la cadena de resultado
-				$result = $clientVisa->GeneraEticket($parametros);
+				$resultVisa = $clientVisa->GeneraEticket($parametros);
 
 		                //Muestra la cadena recibida
 				//echo 'Cadena de respuesta: ' . $result->GeneraEticketResult . '<br>' . '<br>';
@@ -82,7 +83,7 @@ class Api_VisaController extends Zend_Controller_Action
 				$xmlDocument = new DOMDocument();
 				
 				$result['success'] = 0;
-				if ($xmlDocument->loadXML($result->GeneraEticketResult)) {
+				if ($xmlDocument->loadXML($resultVisa->GeneraEticketResult)) {
 					/////////////////////////[MENSAJES]////////////////////////
 					//Ejemplo para determinar la cantidad de mensajes en el XML
 					$iCantMensajes= $this->CantidadMensajes($xmlDocument);
@@ -91,22 +92,23 @@ class Api_VisaController extends Zend_Controller_Action
 					if ($iCantMensajes == 0) {
 						$Eticket= $this->RecuperaEticket($xmlDocument);
 						//echo 'Eticket: ' . $Eticket;
-						$html= $this->htmlRedirecFormEticket($Eticket);
-						echo $html;
-						exit;
+						//$html= $this->htmlRedirecFormEticket($Eticket);
+						//echo $html;
+						//exit;
 						$result['msg'] = "obtencion de nro ticket exitosa";
-			            $result['success'] = 1;
+						$result['Eticket'] = $Eticket;
+                                                $result['success'] = 1;
 
 					} else {
 						//Ejemplo para mostrar los mensajes del XML 
 						for($iNumMensaje=0;$iNumMensaje < $iCantMensajes; $iNumMensaje++){
-							$mensaje = 'Mensaje #' . ($iNumMensaje +1) . ': ';
+							$mensaje.='Mensaje #' . ($iNumMensaje +1) . ': ';
 							$mensaje.=$this->RecuperaMensaje($xmlDocument, $iNumMensaje+1);
 							$mensaje.='<BR>';
 							$mensaje.="Numero de pedido: " . $orden['idOrden'];
 						}
 						/////////////////////////[MENSAJES]////////////////////////
-						$result['msg'] = $mensaje;
+						$result['msg'] = $mensaje . "<br/><br/><br/>" . $xmlIn; 
 					
 					}
 							
@@ -115,7 +117,6 @@ class Api_VisaController extends Zend_Controller_Action
 				}	
                 
             }
-            
             echo Zend_Json::encode($result);
         } catch(Exception $e) {
             echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => $e->getMessage()) );
