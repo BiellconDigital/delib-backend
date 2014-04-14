@@ -96,11 +96,14 @@ class Api_CartController extends Zend_Controller_Action
                 $headOrden['rucCliente'] = $orden['rucCliente'];
                 $headOrden['razonSocial'] = $orden['razonSocial'];
                 $headOrden['idMoneda'] = 1;
-                $headOrden['idOrdenEstado'] = cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR;
+                if (intval($orden['tipoPago']) == 1)
+                    $headOrden['idOrdenEstado'] = cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR;
+                else
+                    $headOrden['idOrdenEstado'] = cart\Repositories\CartOrdenEstadoRepository::$TRANSACCION_NO_CONCLUIDA;
                 $headOrden['direccionEnvio'] = $orden['direccionEnvio'];//$oDirDespacho->getDireccion();
                 $headOrden['direccionPago'] = $orden['direccionEnvio'];
                 $headOrden['fechaEnvio'] = new \DateTime($orden['fechaEnvio']);
-                $headOrden['horaEnvio'] = $orden['hora']['horaEnvio'];
+//                $headOrden['horaEnvio'] = $orden['hora']['horaEnvio'];
                 
                 $headOrden['codPostal'] = $orden['distrito']['codPostal'];
                 $headOrden['idOrdenTipo'] = $orden['razon_compra']['idOrdenTipo'];

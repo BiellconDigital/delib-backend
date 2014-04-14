@@ -70,6 +70,11 @@ class OrdenService {
         return $aOrden;
     }
     
+    public function terminarTransaccionVisa($codigoTransaccion) {
+        $aOrden = $this->_em->getRepository($this->_entity)->terminarTransaccionVisa($codigoTransaccion);
+        return $aOrden;
+    }
+    
     /**
      * 
      * @param int $id

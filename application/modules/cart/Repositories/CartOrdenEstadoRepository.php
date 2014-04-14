@@ -13,10 +13,11 @@ use Vendors\Paginate\Paginate;
  */
 class CartOrdenEstadoRepository extends EntityRepository
 {
-    public static $PENDIENTE_CANCELAR = 1;
-    public static $PENDIENTE_VERIFICAR = 2;
-    public static $CANCELADO = 3;
-    public static $ANULADO = 4;
+    public static $PENDIENTE_CANCELAR = 1;//Cuando la orden no ha sido cancelada aun.
+    public static $PENDIENTE_VERIFICAR = 2;//cuando se ha ingresado el codigo de la transacción pero aun esta pendiente de su pag
+    public static $CANCELADO = 3;//cuando se ha verificado el pago, la transaccion se procesa y se descuenta del stock
+    public static $ANULADO = 4;//cuando se anula una orden
+    public static $TRANSACCION_NO_CONCLUIDA = 5;//Cuando una transaccion no ha sido concluida
     
     public function listRecords($soloActivos=false, $oLanguage=1, $pageStart=NULL, $pageLimit=NULL) {
         $count= 0;

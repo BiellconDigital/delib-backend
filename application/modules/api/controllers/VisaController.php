@@ -54,8 +54,8 @@ class Api_VisaController extends Zend_Controller_Action
 				$xmlIn = $xmlIn . "		<parametro id=\"PRODUCTO\">1</parametro>";
 				$xmlIn = $xmlIn . "		<parametro id=\"CODTIENDA\">" . CODIGO_TIENDA . "</parametro>";
 				$xmlIn = $xmlIn . "		<parametro id=\"NUMORDEN\">" . $orden['idOrden'] . "</parametro>";
-				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" .strval(round(1.0*$totalMonto, 2)) . "</parametro>";
-//				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">120.00</parametro>";
+//				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" .strval(round(1.0*$totalMonto, 2)) . "</parametro>";
+				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">120.00</parametro>";
 				
 				$xmlIn = $xmlIn . "		<parametro id=\"NOMBRE\">" . $cliente['nombres'] . "</parametro>";
 				$xmlIn = $xmlIn . "		<parametro id=\"APELLIDO\">" . $cliente['apellidoPaterno'] . " " . $cliente['apellidoMaterno'] . "</parametro>";
@@ -95,8 +95,12 @@ class Api_VisaController extends Zend_Controller_Action
 						//$html= $this->htmlRedirecFormEticket($Eticket);
 						//echo $html;
 						//exit;
+                                                
+                                                $ordenService = new OrdenService();
+                                                $ordenService->registrarCodigoTransaccion($orden['idOrden'], $Eticket);
 						$result['msg'] = "obtencion de nro ticket exitosa";
 						$result['Eticket'] = $Eticket;
+						$result['urlVisa'] = URL_FORMULARIO_VISA;
                                                 $result['success'] = 1;
 
 					} else {

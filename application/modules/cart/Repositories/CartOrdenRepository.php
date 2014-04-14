@@ -4,7 +4,7 @@ namespace cart\Repositories;
 
 use Doctrine\ORM\EntityRepository;
 use Vendors\Paginate\Paginate;
-
+use Tonyprr\Exception\ValidacionException;
 /**
  * CartOrdenRepository
  *
@@ -254,7 +254,8 @@ class CartOrdenRepository extends EntityRepository
 //            $oOrden = new \cart\Entity\CartOrden();
             if(!$oOrden)
                 throw new \Exception('No existe orden de compra.', 1);
-
+            if ($oOrden->getTipoPago() == 2)//pago tipo PayPal
+                $oOrden->setOrdenEstado (cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR);
             $oOrden->setCodigoTransaccion($codigoTransaccion);
             $oOrden->setFechaModificado( new \DateTime() );
             $this->_em->persist($oOrden);
@@ -514,4 +515,41 @@ class CartOrdenRepository extends EntityRepository
             throw new \Exception('Ocurrió un error en el env�o de notificaci�n del confirmaci�n de pedido.', 1);
         }
     }
+    
+    /**
+     *
+     * @param int $codigoTransaccion
+     * @return \cart\Entity\CartOrden $oOrden
+     */
+    public function terminarTransaccionVisa($codigoTransaccion) {
+        try {
+            
+            $dqlList = 'SELECT o FROM \cart\Entity\CartOrden o WHERE o.codigoTransaccion = ?1 and o.tipoPago = 3';
+            $qyOrden = $this->_em->createQuery($dqlList);
+            $qyOrden->setParameter(1, $codigoTransaccion);
+            try {
+                /**
+                 * \cart\Entity\CartOrden
+                 */
+                $oOrden = $qyOrden->getSingleResult();
+            } catch(\Doctrine\ORM\NoResultException $e) {
+                throw new \ValidacionException('No existe una transacción Visa registrada con este código.');
+            }
+                
+            $oOrden->setOrdenEstado (cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR);
+            $oOrden->setFechaModificado( new \DateTime() );
+            $this->_em->persist($oOrden);
+            $this->_em->flush();
+            return $oOrden;
+            
+        } catch(ValidacionException $e) {
+            throw new ValidacionException($e->getMessage(), $e->getCode());
+        } catch(\Exception $e) {
+            if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
+            throw new \Exception('Error al guardar registro Orden.',1);
+        }
+    }
+    
+    
+    
 }
