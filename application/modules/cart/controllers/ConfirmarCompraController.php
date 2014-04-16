@@ -19,11 +19,12 @@ class Cart_ConfirmarCompraController extends Zend_Controller_Action
     {
         if ($this->getRequest()->getPost()) {
             $cartData = $this->getRequest()->getParams();
+            var_dump($cartData);
             try {
                 $srvOrden = new OrdenService();
-                $oOrden = $srvOrden->terminarTransaccionVisa($cartData['ETICKET']);
+                $oOrden = $srvOrden->terminarTransaccionVisa($cartData['eticket']);
                 
-                $this->_redirect("http://www.delibouquet.pe/cart/#/confirmacion-compra");
+                $this->_redirect("http://www.delibouquet.pe/cart/#/confirmacion-compra?eticket=" . $cartData['ETICKET']);
             } catch(ValidacionException $e) {
                 echo $e->getMessage();
             } catch(Exception $e) {

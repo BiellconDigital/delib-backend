@@ -533,7 +533,7 @@ class CartOrdenRepository extends EntityRepository
                  */
                 $oOrden = $qyOrden->getSingleResult();
             } catch(\Doctrine\ORM\NoResultException $e) {
-                throw new \ValidacionException('No existe una transacción Visa registrada con este código.');
+                throw new ValidacionException('No existe una transaccion Visa registrada con este codigo: ' . $codigoTransaccion);
             }
                 
             $oOrden->setOrdenEstado (cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR);
