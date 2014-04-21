@@ -18,17 +18,21 @@ class Cart_ConfirmarCompraController extends Zend_Controller_Action
     public function visaAction()
     {
         if ($this->getRequest()->getPost()) {
-            $cartData = $this->getRequest()->getParams();
-            var_dump($cartData);
-            try {
-                $srvOrden = new OrdenService();
-                $oOrden = $srvOrden->terminarTransaccionVisa($cartData['eticket']);
-                
-                $this->_redirect("http://www.delibouquet.pe/cart/#/confirmacion-compra?eticket=" . $cartData['ETICKET']);
-            } catch(ValidacionException $e) {
-                echo $e->getMessage();
-            } catch(Exception $e) {
-                echo "Ocurrió un error en el proceso.";
+            if ($_SERVER['HTTP_ORIGIN'] === DOMINIO_VISA) {
+                $cartData = $this->getRequest()->getParams();
+//                var_dump($_SERVER);
+                try {
+                    $srvOrden = new OrdenService();
+                    $oOrden = $srvOrden->terminarTransaccionVisa($cartData['eticket']);
+
+                    $this->_redirect("http://www.delibouquet.pe/cart/#/confirmacion-compra?eticket=" . $cartData['eticket']);
+                } catch(ValidacionException $e) {
+                    echo $e->getMessage();
+                } catch(\Exception $e) {
+                    echo "Ocurrio un error en el proceso.";// . $e->getMessage();
+                }
+            } else {
+                echo "No esta autorizado para realizar esta transaccion.";
             }
         } else {
             echo "La peticion no es correcta.";

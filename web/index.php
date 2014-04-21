@@ -16,6 +16,7 @@ define('DIR_WEB','http://localhost/delib-frontend' . '/' . 'app/' );//$_SERVER['
 define('WEB_DOMAIN','http://localhost' );//$_SERVER['SERVER_NAME']
 
 define('CODIGO_TIENDA','100030501');
+define('DOMINIO_VISA','http://qas.multimerchantvisanet.com');
 define('URL_FORMULARIO_VISA','http://qas.multimerchantvisanet.com/formularioweb/formulariopago.aspx');
 define('URL_WSGENERAETICKET_VISA','http://qas.multimerchantvisanet.com/WSGenerarEticket/WSEticket.asmx?wsdl');
 define('URL_WSCONSULTAETICKET_VISA','http://qas.multimerchantvisanet.com/WSConsulta/WSConsultaEticket.asmx?wsdl');

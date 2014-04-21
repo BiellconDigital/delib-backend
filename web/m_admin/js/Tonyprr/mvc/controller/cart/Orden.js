@@ -19,16 +19,24 @@ Ext.define('Tonyprr.mvc.controller.cart.Orden', {
             ref: 'cboOrdenEstado',
             selector: 'combobox[itemId="cboOrdenEstado"]'
         }
-//        ,{
-//            ref: 'cboClienteOrden',
-//            selector: 'combobox[itemId="cboClienteOrden"]'
-//        }
+        ,{
+            ref: 'formOrden',
+            selector: 'form[itemId="formWidgetOrden"]'
+        }
+        ,{
+            ref: 'gridOrden',
+            selector: 'grid[itemId="gridWidgetOrden"]'
+        }
     ],
     init	: function(app) {
         this.callParent(null);
         this.control({
             'grid[itemId="gridWidgetOrden"]': {
                 afterrender : this.onGridAfterRender
+            }
+            
+            ,'form[itemId="formWidgetOrden"] button[text="Actualizar desde VISA"]': {
+                click : this.onClickVisa
             }
              
         });
@@ -38,9 +46,32 @@ Ext.define('Tonyprr.mvc.controller.cart.Orden', {
         var viewOrden = Ext.widget('viewOrden');
         parent.add(viewOrden);
         viewOrden.setHeight(parent.getHeight());
-    },
+    }
     
-    onGridAfterRender: function(grid,opts) {//grid,opts
+    ,onClickVisa: function(button,e) {
+        controller = this;
+        var data = this.getFormOrden().getForm().getValues();
+        
+        Tonyprr.Ajax.request({
+            url     : Tonyprr.BASE_URL + '/admin/cart-orden/actualizar-orden-visa',
+            params	: data,
+            el	: this.el,
+            scope	: this,
+            success	: function(data,response) {
+                Tonyprr.App.showNotification({message:data.msg});
+                if(data.update == 1) {
+                    controller.getGridOrden().getStore().load();
+                    controller.getFormOrden().getForm().setValues({idOrdenEstado: data.idOrdenEstado, fechaDeposito: data.fechaDeposito});
+                }
+            },
+            failure : function(data, response) {
+                Tonyprr.App.showNotification({message:data.msg});
+            }
+        });
+
+    }
+    
+    ,onGridAfterRender: function(grid,opts) {//grid,opts
         grid.getStore().load();
         this.getCboOrdenEstado().getStore().load();
 //        this.getCboClienteOrden().getStore().load();

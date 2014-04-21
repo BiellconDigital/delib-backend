@@ -45,10 +45,6 @@ class Api_CartController extends Zend_Controller_Action
                 $total = 1;
                 $result['data']['head'] = $oOrden;
                 $result['data']['detalle'] = $oOrdenDetalle[0];
-            } else if ($data['prueba']) {
-                $clientVisa = new Zend_Soap_Client("http://qas.multimerchantvisanet.com/wsgenerareticket/wseticket.asmx?WSDL");
-                $clientVisa->GeneraEticket();
-                
             }
             
             $result['success'] = 1;
@@ -167,80 +163,7 @@ class Api_CartController extends Zend_Controller_Action
     }
 
 
-    	function preparar($xmlDoc){
-		//Se arma el XML de requerimiento
-		$xmlIn = "";
-		$xmlIn = $xmlIn . "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
-		$xmlIn = $xmlIn . "<nuevo_eticket>";
-		$xmlIn = $xmlIn . "	<parametros>";
-		$xmlIn = $xmlIn . "		<parametro id=\"CANAL\">3</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"PRODUCTO\">1</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"CODTIENDA\">" . $codTienda . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"NUMORDEN\">" . $numPedido . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" . $mount . "</parametro>";
-		
-		$xmlIn = $xmlIn . "		<parametro id=\"NOMBRE\">" . $nombre . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"APELLIDO\">" . $apellido . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"CIUDAD\">" . $ciudad . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"DIRECCION\">" . $direccion . "</parametro>";
-		$xmlIn = $xmlIn . "		<parametro id=\"CORREO\">" . $correo . "</parametro>";
-		
-		$xmlIn = $xmlIn . "		<parametro id=\"DATO_COMERCIO\">" . $datoComercio . "</parametro>";
-		$xmlIn = $xmlIn . "	</parametros>";
-		$xmlIn = $xmlIn . "</nuevo_eticket>";
-		
-            
-        }
-
-	function CantidadMensajes($xmlDoc){
-		$cantMensajes= 0;
-		$xpath = new DOMXPath($xmlDoc);
-		$nodeList = $xpath->query('//mensajes', $xmlDoc);
-		
-		$XmlNode= $nodeList->item(0);
-		
-		if($XmlNode==null){
-			$cantMensajes= 0;
-		}else{
-			$cantMensajes= $XmlNode->childNodes->length;
-		}
-		return $cantMensajes; 
-	}
-	//Funcion que recupera el valor de uno de los mensajes XML de respuesta
-	function RecuperaMensaje($xmlDoc,$iNumMensaje){
-		$strReturn = "";
-			
-			$xpath = new DOMXPath($xmlDoc);
-			$nodeList = $xpath->query("//mensajes/mensaje[@id='" . $iNumMensaje . "']");
-			
-			$XmlNode= $nodeList->item(0);
-			
-			if($XmlNode==null){
-				$strReturn = "";
-			}else{
-				$strReturn = $XmlNode->nodeValue;
-			}
-			return $strReturn;
-	}
-	//Funcion que recupera el valor del Eticket
-	function RecuperaEticket($xmlDoc){
-		$strReturn = "";
-			
-			$xpath = new DOMXPath($xmlDoc);
-			$nodeList = $xpath->query("//registro/campo[@id='ETICKET']");
-			
-			$XmlNode= $nodeList->item(0);
-			
-			if($XmlNode==null){
-				$strReturn = "";
-			}else{
-				$strReturn = $XmlNode->nodeValue;
-			}
-			return $strReturn;
-	}
-
-        
-                        }
+}
 
 
 

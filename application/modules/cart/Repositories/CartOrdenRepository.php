@@ -24,12 +24,17 @@ class CartOrdenRepository extends EntityRepository
                      o.subTotal,o.totalImpuesto,o.impuestoRatio,o.total,o.totalDescuento,o.totalFinal,o.costoEnvio,
                      o.cuentaBanco,o.fechaProcesado,o.fechaEnvio,o.horaEnvio,o.fechaModificado,
                      o.codigoVoucher,o.nroFactura,o.fechaDeposito,o.horaDeposito,o.rucCliente,o.razonSocial
-                     ,o.tipoPago
+                     ,o.tipoPago, o.codigoTransaccion
                      ,c.idCliente,CONCAT(CONCAT(CONCAT(CONCAT(c.nombres,' '),c.apellidoPaterno),' '),c.apellidoMaterno) as nombre_cliente
                      ,m.idMoneda,m.signo
                      ,oe.idOrdenEstado,oel.nombre as nombre_estado
                      ,CONCAT(CONCAT(CONCAT(CONCAT(ou.dpto,' - '),ou.prov),' - '),ou.dist) as distritoEnvio
-                    ")->from($this->_entityName, 'o')
+                    ")
+                ->addSelect("(CASE WHEN o.tipoPago=1 THEN 'Deposito Bancario'
+                    WHEN o.tipoPago=2 THEN 'PayPal'
+                    WHEN o.tipoPago=3 THEN 'VISA'
+                    ELSE 'Ninguno' END) AS tipoPagoDescripcion ")
+                ->from($this->_entityName, 'o')
                     ->innerJoin('o.cliente','c')->innerJoin('o.moneda','m')->innerJoin('o.ordenEstado','oe')
                     ->innerJoin("oe.languages", "oel")->leftJoin("o.ubigeo", "ou")
                     ->where("oel.language = :lang")->setParameter("lang", $oLanguage)
@@ -64,11 +69,16 @@ class CartOrdenRepository extends EntityRepository
                      o.codigoVoucher,o.nroFactura,o.fechaDeposito,o.horaDeposito, o.tipoPago, o.codigoTransaccion
                      ,m.idMoneda,m.signo
                      ,oe.idOrdenEstado,oel.nombre as nombre_estado
-                    ")->from($this->_entityName, 'o')
-                    ->innerJoin('o.moneda','m')->innerJoin('o.ordenEstado','oe')
-                    ->innerJoin("oe.languages", "oel")
-                    ->where("oel.language = ?1 AND o.cliente = ?2")
-                    ->setParameter(1, $oLanguage)->setParameter(2, $oCliente);
+                    ")
+                ->addSelect("(CASE WHEN o.tipoPago=1 THEN 'Deposito Bancario'
+                    WHEN o.tipoPago=2 THEN 'PayPal'
+                    WHEN o.tipoPago=3 THEN 'VISA'
+                    ELSE 'Ninguno' END) AS tipoPagoDescripcion ")
+                ->from($this->_entityName, 'o')
+                ->innerJoin('o.moneda','m')->innerJoin('o.ordenEstado','oe')
+                ->innerJoin("oe.languages", "oel")
+                ->where("oel.language = ?1 AND o.cliente = ?2")
+                ->setParameter(1, $oLanguage)->setParameter(2, $oCliente);
 //        ->orderBy('o.fechaProcesado','DESC')
         if ($ordenEstado != NULL) $qbOrden->andWhere('o.ordenEstado = ?3')->setParameter(3, $ordenEstado);
         $qyOrden = $qbOrden->getQuery();//,c.apellidoPaterno,' ',c.apellidoMaterno
@@ -104,12 +114,17 @@ class CartOrdenRepository extends EntityRepository
                     ",
                     //select("MIN(od.idOrdenDetalle) as idOrden, od.productoNombre")->from("cart\Entity\CartOrdenDetalle", "od")
                         
-                    ))->from($this->_entityName, 'o')
-                    ->innerJoin('o.moneda','m')->innerJoin('o.ordenEstado','oe')//,od.productoNombre,odp.imagen ->where("od.orden = o")
-                    ->innerJoin("oe.languages", "oel")
-                    ->leftJoin("o.detalle", "od")//, \Doctrine\ORM\Query\Expr\Join::WITH, "o = od.orden and MIN(od.idOrdenDetalle) > 0" )
-                    ->leftJoin("od.producto", "odp")
-                    ->where("oel.language = ?1 AND o.cliente = ?2")
+                    ))
+                ->addSelect("(CASE WHEN o.tipoPago=1 THEN 'Deposito Bancario'
+                    WHEN o.tipoPago=2 THEN 'PayPal'
+                    WHEN o.tipoPago=3 THEN 'VISA'
+                    ELSE 'Ninguno' END) AS tipoPagoDescripcion ")
+                ->from($this->_entityName, 'o')
+                ->innerJoin('o.moneda','m')->innerJoin('o.ordenEstado','oe')//,od.productoNombre,odp.imagen ->where("od.orden = o")
+                ->innerJoin("oe.languages", "oel")
+                ->leftJoin("o.detalle", "od")//, \Doctrine\ORM\Query\Expr\Join::WITH, "o = od.orden and MIN(od.idOrdenDetalle) > 0" )
+                ->leftJoin("od.producto", "odp")
+                ->where("oel.language = ?1 AND o.cliente = ?2")
                     ->setParameter(1, $oLanguage)->setParameter(2, $oCliente)
                     ->andWhere($qbOrden->expr()->in("od.idOrdenDetalle", "select MIN(odt.idOrdenDetalle) as idOrdenDetalle from cart\Entity\CartOrdenDetalle odt where odt.orden = o"));
 //                    ->having($qbOrden->expr()->min("od.idOrdenDetalle") . " > 0");
@@ -251,11 +266,14 @@ class CartOrdenRepository extends EntityRepository
              * \cart\Entity\CartOrden
              */
             $oOrden = $this->_em->find($this->_entityName, $idOrden );
+            $oOrdenEstado = $this->_em->getRepository("\cart\Entity\CartOrdenEstado")->
+                    find(\cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR);
+
 //            $oOrden = new \cart\Entity\CartOrden();
             if(!$oOrden)
                 throw new \Exception('No existe orden de compra.', 1);
             if ($oOrden->getTipoPago() == 2)//pago tipo PayPal
-                $oOrden->setOrdenEstado (cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR);
+                $oOrden->setOrdenEstado ($oOrdenEstado);
             $oOrden->setCodigoTransaccion($codigoTransaccion);
             $oOrden->setFechaModificado( new \DateTime() );
             $this->_em->persist($oOrden);
@@ -281,6 +299,11 @@ class CartOrdenRepository extends EntityRepository
                          ,m.idMoneda,m.signo,oe.idOrdenEstado,oel.nombre as nombre_estado
                         ",
   */                      
+                    ->addSelect("
+                        (CASE WHEN o.tipoPago=1 THEN 'Deposito Bancario'
+                        WHEN o.tipoPago=2 THEN 'PayPal'
+                        WHEN o.tipoPago=3 THEN 'VISA'
+                        ELSE 'Ninguno' END) AS tipoPagoDescripcion")
                         ->innerJoin('o.moneda','m')->innerJoin('o.ordenEstado','oe')//,od.productoNombre,odp.imagen ->where("od.orden = o")
                         ->innerJoin("oe.languages", "oel")
                         ->where("oel.language = ?1 AND o.idOrden = ?2")
@@ -383,40 +406,51 @@ class CartOrdenRepository extends EntityRepository
     public function cambiarEstado($formData) {
         try {
             $this->_em->getConnection()->beginTransaction();
-            $daoOrdenEstado = new OrdenEstado();
+//            $daoOrdenEstado = new OrdenEstado();
 //            $oOrden = new \cart\Entity\CartOrden();
             $oOrden = $this->_em->find("\cart\Entity\CartOrden", $formData['idOrden'] );
             if(!$oOrden)
                 throw new \Exception('No existe orden de compra.',1);
             
-            if ($oOrden->getOrdenEstado()->getIdOrdenEstado()  == \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO)
-                throw new \Exception('La Orden ya esta procesada.', 1);
+//            if ($oOrden->getOrdenEstado()->getIdOrdenEstado()  == \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO)
+//                throw new \Exception('La Orden ya esta procesada.', 1);
 
-            if ($oOrden->getOrdenEstado()->getIdOrdenEstado()  == \cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR) {
-                if ($formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO)
-                    throw new \Exception('El pago no puede ser confirmado si no ha verificado el ingreso del Vaucher.', 1);
-            }
+//            if ($oOrden->getOrdenEstado()->getIdOrdenEstado()  == \cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR) {
+//                if ($formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO)
+//                    throw new \Exception('El pago no puede ser confirmado si no ha verificado el ingreso del Vaucher.', 1);
+//            }
             
-            $oOrdenEstado = $this->_em->getRepository("\cart\Entity\CartOrdenEstado")->find($formData['idOrdenEstado']);
-            
-            if ($formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO) {
-                foreach ($oOrden->getDetalle() as $oOrdenDetalle) {
-//                    if (!$oOrdenDetalle instanceof \\cart\Entity\CartOrdenDetalle)
-                    $dataMov['cantidad'] = $oOrdenDetalle->getCantidad();
-                    $dataMov['idMovimientoStockTipo'] = \cart\Repositories\CartMovimientoStockTipoRepository::$MOVIMIENTO_VENTA;
-                    $dataMov['idMovimientoStock'] =  '';
-                    
-                    $movientoStockService = new \cart\Services\MovimientoStockService();
-                    $movientoStockService->save($dataMov, $oOrdenDetalle->getProducto(), $oOrden);
-                }
-                $oOrden->setOrdenEstado($oOrdenEstado);
-                $oOrden->setNroFactura($formData['nroFactura']);
-    //            $oOrden->setFechaModificado( new \DateTime() );
-                $this->_em->persist($oOrden);
-                $this->_em->flush();
-                $this->notificarPagoConfirmado($oOrden);
-            } else if ($formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$ANULADO) {
+            if ($formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$ANULADO) {
                 $this->_em->remove($oOrden);
+                $this->_em->flush();
+            } else {
+                if (isset($formData['nroFactura']))
+                    $oOrden->setNroFactura($formData['nroFactura']);
+                if (isset($formData['codigoVoucher']))
+                    $oOrden->setCodigoVoucher($formData['codigoVoucher']);
+                if (isset($formData['fechaDeposito']))
+                    $oOrden->setFechaDeposito(new \DateTime($formData['fechaDeposito']));
+                if (isset($formData['horaDeposito']))
+                    $oOrden->setHoraDeposito($formData['horaDeposito']);
+
+                if ( $oOrden->getOrdenEstado()->getIdOrdenEstado()  != \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO
+                        and $formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO ) {
+                    foreach ($oOrden->getDetalle() as $oOrdenDetalle) {
+    //                    if (!$oOrdenDetalle instanceof \\cart\Entity\CartOrdenDetalle)
+                        $dataMov['cantidad'] = $oOrdenDetalle->getCantidad();
+                        $dataMov['idMovimientoStockTipo'] = \cart\Repositories\CartMovimientoStockTipoRepository::$MOVIMIENTO_VENTA;
+                        $dataMov['idMovimientoStock'] =  '';
+
+                        $movientoStockService = new \cart\Services\MovimientoStockService();
+                        $movientoStockService->save($dataMov, $oOrdenDetalle->getProducto(), $oOrden);
+                    }
+                    $oOrdenEstado = $this->_em->getRepository("\cart\Entity\CartOrdenEstado")->find($formData['idOrdenEstado']);
+                    $oOrden->setOrdenEstado($oOrdenEstado);
+        //            $oOrden->setFechaModificado( new \DateTime() );
+    //                $this->notificarPagoConfirmado($oOrden);
+                }
+            
+                $this->_em->persist($oOrden);
                 $this->_em->flush();
             }
             
@@ -536,7 +570,10 @@ class CartOrdenRepository extends EntityRepository
                 throw new ValidacionException('No existe una transaccion Visa registrada con este codigo: ' . $codigoTransaccion);
             }
                 
-            $oOrden->setOrdenEstado (cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR);
+            $oOrdenEstado = $this->_em->getRepository("\cart\Entity\CartOrdenEstado")->
+                    find(\cart\Repositories\CartOrdenEstadoRepository::$PENDIENTE_CANCELAR);
+
+            $oOrden->setOrdenEstado ($oOrdenEstado);
             $oOrden->setFechaModificado( new \DateTime() );
             $this->_em->persist($oOrden);
             $this->_em->flush();

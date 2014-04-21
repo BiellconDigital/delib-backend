@@ -70,41 +70,41 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         date_default_timezone_set('America/Lima');
     }
     
-    protected function _initLanguage() {
-        $authSesion = new Zend_Session_Namespace(SES_USER);
-        if(!isset($authSesion->idioma)) {
-            $locale = new Zend_Locale(Zend_Locale::BROWSER);
-            if (!in_array($locale->getLanguage(), array("es","en"))) {
-                $authSesion->idioma = "es";
-                $locale->setLocale($authSesion->idioma);
-            } else {
-                $authSesion->idioma = $locale->getLanguage();
-            }
-        } else {
-            $locale = new Zend_Locale($authSesion->idioma);
+//    protected function _initLanguage() {
+//        $authSesion = new Zend_Session_Namespace(SES_USER);
+//        if(!isset($authSesion->idioma)) {
 //            $locale = new Zend_Locale(Zend_Locale::BROWSER);
-        }
-        
-//        echo $locale->getLanguage();
-        
-        $translate = new Zend_Translate(
-            'array',
-            APPLICATION_PATH . '/configs/languages/',
-            null,
-            array('scan' => Zend_Translate::LOCALE_DIRECTORY)
-        );
-
-        // setting the right locale
-        if ($translate->isAvailable($locale->getLanguage())) {
-            $translate->setLocale($locale);
-        } else {
-            $translate->setLocale('es');
-        }
-        
-//        echo $translate->getAdapter()->translate("header_prueba");
-        
-        Zend_Registry::set('Zend_Translate', $translate);
-    }    
+//            if (!in_array($locale->getLanguage(), array("es","en"))) {
+//                $authSesion->idioma = "es";
+//                $locale->setLocale($authSesion->idioma);
+//            } else {
+//                $authSesion->idioma = $locale->getLanguage();
+//            }
+//        } else {
+//            $locale = new Zend_Locale($authSesion->idioma);
+////            $locale = new Zend_Locale(Zend_Locale::BROWSER);
+//        }
+//        
+////        echo $locale->getLanguage();
+//        
+//        $translate = new Zend_Translate(
+//            'array',
+//            APPLICATION_PATH . '/configs/languages/',
+//            null,
+//            array('scan' => Zend_Translate::LOCALE_DIRECTORY)
+//        );
+//
+//        // setting the right locale
+//        if ($translate->isAvailable($locale->getLanguage())) {
+//            $translate->setLocale($locale);
+//        } else {
+//            $translate->setLocale('es');
+//        }
+//        
+////        echo $translate->getAdapter()->translate("header_prueba");
+//        
+//        Zend_Registry::set('Zend_Translate', $translate);
+//    }    
 
     protected function _initRouters() 
     { 

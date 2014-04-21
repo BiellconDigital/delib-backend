@@ -78,15 +78,16 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                     ]
                 },
                 {dataIndex: 'idOrden',header : 'ID',width:49, sortable : true},
-                {dataIndex: 'nombre_cliente',header : 'Cliente',width: 190,sortable : true},
-                {dataIndex: 'tipoDocumento',header : 'Tipo Documento',width: 90,sortable : true},
+                {dataIndex: 'tipoPagoDescripcion',header : 'Tipo de Pago',width: 150,sortable : true},
                 {dataIndex: 'nombre_estado',header : 'Estado',width: 126,sortable : true},
-                {dataIndex: 'totalFinal',header : 'Precio Total',width: 80,sortable : true},
+                {dataIndex: 'totalFinal',header : 'Precio',width: 80,sortable : true},
                 {dataIndex: 'costoEnvio',header : 'Costo de Env&iacute;o',width: 80,sortable : true},
+                {dataIndex: 'nombre_cliente',header : 'Cliente',width: 190,sortable : true},
+//                {dataIndex: 'tipoDocumento',header : 'Tipo Documento',width: 90,sortable : true},
 //                {xtype: 'datecolumn',dataIndex: 'fechaEnvio',header : 'Fecha de Env&iacute;o',width: 95,format:'d-m-Y',sortable : true},
 //                {dataIndex: 'horaEnvio',header : 'Hora de Env&iacute;o',width: 85,sortable : true},
                 {xtype: 'datecolumn',dataIndex: 'fechaDeposito',header : 'Fecha Deposito',width: 95,format:'d-m-Y',sortable : true},
-                {dataIndex: 'horaDeposito',header : 'Hora Deposito',width: 85,sortable : true},
+//                {dataIndex: 'horaDeposito',header : 'Hora Deposito',width: 85,sortable : true},
                 {dataIndex: 'codigoVoucher',header : 'Voucher',width: 130,sortable : true},
                 {dataIndex: 'nroFactura',header : 'Nro. Factura',width: 130,sortable : true}
             ],
@@ -108,17 +109,13 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
             frame: true,
             waitMsgTarget: true,
             fieldDefaults: {
-                labelWidth: 135,
+                labelWidth: 120,
                 labelAlign	: 'left',
                 msgTarget	: 'side',
                 anchor          : '99%',
                 readOnly: true
             },
             items : [
-                {
-                    xtype: 'hidden',
-                    name:'idOrden'
-                },
                 {
                     xtype: 'fieldcontainer',
                     fieldLabel: 'Tipo Pago',
@@ -130,21 +127,114 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                             itemId: 'cboTipoPago',
                             name:'tipoPago',
                             typeAhead: true,
-                            width : 195,
+                            width : 170,
                             store: 'Tonyprr.mvc.store.cart.TipoPago',
                             queryMode: 'local',
                             displayField: 'descripcion',
                             valueField: 'tipoPago',
+                            readOnly: true,
                             allowBlank:false
                         }
                         ,{xtype: 'splitter', width : 10}
                         ,{
-                            fieldLabel: 'Código Transacción',
-                            name: 'codigoTransaccion',
+                            fieldLabel: 'ID Orden',
+                            name:'idOrden',
                             readOnly: true
                         }
                     ]
                 }
+                ,{
+                    xtype :'textfield',
+                    fieldLabel: 'Código Transacción',
+                    anchor: '90%',
+                    name: 'codigoTransaccion',
+                    readOnly: true
+                }
+                ,{
+                    xtype: 'fieldcontainer',
+                    fieldLabel: '<b>C&oacute;digo Voucher</b>',
+                    layout: 'hbox',
+                    defaultType: 'textfield',
+                    items: [
+                        {
+                            width : 170,
+                            name:'codigoVoucher'
+//                            readOnly: true
+                        }
+                        ,{xtype: 'splitter', width : 10}
+                        ,{
+                            xtype :'datefield',
+                            fieldLabel: '<b>Fecha Deposito</b>',
+//                            width : 150,
+                            format : 'd-m-Y',
+                            name:'fechaDeposito'
+//                            readOnly: true
+                        }
+                    ]
+                }
+                ,{
+                    xtype: 'fieldcontainer',
+                    layout: 'hbox',
+                    fieldLabel: '<b>Estado</b>',
+                    items: [
+                        {
+                            xtype: 'combobox',
+            //                anchor : '95%',
+                            itemId: 'cboOrdenEstado',
+                            name:'idOrdenEstado',
+                            typeAhead: true,
+                            width : 170,
+                            store: 'Tonyprr.mvc.store.cart.OrdenEstado',
+                            queryMode: 'local',
+                            displayField: 'nombre',
+                            valueField: 'idOrdenEstado',
+                            allowBlank:false
+                        }
+                        ,{xtype: 'splitter', width : 15}
+                        ,{
+                            fieldLabel: '<b>Nro. Factura</b>',
+                            xtype :'textfield',
+                            name: 'nroFactura'
+                        }
+//                        ,{
+//                            xtype :'radio',
+//                            labelWidth: 90,
+//                            boxLabel: 'Boleta',
+//                            name: 'tipoDocumento',
+//                            inputValue: '1'
+////                            ,disabled: true
+//                        }                        
+//                        ,{xtype: 'splitter', width : 5}
+//                        ,{
+//                            xtype :'radio',
+//                            labelWidth: 90,
+//                            boxLabel: 'Factura',
+//                            name: 'tipoDocumento',
+//                            inputValue: '2'
+////                            ,disabled: true
+//                        }
+                    ]
+                }
+                ,{
+                    xtype :'textfield',
+                    fieldLabel:'Banco',
+                    name:'cuentaBanco',
+                    allowBlank:false 
+                }
+//                ,{
+//                    xtype: 'fieldcontainer',
+//                    fieldLabel: 'Fecha y Hora Deposito',
+//                    layout: 'hbox',
+//                    defaultType: 'textfield',
+//                    items: [
+//                        ,{xtype: 'splitter', width : 10}
+//                        ,{
+//                            xtype :'textfield',
+//                            name: 'horaDeposito',
+//                            readOnly: true
+//                        }
+//                    ]
+//                }
                 ,{
                     xtype :'textfield',
                     fieldLabel: 'RUC',
@@ -163,44 +253,6 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                     allowBlank:false 
                 }
                 ,{
-                    xtype: 'fieldcontainer',
-                    layout: 'hbox',
-                    fieldLabel: '<b>Estado</b>',
-                    items: [
-                        {
-                            xtype: 'combobox',
-            //                anchor : '95%',
-                            itemId: 'cboOrdenEstado',
-                            name:'idOrdenEstado',
-                            typeAhead: true,
-                            width : 290,
-                            store: 'Tonyprr.mvc.store.cart.OrdenEstado',
-                            queryMode: 'local',
-                            displayField: 'nombre',
-                            valueField: 'idOrdenEstado',
-                            allowBlank:false
-                        }
-                        ,{xtype: 'splitter', width : 15}
-                        ,{
-                            xtype :'radio',
-                            labelWidth: 90,
-                            boxLabel: 'Boleta',
-                            name: 'tipoDocumento',
-                            inputValue: '1'
-//                            ,disabled: true
-                        }                        
-                        ,{xtype: 'splitter', width : 5}
-                        ,{
-                            xtype :'radio',
-                            labelWidth: 90,
-                            boxLabel: 'Factura',
-                            name: 'tipoDocumento',
-                            inputValue: '2'
-//                            ,disabled: true
-                        }
-                    ]
-                },
-                {
                     xtype :'textfield',
                     fieldLabel: 'Direcci&oacute;n de Env&iacute;o',
     //                width : 200,
@@ -224,73 +276,6 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
 //                    allowBlank:false 
 //                }
                 ,{
-                    xtype :'textfield',
-                    fieldLabel:'Banco',
-                    name:'cuentaBanco',
-                    allowBlank:false 
-                }
-                ,{
-                    xtype: 'fieldcontainer',
-                    fieldLabel: 'Fecha y Hora Deposito',
-                    layout: 'hbox',
-                    defaultType: 'textfield',
-                    items: [
-                        {
-                            xtype :'datefield',
-                            width : 150,
-                            format : 'd-m-Y',
-                            name:'fechaDeposito',
-                            readOnly: true
-                        }
-                        ,{xtype: 'splitter', width : 10}
-                        ,{
-                            xtype :'textfield',
-                            name: 'horaDeposito',
-                            readOnly: true
-                        }
-                    ]
-                }
-                ,{
-                    xtype: 'fieldcontainer',
-                    fieldLabel: 'C&oacute;digo Voucher',
-                    layout: 'hbox',
-                    defaultType: 'textfield',
-                    items: [
-                        {
-                            width : 150,
-                            name:'codigoVoucher',
-                            readOnly: true
-                        }
-                        ,{xtype: 'splitter', width : 10}
-                        ,{
-                            fieldLabel: '<b>Nro. Factura</b>',
-                            xtype :'textfield',
-                            name: 'nroFactura'
-                        }
-                    ]
-                }
-                ,{
-                    xtype: 'fieldcontainer',
-                    fieldLabel: 'Fecha y Hora Deposito',
-                    layout: 'hbox',
-                    defaultType: 'textfield',
-                    items: [
-                        {
-                            xtype :'datefield',
-                            width : 150,
-                            format : 'd-m-Y',
-                            name:'fechaDeposito',
-                            readOnly: true
-                        }
-                        ,{xtype: 'splitter', width : 10}
-                        ,{
-                            xtype :'textfield',
-                            name: 'horaDeposito',
-                            readOnly: true
-                        }
-                    ]
-                },
-                {
                     xtype: 'grid',
                     itemId:'gridOrdenDetalle',
                     frame:true,
@@ -344,6 +329,9 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
             ,buttonsAlign:'right',
             buttons : [
                 {
+                    text: 'Actualizar desde VISA'
+                }
+                ,{
                     text:'Guardar',iconCls:'save',
 //                    itemId:'saveBtnFormNoti',
                     formBind: true,

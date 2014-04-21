@@ -10,7 +10,7 @@ class Tonyprr_Plugin_Control extends Zend_Controller_Plugin_Abstract
     public function routeStartup(Zend_Controller_Request_Abstract $request) {
         $authSesion = new Zend_Session_Namespace(SES_USER);
         $em = \Zend_Registry::get('em');
-        $authSesion->oLanguage = $em->getRepository("web\Entity\CmsLanguage")->findOneBynombreCorto($authSesion->idioma);
+        $authSesion->oLanguage = $em->getRepository("web\Entity\CmsLanguage")->findOneBynombreCorto("es");//$authSesion->idioma
     }
     
     public function dispatchLoopShutdown()

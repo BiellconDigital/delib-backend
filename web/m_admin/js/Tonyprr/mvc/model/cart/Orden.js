@@ -34,6 +34,7 @@ Ext.define("Tonyprr.mvc.model.cart.Orden",{
         "distritoEnvio",
         
         {name:"tipoPago", type:"integer"},
+        "tipoPagoDescripcion",
         "codigoTransaccion"
     ]
 });

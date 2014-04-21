@@ -1,5 +1,5 @@
 <?php
-use cart\Services\OrdenService as ordenService;
+use cart\Services\OrdenService as OrdenService;
 
 class Admin_CartOrdenController extends Zend_Controller_Action
 {
@@ -21,7 +21,7 @@ class Admin_CartOrdenController extends Zend_Controller_Action
                 $data = $this->getRequest()->getParams();
                 $pageStart = isset($data['start'])?$data['start']:NULL;
                 $pageLimit = isset($data['limit'])?$data['limit']:NULL;
-                $daoOrden = new ordenService();
+                $daoOrden = new OrdenService();
                 list($resultados, $total) = $daoOrden->aList(NULL, 1, $pageStart, $pageLimit);
                 $result['success'] = 1;
                 $result['data'] = $resultados;
@@ -38,7 +38,7 @@ class Admin_CartOrdenController extends Zend_Controller_Action
         try {
             if ($this->getRequest()->getPost()) {
                 $data = $this->getRequest()->getParams();
-                $daoOrden = new ordenService();
+                $daoOrden = new OrdenService();
                 $oOrden = $daoOrden->cambiarEstado($data);
                 
                 $result['msg'] = 'Se registr&oacute; los cambios correctamente.';
@@ -51,6 +51,24 @@ class Admin_CartOrdenController extends Zend_Controller_Action
     }
 
 
+    public function actualizarOrdenVisaAction()
+    {
+        try {
+            $data = $this->getRequest()->getParams();
+            $codigoTransaccion = $data['codigoTransaccion'];
+            $idOrden = $data['idOrden'];
+            $idOrdenEstado = $data['idOrdenEstado'];
+            $montoTotal = $data['costoEnvio'] + $data['totalFinal'];
+            $ordenService = new OrdenService();
+            $result = $ordenService->actualizarOrdenVisa($idOrden, $idOrdenEstado, $montoTotal, $codigoTransaccion);
+
+            echo Zend_Json::encode($result);
+        } catch(Exception $e) {
+            echo Zend_Json_Encoder::encode( array("success" => 0, "update" => 0, "data" => null,"msg" => $e->getMessage()) );
+        }
+    
+    }
+ 
 }
 
 
