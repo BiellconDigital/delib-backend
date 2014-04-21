@@ -159,8 +159,8 @@ class OrdenService {
         $xmlIn = $xmlIn . "		<parametro id=\"PRODUCTO\">1</parametro>";
         $xmlIn = $xmlIn . "		<parametro id=\"CODTIENDA\">" . CODIGO_TIENDA . "</parametro>";
         $xmlIn = $xmlIn . "		<parametro id=\"NUMORDEN\">" . $idOrden . "</parametro>";
-//				$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" .strval(round(1.0*$totalMonto, 2)) . "</parametro>";
-        $xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">120.00</parametro>";
+	$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">" . number_format($totalMonto, 2, '.', '') . "</parametro>";
+        //$xmlIn = $xmlIn . "		<parametro id=\"MOUNT\">120.00</parametro>";
 
         $xmlIn = $xmlIn . "		<parametro id=\"NOMBRE\">" . $cliente['nombres'] . "</parametro>";
         $xmlIn = $xmlIn . "		<parametro id=\"APELLIDO\">" . $cliente['apellidoPaterno'] . " " . $cliente['apellidoMaterno'] . "</parametro>";
