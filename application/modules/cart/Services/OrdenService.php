@@ -275,7 +275,7 @@ class OrdenService {
 //                        }
                         $resultadoVisa = $this->obtenerResultado($xmlDocument, 1);
                         $result['data'] = $resultadoVisa;
-                        if ( $idOrdenEstado !=  \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO 
+                        if ( intval($idOrdenEstado) !=  \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO 
                                 and intval($resultadoVisa['respuesta']) == 1
                                 //and floatval($montoTotal) == floatval($resultadoVisa['Imp_autorizado']) 
                                 ) {

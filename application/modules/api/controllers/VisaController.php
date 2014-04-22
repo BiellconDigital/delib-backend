@@ -43,14 +43,21 @@ class Api_VisaController extends Zend_Controller_Action
                 $ordenService = new OrdenService();
                 $result = $ordenService->generarTicketVisa($orden['idOrden'], $totalMonto, $cliente);
             } else if ($data['operacion'] == "actualizar_orden_visa") {
-                $orden = $data['orden'];
-                $codigoTransaccion = $orden['codigoTransaccion'];
-                $idOrden = $orden['idOrden'];
-                $idOrdenEstado = $orden['idOrdenEstado'];
-                $montoTotal = $orden['costoEnvio'] + $orden['totalFinal'];
-                $ordenService = new OrdenService();
-                $result = $ordenService->actualizarOrdenVisa($idOrden, $idOrdenEstado, $montoTotal, $codigoTransaccion);
+                $srvOrdenService = new OrdenService();
+                $srvOrdenDetalleService = new OrdenDetalleService();
+                $oOrden = $srvOrdenService->getById($data['idOrden']);
+                $oOrdenDetalle = $srvOrdenDetalleService->aList($data['idOrden']);
+
+                //$orden = $data['orden'];
+                $codigoTransaccion = $oOrden[0]['codigoTransaccion'];
+                $idOrden = $oOrden[0]['idOrden'];
+                $idOrdenEstado = $oOrden[0]['idOrdenEstado'];
+                $montoTotal = $oOrden[0]['costoEnvio'] + $oOrden[0]['totalFinal'];
+//                $ordenService = new OrdenService();
+                $result = $srvOrdenService->actualizarOrdenVisa($idOrden, $idOrdenEstado, $montoTotal, $codigoTransaccion);
                 
+                $result['pedido']['head'] = $oOrden;
+                $result['pedido']['detalle'] = $oOrdenDetalle[0];
             }
             echo Zend_Json::encode($result);
         } catch(Exception $e) {
