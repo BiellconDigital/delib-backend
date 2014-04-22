@@ -18,7 +18,7 @@ class Cart_ConfirmarCompraController extends Zend_Controller_Action
     public function visaAction()
     {
         if ($this->getRequest()->getPost()) {
-//            if ($_SERVER['HTTP_ORIGIN'] === DOMINIO_VISA) {
+            if ($_SERVER['HTTP_ORIGIN'] === DOMINIO_VISA) {
                 $cartData = $this->getRequest()->getParams();
 //                var_dump($_SERVER);
                 try {
@@ -31,9 +31,9 @@ class Cart_ConfirmarCompraController extends Zend_Controller_Action
                 } catch(\Exception $e) {
                     echo "Ocurrio un error en el proceso.";// . $e->getMessage();
                 }
-//            } else {
-//                echo "No esta autorizado para realizar esta transaccion.";
-//            }
+            } else {
+                echo "No esta autorizado para realizar esta transaccion.";
+            }
         } else {
             echo "La peticion no es correcta.";
         }
