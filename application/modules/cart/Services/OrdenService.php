@@ -148,7 +148,7 @@ class OrdenService {
         $servicio= URL_WSGENERAETICKET_VISA;
         $clientVisa = new \Zend_Soap_Client($servicio);
         
-        $datoComercio= "TEST DELIBOUQUET";
+        $datoComercio= "DELIBOUQUET";
 
         //Se arma el XML de requerimiento
         $xmlIn = "";
@@ -164,8 +164,8 @@ class OrdenService {
 
         $xmlIn = $xmlIn . "		<parametro id=\"NOMBRE\">" . $cliente['nombres'] . "</parametro>";
         $xmlIn = $xmlIn . "		<parametro id=\"APELLIDO\">" . $cliente['apellidoPaterno'] . " " . $cliente['apellidoMaterno'] . "</parametro>";
-        $xmlIn = $xmlIn . "		<parametro id=\"CIUDAD\">" . "Lima" . "</parametro>";
-        $xmlIn = $xmlIn . "		<parametro id=\"DIRECCION\">" . "SJM" . "</parametro>";
+        $xmlIn = $xmlIn . "		<parametro id=\"CIUDAD\">" . $cliente['ciudad'] . "</parametro>";
+        $xmlIn = $xmlIn . "		<parametro id=\"DIRECCION\">" . $cliente['direccion'] . "</parametro>";
         $xmlIn = $xmlIn . "		<parametro id=\"CORREO\">" . $cliente['email'] . "</parametro>";
 
         $xmlIn = $xmlIn . "		<parametro id=\"DATO_COMERCIO\">" . $datoComercio . "</parametro>";

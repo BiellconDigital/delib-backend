@@ -684,4 +684,64 @@ class CmsCliente
     {
         return $this->tipoDocumento;
     }
+    /**
+     * @var string $ciudad
+     *
+     * @ORM\Column(name="__ciudad", type="string", length=150, nullable=true)
+     */
+    private $ciudad;
+
+    /**
+     * @var string $direccion
+     *
+     * @ORM\Column(name="__direccion", type="string", length=200, nullable=true)
+     */
+    private $direccion;
+
+
+    /**
+     * Set ciudad
+     *
+     * @param string $ciudad
+     * @return CmsCliente
+     */
+    public function setCiudad($ciudad)
+    {
+        $this->ciudad = $ciudad;
+    
+        return $this;
+    }
+
+    /**
+     * Get ciudad
+     *
+     * @return string 
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
+
+    /**
+     * Set direccion
+     *
+     * @param string $direccion
+     * @return CmsCliente
+     */
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+    
+        return $this;
+    }
+
+    /**
+     * Get direccion
+     *
+     * @return string 
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
 }

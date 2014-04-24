@@ -99,6 +99,10 @@ class Cliente {
                 $oCliente->setRole ($formData['role']);
             else
                 $oCliente->setRole ('user');
+            if (isset ($formData['ciudad']))
+                $oCliente->setCiudad($formData['ciudad']);
+            if (isset ($formData['direccion']))
+                $oCliente->setDireccion($formData['direccion']);
                 
             $oCliente->setRecibirOfertasMail(isset($formData['recibirOfertasMail'])?1:0);
             $oCliente->setRecibirOfertasMovil(isset($formData['recibirOfertasMovil'])?1:0);

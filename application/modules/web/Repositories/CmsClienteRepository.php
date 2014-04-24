@@ -28,11 +28,11 @@ class CmsClienteRepository extends EntityRepository
                     c.idCliente,c.nombres,c.apellidoPaterno,c.apellidoMaterno,c.nroDocumento,c.role
                     ,c.genero,c.fechaNacimiento,c.telefonoCasa,c.telefonoOficina,c.movil,c.clave
                     ,c.recibirOfertasMail,c.recibirOfertasMovil,c.fechaRegistro,c.email,c.estado
-                    ,c.fechaModificacion,c.foto
+                    ,c.fechaModificacion,c.foto,c.ciudad,c.direccion
                     ,td.idtipoDocumento
                     ,pa.idPais,pa.nombre as nombre_pais
                     ')->from('\web\Entity\CmsCliente','c')//,td.nombreTdoc
-                   ->innerJoin('c.tipoDocumento','td')->innerJoin('c.pais','pa')
+                   ->leftJoin('c.tipoDocumento','td')->leftJoin('c.pais','pa')
                    ->orderBy('c.fechaRegistro','DESC');
         
         if ($estado != "TODOS") $qbCliente->andWhere('p.estado = :estado')->setParameter('estado', $estado);
@@ -102,6 +102,10 @@ class CmsClienteRepository extends EntityRepository
                 $oCliente->setRole ($formData['role']);
             else
                 $oCliente->setRole ('user');
+            if (isset ($formData['ciudad']))
+                $oCliente->setCiudad($formData['ciudad']);
+            if (isset ($formData['direccion']))
+                $oCliente->setDireccion($formData['direccion']);
                 
             $oCliente->setRecibirOfertasMail(isset($formData['recibirOfertasMail'])?1:0);
             $oCliente->setRecibirOfertasMovil(isset($formData['recibirOfertasMovil'])?1:0);
@@ -206,7 +210,7 @@ class CmsClienteRepository extends EntityRepository
             return true;
         } catch(\Doctrine\ORM\NoResultException $e) {
             if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
-            throw new \Exception('Ocurri� un error en el procesamiento, estaremos solucionandolo en breve.',1);
+            throw new \Exception('Ocurrió un error en el procesamiento, estaremos solucionandolo en breve.',1);
         }
     }
     

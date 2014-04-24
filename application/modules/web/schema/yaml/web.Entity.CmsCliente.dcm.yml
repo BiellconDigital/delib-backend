@@ -98,6 +98,18 @@ web\Entity\CmsCliente:
             fixed: false
             nullable: true
             column: __foto
+        ciudad:
+            type: string
+            length: 150
+            fixed: false
+            nullable: true
+            column: __ciudad
+        direccion:
+            type: string
+            length: 200
+            fixed: false
+            nullable: true
+            column: __direccion
         fechaModificacion:
             type: datetime
             nullable: true

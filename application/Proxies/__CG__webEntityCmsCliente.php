@@ -309,10 +309,34 @@ class CmsCliente extends \web\Entity\CmsCliente implements \Doctrine\ORM\Proxy\P
         return parent::getTipoDocumento();
     }
 
+    public function setCiudad($ciudad)
+    {
+        $this->__load();
+        return parent::setCiudad($ciudad);
+    }
+
+    public function getCiudad()
+    {
+        $this->__load();
+        return parent::getCiudad();
+    }
+
+    public function setDireccion($direccion)
+    {
+        $this->__load();
+        return parent::setDireccion($direccion);
+    }
+
+    public function getDireccion()
+    {
+        $this->__load();
+        return parent::getDireccion();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idCliente', 'role', 'nombres', 'apellidoPaterno', 'apellidoMaterno', 'email', 'nroDocumento', 'genero', 'fechaNacimiento', 'telefonoCasa', 'telefonoOficina', 'movil', 'clave', 'recibirOfertasMail', 'recibirOfertasMovil', 'estado', 'foto', 'fechaModificacion', 'fechaRegistro', 'direcciones', 'pais', 'tipoDocumento');
+        return array('__isInitialized__', 'idCliente', 'role', 'nombres', 'apellidoPaterno', 'apellidoMaterno', 'email', 'nroDocumento', 'genero', 'fechaNacimiento', 'telefonoCasa', 'telefonoOficina', 'movil', 'clave', 'recibirOfertasMail', 'recibirOfertasMovil', 'estado', 'foto', 'ciudad', 'direccion', 'fechaModificacion', 'fechaRegistro', 'direcciones', 'pais', 'tipoDocumento');
     }
 
     public function __clone()
