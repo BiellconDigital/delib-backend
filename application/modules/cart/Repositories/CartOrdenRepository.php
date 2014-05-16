@@ -282,7 +282,7 @@ class CartOrdenRepository extends EntityRepository
             
         } catch(\Exception $e) {
             if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
-            throw new \Exception('Error al guardar registro Orden.',1);
+            throw new \Exception('Error al guardar codigo transaccion. ' . $e->getMessage(),1);
         }
     }
     

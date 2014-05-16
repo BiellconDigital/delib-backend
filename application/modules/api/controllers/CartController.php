@@ -65,6 +65,7 @@ class Api_CartController extends Zend_Controller_Action
             $em = \Zend_Registry::get('em');
             $em->getConnection()->beginTransaction();
             try {
+                //throw new \Exception('Error de prueba.');
                 $srvOrden = new OrdenService();
                 $srvOrdenDetalle = new OrdenDetalleService();
 //                $srvCliente = new Cliente();

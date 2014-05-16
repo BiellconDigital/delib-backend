@@ -16,6 +16,284 @@ class OrdenService {
     private $_em = null;
     private $_entity = "\cart\Entity\CartOrden";
     private $_pathOrden;
+
+    private $accionesVisa = array(
+        "000" => array("mensajeCliente" => "Transaccion Autorizada", 
+                      "mensajeComercio" => "Transaccion Autorizada")
+        
+        ,"101" => array("mensajeCliente" => "Operación Denegada. Tarjeta Vencida. Verifique los datos en su tarjeta e ingréselos correctamente.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta Vencida.")
+
+        ,"102" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.",
+                      "mensajeComercio" => "Operación Denegada. Contactar con la entidad emisora.")
+
+        ,"104" => array("mensajeCliente" => "Operación Denegada. Operación no permitida para esta tarjeta. Contactar con la entidad", 
+                       "mensajeComercio" => "Operación Denegada. Operación no permitida para esta tarjeta. ")
+
+        ,"106" => array("mensajeCliente" => "Operación Denegada. Intentos de clave secreta excedidos. Contactar con la entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Exceso de intentos de ingreso de clave secreta.")
+
+        ,"107" => array("mensajeCliente" => "Operación Denegada. Contactar con la entidad emisora de su tarjeta.", 
+                      "mensajeComercio" => "Operación Denegada. Contactar con la entidad emisora.")
+
+        ,"108" => array("mensajeCliente" => "Operación Denegada. Contactar con la entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Exceso de actividad.")
+
+        ,"109" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. Identificación inválida de establecimiento.")
+
+        ,"110" => array("mensajeCliente" => "Operación Denegada. Operación no permitida para esta tarjeta. Contactar con la entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Operación no permitida para esta tarjeta.")
+
+        ,"111" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. El monto de la transacción supera el valor máximo permitido para operaciones virtuales.")
+
+        ,"112" => array("mensajeCliente" => "Operación Denegada. Se requiere clave secreta.", 
+                       "mensajeComercio" => "Operación Denegada. Se requiere clave secreta.")
+
+        ,"116" => array("mensajeCliente" => "Operación Denegada. Fondos insuficientes. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Fondos insuficientes.")
+
+        ,"117" => array("mensajeCliente" => "Operación Denegada. Clave secreta incorrecta.", 
+                       "mensajeComercio" => "Operación Denegada. Clave secreta incorrecta.")
+
+        ,"118" => array("mensajeCliente" => "Operación Denegada. Tarjeta Inválida. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta inválida.")
+
+        ,"119" => array("mensajeCliente" => "Operación Denegada. Intentos de clave secreta excedidos. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Exceso de intentos de ingreso de clave secreta.")
+
+        ,"121" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
+
+        ,"126" => array("mensajeCliente" => "Operación Denegada. Clave secreta inválida.", 
+                       "mensajeComercio" => "Operación Denegada. Clave secreta inválida.")
+
+        ,"129" => array("mensajeCliente" => "Operación Denegada. Código de seguridad invalido. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta no operativa.")
+
+        ,"180" => array("mensajeCliente" => "Operación Denegada. Tarjeta Inválida. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta inválida.")
+
+        ,"181" => array("mensajeCliente" => "Operación Denegada. Tarjeta con restricciones de débito. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta con restricciones de Débito.")
+
+        ,"182" => array("mensajeCliente" => "Operación Denegada. Tarjeta con restricciones de crédito. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta con restricciones de Crédito.")
+
+        ,"183" => array("mensajeCliente" => "Operación Denegada. Problemas de comunicación. Intente más tarde.", 
+                       "mensajeComercio" => "Operación Denegada. Error de sistema.")
+
+        ,"190" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"191" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"192" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"199" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
+
+        ,"201" => array("mensajeCliente" => "Operación Denegada. Tarjeta vencida. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta vencida.")
+
+        ,"202" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"204" => array("mensajeCliente" => "Operación Denegada. Operación no permitida para esta tarjeta. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Operación no permitida para esta tarjeta.")
+
+        ,"206" => array("mensajeCliente" => "Operación Denegada. Intentos de clave secreta excedidos. Contactar con la entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Exceso de intentos de ingreso de clave secreta.")
+
+        ,"207" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"208" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta perdida.")
+
+        ,"209" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta robada.")
+
+        ,"263" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. Error en el envío de parámetros.")
+
+        ,"264" => array("mensajeCliente" => "Operación Denegada. Entidad emisora de la tarjeta no está disponible para realizar la autenticación.", 
+                       "mensajeComercio" => "Operación Denegada. Entidad emisora no está disponible para realizar la autenticación.")
+
+        ,"265" => array("mensajeCliente" => "Operación Denegada. Clave secreta del tarjetahabiente incorrecta. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Clave secreta del tarjetahabiente incorrecta.")
+
+        ,"266" => array("mensajeCliente" => "Operación Denegada. Tarjeta Vencida. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta vencida.")
+
+        ,"280" => array("mensajeCliente" => "Operación Denegada. Clave secreta errónea. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Clave errónea.")
+
+        ,"290" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"300" => array("mensajeCliente" => "Operación Denegada. Número de pedido del comercio duplicado. Favor no atender.", 
+                       "mensajeComercio" => "Operación Denegada. Número de pedido del comercio duplicado. Favor no atender.")
+
+        ,"306" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"401" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. Tienda inhabilitada.")
+
+        ,"402" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
+
+        ,"403" => array("mensajeCliente" => "Operación Denegada. Tarjeta no autenticada.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta no autenticada.")
+
+        ,"404" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. El monto de la transacción supera el valor máximo permitido.")
+
+        ,"405" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. La tarjeta ha superado la cantidad máxima de transacciones en el día.")
+
+        ,"406" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"407" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"408" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"409" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"410" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"411" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"412" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"413" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"414" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"415" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"416" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"417" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"418" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"419" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"420" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"421" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"422" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"423" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"424" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"666" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"667" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"668" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"669" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"670" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"904" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"909" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"910" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"912" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"913" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"916" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"928" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"940" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"941" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"942" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"943" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"945" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"946" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"947" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"948" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+        ,"949" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+        ,"965" => array("mensajeCliente" => "", 
+                       "mensajeComercio" => "")
+
+
+
+    );
     
     public function __construct() {
         $this->_em = \Zend_Registry::get('em');
@@ -412,6 +690,9 @@ class OrdenService {
         $resultado['cod_tienda'] = $this->RecuperaCampos($xmlDoc, $sNumOperacion, "cod_tienda");
         $resultado['nordent'] = $this->RecuperaCampos($xmlDoc, $sNumOperacion, "nordent");
         $resultado['cod_accion'] = $this->RecuperaCampos($xmlDoc, $sNumOperacion, "cod_accion");
+        $resultado['msj_accion_comercio'] = $this->obtenerMsjComercioAccionVisa($resultado['cod_accion']);
+        $resultado['msj_accion_cliente'] = $this->obtenerMsjClienteAccionVisa($resultado['cod_accion']);
+
         $resultado['pan'] = $this->RecuperaCampos($xmlDoc, $sNumOperacion, "pan");
         $resultado['nombre_th'] = $this->RecuperaCampos($xmlDoc, $sNumOperacion, "nombre_th");
         $resultado['ori_tarjeta'] = $this->RecuperaCampos($xmlDoc, $sNumOperacion, "ori_tarjeta");
@@ -459,6 +740,14 @@ class OrdenService {
             $strValor = $strValor . "</UL>";
 
             return $strValor;
+    }
+
+    private Funcion obtenerMsjComercioAccionVisa($cod_accion) {
+        return $accionesVisa[$cod_accion]['mensajeComercio'];
+    }
+
+    private Funcion obtenerMsjClienteAccionVisa($cod_accion) {
+        return $accionesVisa[$cod_accion]['mensajeCliente'];
     }
 
 //    //Funcion de ejemplo que obtiene la cantidad de mensajes
