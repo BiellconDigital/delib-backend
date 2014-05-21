@@ -55,6 +55,7 @@ class Api_VisaController extends Zend_Controller_Action
                 $montoTotal = $oOrden[0]['costoEnvio'] + $oOrden[0]['totalFinal'];
 //                $ordenService = new OrdenService();
                 $result = $srvOrdenService->actualizarOrdenVisa($idOrden, $idOrdenEstado, $montoTotal, $codigoTransaccion);
+                $oOrden = $srvOrdenService->getById($data['idOrden']);
                 
                 $result['pedido']['head'] = $oOrden;
                 $result['pedido']['detalle'] = $oOrdenDetalle[0];
