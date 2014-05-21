@@ -156,140 +156,140 @@ class OrdenService {
         ,"405" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
                        "mensajeComercio" => "Operación Denegada. La tarjeta ha superado la cantidad máxima de transacciones en el día.")
 
-        ,"406" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"406" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. La tienda ha superado la cantidad máxima de transacciones en el día.")
 
-        ,"407" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"407" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. El monto de la transacción no llega al mínimo permitido.")
 
-        ,"408" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"408" => array("mensajeCliente" => "Operación Denegada. Código de seguridad no coincide. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. CVV2 no coincide.")
 
-        ,"409" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"409" => array("mensajeCliente" => "Operación Denegada. Código de seguridad no procesado por la entidad emisora de la tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. CVV2 no procesado por entidad emisora.")
 
-        ,"410" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"410" => array("mensajeCliente" => "Operación Denegada. Código de seguridad no ingresado.", 
+                       "mensajeComercio" => "Operación Denegada. CVV2 no procesado por no ingresado.")
 
-        ,"411" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"411" => array("mensajeCliente" => "Operación Denegada. Código de seguridad no procesado por la entidad emisora de la tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. CVV2 no procesado por entidad emisora.")
 
-        ,"412" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-
-        ,"413" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"414" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"415" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"412" => array("mensajeCliente" => "Operación Denegada. Código de seguridad no reconocido por la entidad emisora de la tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. CVV2 no reconocido por entidad emisora.")
 
 
-        ,"416" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"413" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
 
-        ,"417" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"414" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
 
-        ,"418" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-
-        ,"419" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"420" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"421" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"415" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
 
 
-        ,"422" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"416" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
 
-        ,"423" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"417" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
 
-        ,"424" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-
-        ,"666" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"667" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"668" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"418" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
 
 
-        ,"669" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"419" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
 
-        ,"670" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"420" => array("mensajeCliente" => "Operación Denegada. Tarjeta no es VISA.", 
+                       "mensajeComercio" => "Operación Denegada. Tarjeta no es VISA.")
 
-        ,"904" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-
-        ,"909" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"910" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"912" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"421" => array("mensajeCliente" => "Operación Denegada. Contactar con entidad emisora de su tarjeta.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
 
 
-        ,"913" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"422" => array("mensajeCliente" => "Operación Denegada. El comercio no está configurado para usar este medio de pago. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. El comercio no está configurado para usar este medio de pago.")
 
-        ,"916" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"423" => array("mensajeCliente" => "Operación Denegada. Se canceló el proceso de pago.", 
+                       "mensajeComercio" => "Operación Denegada. Se canceló el proceso de pago.")
 
-        ,"928" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-
-        ,"940" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"941" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"942" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"424" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
 
 
-        ,"943" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"666" => array("mensajeCliente" => "Operación Denegada. Problemas de comunicación. Intente más tarde.", 
+                       "mensajeComercio" => "Operación Denegada. Problemas de comunicación. Intente más tarde.")
 
-        ,"945" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"667" => array("mensajeCliente" => "Operación Denegada. Transacción sin respuesta de Verified by Visa.", 
+                       "mensajeComercio" => "Operación Denegada. Transacción sin autenticación. Inicio del Proceso de Pago")
 
-        ,"946" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-
-        ,"947" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"948" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
-
-        ,"949" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"668" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada.")
 
 
-        ,"965" => array("mensajeCliente" => "", 
-                       "mensajeComercio" => "")
+        ,"669" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. Módulo antifraude.")
+
+        ,"670" => array("mensajeCliente" => "Operación Denegada. Contactar con el comercio.", 
+                       "mensajeComercio" => "Operación Denegada. Módulo antifraude.")
+
+        ,"904" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Formato de mensaje erróneo.")
+
+
+        ,"909" => array("mensajeCliente" => "Operación Denegada. Problemas de comunicación. Intente más tarde.", 
+                       "mensajeComercio" => "Operación Denegada. Error de sistema.")
+
+        ,"910" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Error de sistema.")
+
+        ,"912" => array("mensajeCliente" => "Operación Denegada. Entidad emisora de la tarjeta no disponible", 
+                       "mensajeComercio" => "Operación Denegada. Entidad emisora no disponible.")
+
+
+        ,"913" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Transmisión duplicada.")
+
+        ,"916" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"928" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+
+        ,"940" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Transacción anulada previamente.")
+
+        ,"941" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Transacción ya anulada previamente.")
+
+        ,"942" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada.")
+
+
+        ,"943" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Datos originales distintos.")
+
+        ,"945" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Referencia repetida.")
+
+        ,"946" => array("mensajeCliente" => "Operación Denegada. Operación de anulación en proceso.", 
+                       "mensajeComercio" => "Operación Denegada. Operación de anulación en proceso.")
+
+
+        ,"947" => array("mensajeCliente" => "Operación Denegada. Problemas de comunicación. Intente más tarde.", 
+                       "mensajeComercio" => "Operación Denegada. Comunicación duplicada.")
+
+        ,"948" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+        ,"949" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
+
+
+        ,"965" => array("mensajeCliente" => "Operación Denegada.", 
+                       "mensajeComercio" => "Operación Denegada. Contactar con entidad emisora.")
 
 
 
@@ -742,12 +742,12 @@ class OrdenService {
             return $strValor;
     }
 
-    private Funcion obtenerMsjComercioAccionVisa($cod_accion) {
-        return $accionesVisa[$cod_accion]['mensajeComercio'];
+    private function obtenerMsjComercioAccionVisa($cod_accion) {
+        return $this->accionesVisa[$cod_accion]['mensajeComercio'];
     }
 
-    private Funcion obtenerMsjClienteAccionVisa($cod_accion) {
-        return $accionesVisa[$cod_accion]['mensajeCliente'];
+    private function obtenerMsjClienteAccionVisa($cod_accion) {
+        return $this->accionesVisa[$cod_accion]['mensajeCliente'];
     }
 
 //    //Funcion de ejemplo que obtiene la cantidad de mensajes
