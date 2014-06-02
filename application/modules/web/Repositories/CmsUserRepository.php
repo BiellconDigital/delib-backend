@@ -29,4 +29,29 @@ class CmsUserRepository extends EntityRepository
         return isset($users[0])?$users[0]:null;
     }
     
+    public function changeEmailClave($iduser, $email, $clave) {
+        try {
+            $oUser = new \web\Entity\CmsUser();
+            $dqlList = 'SELECT u FROM \web\Entity\CmsUser u WHERE u.iduser = ?1';
+            $qyUser = $this->_em->createQuery($dqlList);
+            $qyUser->setParameter(1,$iduser);
+            try {
+                $oUser = $qyUser->getSingleResult();
+            } catch(\Doctrine\ORM\NoResultException $e) {
+                throw new \Exception('No existe este registro o no se encuentra disponible.',1);
+            }
+            if($email != "")
+                $oUser->setEmailUser($email);
+            if($clave != "")
+                $oUser->setPassUser(md5($clave));
+            
+            $this->_em->persist($oUser);
+            $this->_em->flush();
+            return true;
+        } catch(\Doctrine\ORM\NoResultException $e) {
+            if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
+            throw new \Exception('Ocurrió un error en el procesamiento, estaremos solucionandolo en breve.',1);
+        }
+    }
+    
 }

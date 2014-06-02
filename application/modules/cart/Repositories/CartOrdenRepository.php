@@ -588,5 +588,46 @@ class CartOrdenRepository extends EntityRepository
     }
     
     
+    public function delete($idRegistro) {
+        try {
+//            $oProducto = new CartProducto();
+            $oOrden = $this->_em->find($this->_entityName, $idRegistro);
+            if(!$oOrden)
+                throw new ValidacionException("No exite el Pedido con el ID ".$idRegistro .".",2);
+/*            
+            //Verifica si existen ordenes asociados al producto. Si existen no permite la eliminación
+            $qyTotalOrdenes = $this->_em->createQuery('SELECT COUNT(od.idOrdenDetalle) FROM \cart\Entity\CartOrdenDetalle od '
+                    . 'WHERE od.producto = ?1')->setParameter(1, $oOrden);
+            $totalOrdenes = (int) $qyTotalOrdenes->getSingleScalarResult();
+            
+            if ($totalOrdenes > 0)
+                throw new ValidacionException("Existe Ordenes de Pedido o Compra asociados con este Producto", 2);
+*/
+            
+//            @unlink($this->_pathProducto . trim($oOrden->getImagen()));
+//            @unlink($this->_pathProducto . trim($oOrden->getAdjunto()));
+            /*Eliminar archivos de su galeria*/
+//            if ((sizeof($oOrden->getGaleria()) > 0) ) {
+//                foreach ($oOrden->getGaleria() as $oFotoGale) {
+//                    @unlink($this->_pathProducto . trim($oFotoGale->getImagenGale()) );
+//                }
+//            }
+//            
+//            $dqlList = 'DELETE \cart\Entity\CartProductoGaleria pg WHERE pg.producto = ?1';
+//            $qyProducto = $this->_em->createQuery($dqlList);
+//            $qyProducto->setParameter(1, $oOrden);
+//            $result = $qyProducto->execute();
+            
+//            $oProducto->getGaleria()->clear();
+            $this->_em->remove($oOrden);
+//            $this->_em->persist($oProducto);
+            $this->_em->flush();
+        } catch(ValidacionException $e) {
+            throw new ValidacionException($e->getMessage(), $e->getCode());
+        } catch(\Exception $e) {
+            throw new \Exception("Error en el proceso de eliminar el Pedido.",1);
+        }
+    }
+
     
 }

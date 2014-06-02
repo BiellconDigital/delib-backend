@@ -75,6 +75,35 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
 
                             }
                         }
+                        ,{
+                            icon: Tonyprr.Constants.IMAGE_CROSS,
+                            tooltip: 'Eliminar el Registro',
+                            handler: function(grid, rowIndex, colIndex) {
+                                if (grid.getStore().getAt(rowIndex).data.idOrdenEstado === 3) {
+                                    Tonyprr.App.showNotification({message: "El Pedido ya fue cancelada y no puede ser eliminada."});
+                                    return;
+                                }
+                                Ext.MessageBox.confirm('Eliminar Pedido', 'Esta seguro que desea eliminar este Pedido?', 
+                                     function (btn) {
+                                        if (btn === 'yes')
+                                            Tonyprr.Ajax.request({
+                                                url     : Tonyprr.BASE_URL + '/admin/cart-orden/delete',
+                                                params	: grid.getStore().getAt(rowIndex).data,
+                                                el	: this.el,
+                                                scope	: this,
+                                                success	: function(data,response) {
+                                                    Tonyprr.App.showNotification({message:data.msg});
+                                                    if(data.success==1) {
+                                                        grid.getStore().load();
+                                                    }
+                                                },
+                                                failure : function(data,response) {
+                                                    Tonyprr.App.showNotification({message:data.msg});
+                                                }
+                                            });
+                                    });
+                            }                
+                        }
                     ]
                 },
                 {dataIndex: 'idOrden',header : 'ID',width:49, sortable : true},

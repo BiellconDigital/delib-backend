@@ -78,7 +78,7 @@ Ext.define('Tonyprr.mvc.view.WinReset', {
 		if(this.getComponent(0).getForm().isValid()) {
 			var values = this.getComponent(0).getForm().getValues();
 			Tonyprr.Ajax.request({
-				url		: Tonyprr.BASE_PATH + '/admin/user/change',
+				url		: Tonyprr.BASE_PATH + '/admin/web-user/change-email-clave',
 				params	: values,
 				el		: this.el,
 				scope	: this,

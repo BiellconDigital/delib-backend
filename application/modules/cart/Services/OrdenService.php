@@ -337,6 +337,10 @@ class OrdenService {
         $aOrden = $this->_em->getRepository($this->_entity)->save($formData);
         return $aOrden;
     }
+
+    public function delete($idRegistro) {
+        $this->_em->getRepository($this->_entity)->delete($idRegistro);
+    }
     
     public function registrarPago($formData) {
         $aOrden = $this->_em->getRepository($this->_entity)->registrarPago($formData);

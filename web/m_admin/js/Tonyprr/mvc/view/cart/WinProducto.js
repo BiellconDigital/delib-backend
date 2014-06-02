@@ -202,33 +202,33 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                                 name:'borrarImg'
                                             }
                                         ]
-                                    },
-                                    {
-                                        xtype: 'fieldcontainer',
-                                        fieldLabel: 'Adjunto',
-                                        layout: 'hbox',
-                                        items: [
-                                            {
-                                                xtype:'textfield',
-                                                name:'adjunto',
-                                                width: 220, disabled : true
-                                            },
-                                            {xtype: 'splitter'},
-                                            {
-                                                xtype:'filefield',
-                                                name:'file_adjunto',
-                                                msgTarget: 'side',
-                                                buttonConfig :{iconCls:'file_pdf'},buttonText:''
-                                            },
-                                            {xtype: 'splitter', width:15},
-                                            {
-                                                xtype: 'checkbox',
-                                                fieldLabel: 'Borrar',
-                                                labelWidth : 42,
-                                                name:'borrarAdj'
-                                            }
-                                        ]
                                     }
+//                                    {
+//                                        xtype: 'fieldcontainer',
+//                                        fieldLabel: 'Adjunto',
+//                                        layout: 'hbox',
+//                                        items: [
+//                                            {
+//                                                xtype:'textfield',
+//                                                name:'adjunto',
+//                                                width: 220, disabled : true
+//                                            },
+//                                            {xtype: 'splitter'},
+//                                            {
+//                                                xtype:'filefield',
+//                                                name:'file_adjunto',
+//                                                msgTarget: 'side',
+//                                                buttonConfig :{iconCls:'file_pdf'},buttonText:''
+//                                            },
+//                                            {xtype: 'splitter', width:15},
+//                                            {
+//                                                xtype: 'checkbox',
+//                                                fieldLabel: 'Borrar',
+//                                                labelWidth : 42,
+//                                                name:'borrarAdj'
+//                                            }
+//                                        ]
+//                                    }
                                 ]
                             }
                             

@@ -60,9 +60,13 @@ class Cliente {
             }
 
             if (isset($formData['idPais'])) {
-                $oPais = $this->_em->find("\web\Entity\CmsPais", $formData['idPais'] );
-                if(!$oPais)
-                    throw new \Exception('No existe categoría. Seleccione primero una Categoria.', 1);
+                if (intval($formData['idPais']) == 0)
+                    $oPais = NULL;
+                else {
+                    $oPais = $this->_em->find("\web\Entity\CmsPais", $formData['idPais'] );
+                    if(!$oPais)
+                        throw new \Exception('No existe categoría. Seleccione primero una Categoria.', 1);
+                }
                 $oCliente->setPais($oPais);
             }
                 
@@ -136,7 +140,7 @@ class Cliente {
             }
             return $oCliente;
         } catch(\Exception $e) {
-            throw new \Exception("Error al guardar registro. ", 1);//$e->getMessage()
+            throw new \Exception("Error al guardar registro. " . $e->getMessage(), 1);//$e->getMessage()
         }
     }
     

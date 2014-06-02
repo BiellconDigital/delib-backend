@@ -43,6 +43,9 @@ class User {
         $access_admin->unsetAll();
     }
     
+    public function changeEmailClave($iduser, $email, $clave) {
+        $this->_em->getRepository($this->_entity)->changeEmailClave($iduser, $email, $clave);
+    }
 }
 
 ?>

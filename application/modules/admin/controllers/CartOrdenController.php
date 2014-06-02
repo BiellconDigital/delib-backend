@@ -69,6 +69,31 @@ class Admin_CartOrdenController extends Zend_Controller_Action
     
     }
  
+    public function deleteAction()
+    {
+        try {
+//            $Producto = new \Models\CmsProducto();
+            if ($this->_request->getPost()) {
+                if( $this->_getParam('idOrden',0) != 0 ) {
+                    $data = $this->getRequest()->getParams();
+                    $idOrden = $data['idOrden'];
+                    $ordenService = new OrdenService();
+                    $ordenService->delete($idOrden);
+                    $result['success'] = 1;
+                    $result['msg'] = "Se elimin&oacute; el Pedido correctamente.";
+                } else {
+                    $result['success'] = 0;
+                    $result['msg'] = "No se envi&oacute; el ID del Pedido a eliminar.";
+                }
+                echo Zend_Json::encode($result);
+            }
+        } catch(ValidacionException $e) {
+            echo Zend_Json::encode( array("success" => 0,"msg" => $e->getMessage()) );
+        } catch(Exception $e) {
+            echo Zend_Json_Encoder::encode( array("success" => 0,"msg" => $e->getMessage()) );
+        }
+    }
+
 }
 
 
