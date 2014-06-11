@@ -470,10 +470,10 @@ class CartOrdenRepository extends EntityRepository
             $total = $oOrden->getCostoEnvio() + $oOrden->getTotalFinal();
             $mensaje = "Se ha generado un nuevo pedido: <br/><br/>";
             $mensaje .= "Nro. Orden: " . $oOrden->getIdOrden() ."<br/>";
-            $mensaje .= "Combo: " . $oOrden->getDireccionPago() ."<br/>";
+//            $mensaje .= "Combo: " . $oOrden->getDireccionPago() ."<br/>";
             $mensaje .= "Cliente: " . $oOrden->getCliente()->getNombres() . " " . $oOrden->getCliente()->getApellidoPaterno() . " " . $oOrden->getCliente()->getApellidoMaterno() . "<br/>";
-            $mensaje .= "Costo del Combo: S/. " . $oOrden->getTotalFinal() ."<br/>";
-            $mensaje .= "Costo de Env�o: S/. " . $oOrden->getCostoEnvio() ."<br/>";
+            $mensaje .= "Monto de la compra: S/. " . $oOrden->getTotalFinal() ."<br/>";
+            $mensaje .= "Costo de Envío: S/. " . $oOrden->getCostoEnvio() ."<br/>";
             $mensaje .= "Costo Total: S/. " . $total ."<br/>";
             
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
@@ -483,7 +483,7 @@ class CartOrdenRepository extends EntityRepository
             $objEmail->send($objEmail->getMailTrans());
 
         } catch(\Exception $e) {
-            throw new \Exception('Ocurri� un error en el env�o de notificaci�n del pedido.', 1);
+            throw new \Exception('Ocurrió un error en el env�o de notificación del pedido.', 1);
         }
     }
     

@@ -123,7 +123,10 @@ class Api_CartController extends Zend_Controller_Action
                     }
 //                }
                 $em->getConnection()->commit();
-
+                
+                if (intval($orden['tipoPago']) == 1) {
+                    $srvOrden->notificarRegistroOrden($oOrden);
+                }
                 $result['success'] = 1;
                 $result['msg'] = "Se proceso la compra correctamente.";
                 $result['idOrden'] = $oOrden -> getIdOrden();
@@ -148,6 +151,8 @@ class Api_CartController extends Zend_Controller_Action
                 if ($data['operacion'] == "confirmar_paypal") {
                     $srvOrden = new OrdenService();
                     $srvOrden->registrarCodigoTransaccion($cartData['idOrden'], $cartData['codigoTransaccion']);
+                    $oOrden = $srvOrden->getById($data['idOrden']);
+                    $srvOrden->notificarRegistroOrden($oOrden);
                 }
                 $result['success'] = 1;
                 $result['msg'] = "Se proceso la compra correctamente.";

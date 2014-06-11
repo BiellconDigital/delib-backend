@@ -14,6 +14,7 @@ define('PTH_FILES_CART',BP . DS . 'web' . DS . 'm_cart' . DS . 'files');
 define('PTH_PUBLIC',BP . DS . 'web' );
 define('DIR_WEB','http://localhost/delib-frontend' . '/' . 'app/' );//$_SERVER['SERVER_NAME']
 define('WEB_DOMAIN','http://localhost' );//$_SERVER['SERVER_NAME']
+define('EMAIL_VENTAS','ventas@delibouquet.pe' );
 
 define('CODIGO_TIENDA','100030501');
 define('DOMINIO_VISA','http://qas.multimerchantvisanet.com');
